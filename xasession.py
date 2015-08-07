@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import win32com.client
 import pythoncom
-import configparser
 from logger import Logger
 log = Logger("xasession")
 
