@@ -3,7 +3,6 @@ from pandas import DataFrame
 import win32com.client
 import pythoncom
 import time
-from const import Const
 from logger import Logger
 log = Logger("xaquery")
 '''
@@ -55,6 +54,7 @@ class XAQueryEvents:
 		log.debug("OnReceiveMessage (%s %s)" % (XAQueryEvents.code, XAQueryEvents.msg))
 
 class Query:
+	MAX_REQUEST = 5
 	requestTime = time.time()
 	def sleep():
 		spendTime = time.time() - Query.requestTime
@@ -121,7 +121,7 @@ class Query:
 			self.query.SetFieldData(self.type + self.inputName, p, 0, self.input[p])
 
 		# 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 전송수가 임시로 확장됩니다 (5개로 추정됨)
-		if XAQueryEvents.count < Const.MAX_REQUEST:
+		if XAQueryEvents.count < Query.MAX_REQUEST:
 			XAQueryEvents.count += 1
 		else:
 			XAQueryEvents.count = 1
