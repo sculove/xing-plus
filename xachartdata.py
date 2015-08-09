@@ -27,14 +27,14 @@ class Chartdata:
 
 	def _supplimentDate(self):
 		baseday = datetime.today()
-		# 평일 찾기
-		while baseday.weekday() > 4:
-			baseday = baseday - timedelta(days=1)
-
 		# 장 전에는 전날과, 전전전날로 범위를 정함.
 		if Util.timeType() == "BEFORE":
 			baseday = baseday - timedelta(days=1)
-			prevday = baseday - timedelta(days=3)
+		# 평일 찾기
+		while baseday.weekday() > 4:
+			baseday = baseday - timedelta(days=1)
+		if baseday.weekday() < 2:	# 월,화요일인 경우.
+			prevday = baseday - timedelta(days=4)
 		else:
 			prevday = baseday - timedelta(days=2)
 		return (prevday.strftime("%Y%m%d"), baseday.strftime("%Y%m%d"))
@@ -42,7 +42,6 @@ class Chartdata:
 	# 차트 데이터 구하기
 	def load(self, shcode, ncnt = 1, date = None):
 		date = date if date else self._supplimentDate()
-
 		self.df = (self.query.request({
 			"in" : {
 				"InBlock" : {
@@ -103,7 +102,6 @@ class Chartdata:
 		# RSI (Relative Strength Index)
 		if "RSI" in param:
 			self.df["RSI"] = Series(RSI(self.data, param["RSI"]), index=self.df.index)
-		log.info("차트데이터", self.df)
 		return self.df
 
 	def get(self):
