@@ -46,21 +46,34 @@ class XAQueryEvents:
 	msg = None
 	count = 0
 	def OnReceiveData(self, szTrCode):
-		log.debug("onReceiveData (%s%s)" % (szTrCode, self._parseCode(szTrCode)) )
+		log.debug(" - onReceiveData (%s%s)" % (szTrCode, self._parseCode(szTrCode)) )
 		XAQueryEvents.status = 1
 	def OnReceiveMessage(self, systemError, messageCode, message):
 		XAQueryEvents.code = str(messageCode)
 		XAQueryEvents.msg = str(message)
-		log.debug("OnReceiveMessage (%s %s)" % (XAQueryEvents.code, XAQueryEvents.msg))
+		log.debug(" - OnReceiveMessage (%s:%s)" % (XAQueryEvents.code, XAQueryEvents.msg))
 	def _parseCode(self, szTrCode):
-		str = " : "
-		if szTrCode == "t8407":
-			str += "멀티현재가조회"
-		elif szTrCode == "t8412":
-			str += "주식챠트(N분)"
-		elif szTrCode == "t1833":
-			str += "종목검색(씽API용)"
-		return str
+		ht = {
+			"t0424" : "주식잔고",
+			"t0425" : "주식체결/미체결",
+			"t8407" : "멀티현재가조회",
+			"t8412" : "주식챠트(N분)",
+			"t8413" : "주식챠트(일주월)",
+			"t8430" : "주식종목조회",
+			"t1833" : "종목검색(씽API용)",
+			"t1101" : "주식현재가호가조회",
+			"t1102" : "주식현재가(시세)조회",
+			"t1411" : "증거금율별종목조회",
+			"t1702" : "외인기관종목별동향",
+			"t1301" : "주식시간대별체결조회",
+			"t0167" : "서버시간조회",
+			"t9945" : "주식마스터조회API용",
+			"CSPAQ12200" : "현물계좌예수금 주문가능금액 총평가 조회",
+			"CSPAT00600" : "현물주문",
+			"CSPAT00700" : "현물정정주문",
+			"CSPAT00800" : "현물취소주문",
+		}
+		return ":" + ht[szTrCode] if szTrCode in ht else ""
 
 class Query:
 	MAX_REQUEST = 5
@@ -68,7 +81,7 @@ class Query:
 	def sleep():
 		spendTime = time.time() - Query.requestTime
 		if spendTime < 1:
-			log.debug("==== SLEEP...%f ====" % (1-spendTime))
+			log.debug("===== SLEEP...%f =====" % (1-spendTime))
 			time.sleep(1-spendTime + 0.1)
 
 	# callNext가 false일 경우, 한번만 조회, true일 경우, 다음이 있으면 계속 조회
@@ -98,7 +111,7 @@ class Query:
 		self._reset()
 		param = self._supplimentParam(param)
 		# parse inputBlock
-		log.debug("--- Query 입력\r\n%s" % param["in"])
+		log.debug("<<<<< [Query] 입력:%s" % param["in"])
 		for v in param["in"].keys():
 			if v != "Service":
 				self.inputName = v
@@ -139,10 +152,10 @@ class Query:
 		#call request
 		Query.requestTime = time.time()
 		if hasattr(self, "service"):
-			log.debug("Call requestService (%s)" %XAQueryEvents.status)
+			log.debug(" - Call requestService")
 			requestCode = self.query.RequestService(self.type, self.service)
 		else:
-			log.debug("Call request (%s)-%s" % (XAQueryEvents.status, isNext))
+			log.debug(" - Call request (isNext:%s)" % isNext)
 			requestCode = self.query.Request(isNext)
 		if requestCode < 0:
 			if requestCode == -21:
@@ -175,8 +188,8 @@ class Query:
 			if self.callNext:
 				return self.request(param, True)
 			else:
-				log.debug("--- Query [callNext=False] 결과\r\n%s" % self.output)
+				log.debug(">>>>> [Query] 결과(callNext=False):%s" % self.output)
 				return self.output
 		else:
-			log.debug("--- Query [callNext=True] 결과\r\n%s" % self.output)
+			log.debug(">>>>> [Query] 결과(callNext=True):%s" % self.output)
 			return self.output
