@@ -1,0 +1,33 @@
+BEGIN_FUNCTION_MAP
+	.Func,프로그램매매종합조회(t1631),t1631,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1631InBlock,기본입력,input;
+	begin
+		구분,gubun,gubun,char,1;
+		일자구분,dgubun,dgubun,char,1;
+		시작일자,sdate,sdate,char,8;
+		종료일자,edate,edate,char,8;
+	end
+	t1631OutBlock,출력,output;
+	begin
+		매도차익미체결잔량,cdhrem,cdhrem,long,8;
+		매도비차익미체결잔량,bdhrem,bdhrem,long,8;
+		매도차익주문수량,tcdrem,tcdrem,long,8;
+		매도비차익주문수량,tbdrem,tbdrem,long,8;
+		매수차익미체결잔량,cshrem,cshrem,long,8;
+		매수비차익미체결잔량,bshrem,bshrem,long,8;
+		매수차익주문수량,tcsrem,tcsrem,long,8;
+		매수비차익주문수량,tbsrem,tbsrem,long,8;
+	end
+	t1631OutBlock1,출력1,output,occurs;
+	begin
+		매도수량,offervolume,offervolume,long,8;
+		매도금액,offervalue,offervalue,long,12;
+		매수수량,bidvolume,bidvolume,long,8;
+		매수금액,bidvalue,bidvalue,long,12;
+		순매수수량,volume,volume,long,8;
+		순매수금액,value,value,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

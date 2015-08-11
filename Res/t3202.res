@@ -1,0 +1,21 @@
+BEGIN_FUNCTION_MAP
+	.Func,종목별증시일정(t3202),t3202,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t3202InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+		조회일자,date,date,char,8;
+	end
+	t3202OutBlock,출력,output,occurs;
+	begin
+		기준일,recdt,recdt,char,8;
+		테이블아이디,tableid,tableid,char,6;
+		업무구분,upgu,upgu,char,2;
+		발행체번호,custno,custno,char,5;
+		발행회사명,custnm,custnm,char,80;
+		종목코드,shcode,shcode,char,6;
+		업무명,upunm,upnm,char,20;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

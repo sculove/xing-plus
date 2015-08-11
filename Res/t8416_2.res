@@ -1,0 +1,47 @@
+BEGIN_FUNCTION_MAP
+	.Func,선물/옵션챠트(일주월)(t8416),t8416,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t8416InBlock,기본입력,input;
+	begin
+		단축코드,shcode,shcode,char,8;
+		주기구분(2:일3:주4:월),gubun,gubun,char,1;
+		요청건수(최대-압축:2000비압축:500),qrycnt,qrycnt,long,4;
+		시작일자,sdate,sdate,char,8;
+		종료일자,edate,edate,char,8;
+		연속일자,cts_date,cts_date,char,8;
+		압축여부(Y:압축N:비압축),comp_yn,comp_yn,char,1;
+	end
+	t8416OutBlock,출력,output;
+	begin
+		단축코드,shcode,shcode,char,8;
+		전일시가,jisiga,jisiga,float,6.2;
+		전일고가,jihigh,jihigh,float,6.2;
+		전일저가,jilow,jilow,float,6.2;
+		전일종가,jiclose,jiclose,float,6.2;
+		전일거래량,jivolume,jivolume,long,12;
+		당일시가,disiga,disiga,float,6.2;
+		당일고가,dihigh,dihigh,float,6.2;
+		당일저가,dilow,dilow,float,6.2;
+		당일종가,diclose,diclose,float,6.2;
+		상한가,highend,highend,float,6.2;
+		하한가,lowend,lowend,float,6.2;
+		연속일자,cts_date,cts_date,char,8;
+		장시작시간(HHMMSS),s_time,s_time,char,6;
+		장종료시간(HHMMSS),e_time,e_time,char,6;
+		동시호가처리시간(MM:분),dshmin,dshmin,char,2;
+		레코드카운트,rec_count,rec_count,long,7;
+	end
+	t8416OutBlock1,출력1,output,occurs;
+	begin
+		날짜,date,date,char,8;
+		시가,open,open,float,6.2;
+		고가,high,high,float,6.2;
+		저가,low,low,float,6.2;
+		종가,close,close,float,6.2;
+		누적거래량,jdiff_vol,jdiff_vol,long,12;
+		거래대금,value,value,long,12;
+		미결제약정,openyak,openyak,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

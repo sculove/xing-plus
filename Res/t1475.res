@@ -1,0 +1,35 @@
+BEGIN_FUNCTION_MAP
+	.Func,체결강도추이(t1475),t1475,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1475InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+		상승하락,vptype,vptype,char,1;
+		데이터개수,datacnt,datacnt,long,4;
+		기준일자,date,date,long,8;
+		기준시간,time,time,long,6;
+		랭크카운터,rankcnt,rankcnt,long,3;
+		조회구분,gubun,gubun,char,1;
+	end
+	t1475OutBlock,출력,output;
+	begin
+		기준일자,date,date,long,8;
+		기준시간,time,time,long,6;
+		랭크카운터,rankcnt,rankcnt,long,3;
+	end
+	t1475OutBlock1,출력1,output,occurs;
+	begin
+		일자,datetime,datetime,char,10;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		당일VP,todayvp,todayvp,float,8.2;
+		5일MAVP,ma5vp,ma5vp,float,8.2;
+		20일MAVP,ma20vp,ma20vp,float,8.2;
+		60일MAVP,ma60vp,ma60vp,float,8.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

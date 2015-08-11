@@ -1,0 +1,32 @@
+BEGIN_FUNCTION_MAP
+	.Func,관리/불성실/투자유의조회(t1404),t1404,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1404InBlock,기본입력,input;
+	begin
+		구분,gubun,gubun,char,1;
+		종목체크,jongchk,jongchk,char,1;
+		종목코드_CTS,cts_shcode,cts_shcode,char,6;
+	end
+	t1404OutBlock,출력,output;
+	begin
+		종목코드_CTS,cts_shcode,cts_shcode,char,6;
+	end
+	t1404OutBlock1,출력1,output,occurs;
+	begin
+		한글명,hname,hname,char,20;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		누적거래량,volume,volume,long,12;
+		지정일,date,date,char,8;
+		지정일주가,tprice,tprice,long,8;
+		지정일대비,tchange,tchange,long,8;
+		대비율,tdiff,tdiff,float,6.2;
+		사유,reason,reason,char,4;
+		종목코드,shcode,shcode,char,6;
+		해제일,edate,edate,char,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

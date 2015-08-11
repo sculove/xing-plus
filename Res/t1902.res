@@ -1,0 +1,33 @@
+BEGIN_FUNCTION_MAP
+	.Func,ETF시간별추이(t1902),t1902,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1902InBlock,기본입력,input;
+	begin
+		단축코드,shcode,shcode,char,6;
+		시간,time,time,char,6;
+	end
+	t1902OutBlock,출력,output;
+	begin
+		시간,time,time,char,6;
+		종목명,hname,hname,char,20;
+		업종지수명,upname,upname,char,20;
+	end
+	t1902OutBlock1,출력1,output,occurs;
+	begin
+		시간,time,time,char,8;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		누적거래량,volume,volume,float,12;
+		NAV대비,navdiff,navdiff,float,9.2;
+		NAV,nav,nav,float,9.2;
+		전일대비,navchange,navchange,float,9.2;
+		추적오차,crate,crate,float,9.2;
+		괴리,grate,grate,float,9.2;
+		지수,jisu,jisu,float,8.2;
+		전일대비,jichange,jichange,float,8.2;
+		전일대비율,jirate,jirate,float,8.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

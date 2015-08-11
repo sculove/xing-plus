@@ -1,0 +1,40 @@
+BEGIN_FUNCTION_MAP
+	.Func,투자자매매종합2(t1617),t1617,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1617InBlock,기본입력,input;
+	begin
+		시장구분(1:코스피2:코스닥3:선물4:콜옵션5:풋옵션6:주식선물),gubun1,gubun1,char,1;
+		수량금액구분(1:수량2:금액),gubun2,gubun2,char,1;
+		일자구분(1:시간대별2:일별),gubun3,gubun3,char,1;
+		CTSDATE(연속키값-일자),cts_date,cts_date,char,8;
+		CTSTIME(연속키값-시간),cts_time,cts_time,char,8;
+	end
+	t1617OutBlock,기본출력,output;
+	begin
+		CTSDATE,cts_date,cts_date,char,8;
+		CTSTIME,cts_time,cts_time,char,8;
+		개인매수,ms_08,ms_08,long,12;
+		개인매도,md_08,md_08,long,12;
+		개인순매수,sv_08,sv_08,long,12;
+		외국인매수,ms_17,ms_17,long,12;
+		외국인매도,md_17,md_17,long,12;
+		외국인순매수,sv_17,sv_17,long,12;
+		기관계매수,ms_18,ms_18,long,12;
+		기관계매도,md_18,md_18,long,12;
+		기관계순매수,sv_18,sv_18,long,12;
+		증권매수,ms_01,ms_01,long,12;
+		증권매도,md_01,md_01,long,12;
+		증권순매수,sv_01,sv_01,long,12;
+	end
+	t1617OutBlock1,출력1,output,occurs;
+	begin
+		날짜,date,date,char,8;
+		시간,time,time,char,8;
+		개인,sv_08,sv_08,long,12;
+		외국인,sv_17,sv_17,long,12;
+		기관계,sv_18,sv_18,long,12;
+		증권,sv_01,sv_01,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

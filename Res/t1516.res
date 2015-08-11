@@ -1,0 +1,41 @@
+BEGIN_FUNCTION_MAP
+	.Func,업종별종목시세(t1516),t1516,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1516InBlock,기본입력,input;
+	begin
+		업종코드,upcode,upcode,char,3;
+		구분,gubun,gubun,char,1;
+		종목코드,shcode,shcode,char,6;
+	end
+	t1516OutBlock,출력,output;
+	begin
+		종목코드,shcode,shcode,char,6;
+		지수,pricejisu,pricejisu,float,12.2;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,float,7.2;
+		등락율,jdiff,jdiff,float,6.2;
+	end
+	t1516OutBlock1,출력1,output,occurs;
+	begin
+		종목명,hname,hname,char,20;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		누적거래량,volume,volume,long,12;
+		시가,open,open,long,8;
+		고가,high,high,long,8;
+		저가,low,low,long,8;
+		소진율,sojinrate,sojinrate,float,6.2;
+		베타계수,beta,beta,float,6.5;
+		PER,perx,perx,float,8.2;
+		외인순매수,frgsvolume,frgsvolume,long,12;
+		기관순매수,orgsvolume,orgsvolume,long,12;
+		거래증가율,diff_vol,diff_vol,float,10.2;
+		종목코드,shcode,shcode,char,6;
+		시가총액,total,total,long,12;
+		거래대금,value,value,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

@@ -1,0 +1,29 @@
+BEGIN_FUNCTION_MAP
+	.Func,기초자산리스트조회(t1981),t1981,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1981InBlock,기본입력,input;
+	begin
+		시장구분(0:전체1:코스피2:코스닥),mkt_gb,mkt_gb,char,1;
+	end
+	t1981OutBlock,출력1,output;
+	begin
+		코스피종목건수,ksp_cnt,ksp_cnt,char,4;
+		코스닥종목건수,ksd_cnt,ksd_cnt,char,4;
+	end
+	t1981OutBlock1,출력1,output,occurs;
+	begin
+		단축코드,shcode,shcode,char,6;
+		표준코드,expcode,expcode,char,12;
+		종목명,hname,hname,char,20;
+		현재가,price,price,char,12;
+		부호,sign,sign,char,1;
+		대비,change,change,char,12;
+		등락율,rate,rate,float,5.2;
+		누적거래량(주),volume,volume,char,12;
+		누적거래대금(백만),value,value,char,12;
+		시장구분,mkt_gb,mkt_gb,char,1;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
+t1981

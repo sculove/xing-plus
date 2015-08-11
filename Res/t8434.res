@@ -1,0 +1,22 @@
+BEGIN_FUNCTION_MAP
+	.Func,선물/옵션멀티현재가조회(t8434),t8434,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t8434InBlock,기본입력,input;
+	begin
+		건수,qrycnt,qrycnt,long,3;
+		단축코드,focode,focode,char,400;
+	end
+	t8434OutBlock1,출력1,output,occurs;
+	begin
+		한글명,hname,hname,char,20;
+		현재가,price,price,float,6.2;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,float,6.2;
+		등락율,diff,diff,float,6.2;
+		누적거래량,volume,volume,long,12;
+		체결건수,checnt,checnt,long,8;
+		단축코드,focode,focode,char,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

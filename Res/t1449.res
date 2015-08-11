@@ -1,0 +1,33 @@
+BEGIN_FUNCTION_MAP
+	.Func,가격대별매매비중조회(t1449),t1449,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1449InBlock,기본입력,input;
+	begin
+		단축코드,shcode,shcode,char,6;
+		일자구분,dategb,dategb,char,1;
+	end
+	t1449OutBlock,출력,output;
+	begin
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		매수체결량,msvolume,msvolume,long,12;
+		매도체결량,mdvolume,mdvolume,long,12;
+	end
+	t1449OutBlock1,출력1,output,occurs;
+	begin
+		체결가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,tickdiff,tickdiff,float,6.2;
+		체결수량,cvolume,cvolume,long,12;
+		비중,diff,diff,float,6.2;
+		매도체결량,mdvolume,mdvolume,long,12;
+		매수체결량,msvolume,msvolume,long,12;
+		매수비율,msdiff,msdiff,float,6.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

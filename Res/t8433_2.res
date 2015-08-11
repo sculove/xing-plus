@@ -1,0 +1,22 @@
+BEGIN_FUNCTION_MAP
+	.Func,지수옵션마스터조회API용(t8433),t8433,block,headtype=A;
+	BEGIN_DATA_MAP
+	t8433InBlock,기본입력,input;
+	begin
+		Dummy,dummy,dummy,char,1;
+	end
+	t8433OutBlock,주식종목마스터,output,occurs;
+	begin
+		종목명,hname,hname,char,20;
+		단축코드,shcode,shcode,char,8;
+		확장코드,expcode,expcode,char,12;
+		상한가,hprice,hprice,float,6.2;
+		하한가,lprice,lprice,float,6.2;
+		전일종가,jnilclose,jnilclose,float,6.2;
+		전일고가,jnilhigh,jnilhigh,float,6.2;
+		전일저가,jnillow,jnillow,float,6.2;
+		기준가,recprice,recprice,float,6.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

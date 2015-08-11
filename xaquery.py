@@ -46,12 +46,21 @@ class XAQueryEvents:
 	msg = None
 	count = 0
 	def OnReceiveData(self, szTrCode):
-		log.debug("onReceiveData (%s)" % szTrCode)
+		log.debug("onReceiveData (%s%s)" % (szTrCode, self._parseCode(szTrCode)) )
 		XAQueryEvents.status = 1
 	def OnReceiveMessage(self, systemError, messageCode, message):
 		XAQueryEvents.code = str(messageCode)
 		XAQueryEvents.msg = str(message)
 		log.debug("OnReceiveMessage (%s %s)" % (XAQueryEvents.code, XAQueryEvents.msg))
+	def _parseCode(self, szTrCode):
+		str = " : "
+		if szTrCode == "t8407":
+			str += "멀티현재가조회"
+		elif szTrCode == "t8412":
+			str += "주식챠트(N분)"
+		elif szTrCode == "t1833":
+			str += "종목검색(씽API용)"
+		return str
 
 class Query:
 	MAX_REQUEST = 5

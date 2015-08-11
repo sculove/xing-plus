@@ -1,0 +1,25 @@
+BEGIN_FUNCTION_MAP
+	.Func,종목검색(씽API용)(t1833),t1833,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1833InBlock,기본입력,input;
+	begin
+		Dummy,dummy,dummy,char,1;
+	end
+	t1833OutBlock,출력,output;
+	begin
+		검색종목수,JongCnt,JongCnt,long,4;
+	end
+	t1833OutBlock1,출력1,output,occurs;
+	begin
+		종목코드,shcode,shcode,char,6;
+		종목명,hname,hname,char,20;
+		전일대비구분,sign,sign,char,1;
+		연속봉수,signcnt,signcnt,long,3;
+		현재가,close,close,long,9;
+		전일대비,change,change,long,9;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,10;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

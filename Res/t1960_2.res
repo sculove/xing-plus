@@ -1,0 +1,46 @@
+BEGIN_FUNCTION_MAP
+	.Func,ELW등락율상위(t1960),t1960,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1960InBlock,기본입력,input;
+	begin
+		상승하락(0:상승1:하락),gubun,gubun,char,1;
+		권리유형구분(00:EX01:콜02:풋'':전체),ggubun,ggubun,char,2;
+		기초자산종목,itemcode,itemcode,char,12;
+		조회만기일,lastdate,lastdate,char,8;
+		대상제외,exgubun,exgubun,char,6;
+		시작가격,sprice,sprice,long,8;
+		종료가격,eprice,eprice,long,8;
+		거래량,volume,volume,long,12;
+		잔존시작일수,sjanday,sjanday,long,8;
+		잔존종료일수,ejanday,ejanday,long,8;
+		IDX,idx,idx,long,4;
+	end
+	t1960OutBlock,출력,output;
+	begin
+		IDX,idx,idx,long,4;
+	end
+	t1960OutBlock1,출력1,output,occurs;
+	begin
+		한글명,hname,hname,char,40;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		누적거래량,volume,volume,double,12.0;
+		행사가,elwexec,elwexec,double,10.2;
+		전환비율,convrate,convrate,double,12.4;
+		만기일,lastdate,lastdate,char,8;
+		기초자산종목코드,itemcode,itemcode,char,12;
+		기초자산단축코드,itemshcode,itemshcode,char,9;
+		기초자산종목명,itemname,itemname,char,20;
+		기초자산현재가,itemprice,itemprice,char,10;
+		기초자산대비구분,itemsign,itemsign,char,1;
+		기초자산전일대비,itemchange,itemchange,char,10;
+		기초자산등락율,itemdiff,itemdiff,double,6.2;
+		ELW종목코드,elwshcode,elwshcode,char,6;
+		손익분기점,bepoint,bepoint,double,12.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
+t1960

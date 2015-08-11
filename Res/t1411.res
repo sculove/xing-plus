@@ -1,0 +1,34 @@
+BEGIN_FUNCTION_MAP
+	.Func,증거금율별종목조회(t1411),t1411,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1411InBlock,기본입력,input;
+	begin
+		시장구분,gubun,gubun,char,1;
+		위탁신용구분,jongchk,jongchk,char,1;
+		증거금율구분,jkrate,jkrate,char,1;
+		종목코드,shcode,shcode,char,6;
+		IDX,idx,idx,long,4;
+	end
+	t1411OutBlock,출력,output;
+	begin
+		위탁증거금율,jkrate,jkrate,long,3;
+		신용증거금율,sjkrate,sjkrate,long,3;
+		IDX,idx,idx,long,4;
+	end
+	t1411OutBlock1,출력1,output,occurs;
+	begin
+		종목코드,shcode,shcode,char,6;
+		종목명,hname,hname,char,20;
+		위탁증거금율,jkrate,jkrate,long,3;
+		신용증거금율,sjkrate,sjkrate,long,3;
+		대용가,subprice,subprice,long,8;
+		전일종가,recprice,recprice,long,8;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		누적거래량,volume,volume,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

@@ -1,0 +1,35 @@
+BEGIN_FUNCTION_MAP
+	.Func,재무순위종합(t3341),t3341,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t3341InBlock,기본입력,input;
+	begin
+		시장구분,gubun,gubun,char,1;
+		순위구분(1:매출액증가율2:영업이익증가율3:세전계속이익증가율4:부채비율5:유보율6:EPS7:BPS8:ROE9:PERa:PBRb:PEG),gubun1,gubun1,char,1;
+		대비구분,gubun2,gubun2,char,1;
+		IDX,idx,idx,long,4;
+	end
+	t3341OutBlock,출력,output;
+	begin
+		CNT,cnt,cnt,long,4;
+		IDX,idx,idx,long,4;
+	end
+	t3341OutBlock1,출력1,output,occurs;
+	begin
+		순위,rank,rank,long,4;
+		기업명,hname,hname,char,20;
+		매출액증가율,salesgrowth,salesgrowth,long,12;
+		영업이익증가율,operatingincomegrowt,operatingincomegrowt,long,12;
+		경상이익증가율,ordinaryincomegrowth,ordinaryincomegrowth,long,12;
+		부채비율,liabilitytoequity,liabilitytoequity,long,12;
+		유보율,enterpriseratio,enterpriseratio,long,12;
+		EPS,eps,eps,long,12;
+		BPS,bps,bps,long,12;
+		ROE,roe,roe,long,12;
+		종목코드,shcode,shcode,char,6;
+		PER,per,per,float,13.2;
+		PBR,pbr,pbr,float,13.2;
+		PEG,peg,peg,float,13.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

@@ -1,0 +1,35 @@
+BEGIN_FUNCTION_MAP
+	.Func,투자의견(t3401),t3401,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t3401InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,9;
+		구분,gubun1,gubun1,char,1;
+		회원사코드,tradno,tradno,char,3;
+		IDXDATE,cts_date,cts_date,char,8;
+	end
+	t3401OutBlock,출력,output;
+	begin
+		IDXDATE,cts_date,cts_date,char,8;
+		현재가,price,price,long,8;
+		대비속성,sign,sign,char,1;
+		대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		거래대금,value,value,long,12;
+	end
+	t3401OutBlock1,출력1,output,occurs;
+	begin
+		종목코드,shcode,shcode,char,9;
+		회원사코드,tradno,tradno,char,3;
+		의견일자,date,date,char,8;
+		회원사명,tradname,tradname,char,30;
+		투자의견변경후,bopn,bopn,char,30;
+		투자의견변경전,nopn,nopn,char,30;
+		목표가변경전,boga,boga,long,12;
+		목표가변경후,noga,noga,long,12;
+		의견일종가,close,close,long,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

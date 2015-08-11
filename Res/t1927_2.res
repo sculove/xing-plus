@@ -1,0 +1,32 @@
+BEGIN_FUNCTION_MAP
+	.Func,공매도일별추이(t1927),t1927,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1927InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+		일자,date,date,char,8;
+		시작일자,sdate,sdate,char,8;
+		종료일자,edate,edate,char,8;
+	end
+	t1927OutBlock,출력,output;
+	begin
+		일자CTS,date,date,char,8;
+	end
+	t1927OutBlock1,출력1,output,occurs;
+	begin
+		일자,date,date,char,8;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		거래대금,value,value,long,12;
+		공매도수량,gm_vo,gm_vo,long,12;
+		공매도대금,gm_va,gm_va,long,12;
+		공매도거래비중,gm_per,gm_per,float,6.2;
+		평균공매도단가,gm_avg,gm_avg,long,12;
+		누적공매도수량,gm_vo_sum,gm_vo_sum,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

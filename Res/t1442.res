@@ -1,0 +1,36 @@
+BEGIN_FUNCTION_MAP
+	.Func,신고/신저가(t1442),t1442,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1442InBlock,기본입력,input;
+	begin
+		구분,gubun,gubun,char,1;
+		신고신저,type1,type1,char,1;
+		기간,type2,type2,char,1;
+		유지여부,type3,type3,char,1;
+		대상제외,jc_num,jc_num,long,12;
+		시작가격,sprice,sprice,long,8;
+		종료가격,eprice,eprice,long,8;
+		거래량,volume,volume,long,12;
+		IDX,idx,idx,long,4;
+	end
+	t1442OutBlock,출력,output;
+	begin
+		IDX,idx,idx,long,4;
+	end
+	t1442OutBlock1,출력1,output,occurs;
+	begin
+		종목코드,shcode,shcode,char,6;
+		종목명,hname,hname,char,20;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		이전가,pastprice,pastprice,long,8;
+		이전가대비구분,pastsign,pastsign,char,1;
+		이전가대비,pastchange,pastchange,long,8;
+		이전가대비율,pastdiff,pastdiff,float,6.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

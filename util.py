@@ -8,7 +8,7 @@ class Util:
 		while len(arr) > size:
 			pice = arr[:size]
 			arrs.append(pice)
-			arr   = arr[size:]
+			arr = arr[size:]
 		arrs.append(arr)
 		return arrs
 
@@ -17,13 +17,14 @@ class Util:
 		today = today if today else datetime.today()
 		mainStart = today.replace(hour=9, minute=00, second=0, microsecond=0)
 		mainEnd = today.replace(hour=15, minute=30, second=0, microsecond=0)
+
 		if today.weekday() < 5:
 			if today >= mainStart and today <= mainEnd:
 				return "SHOWTIME"
 			else:
 				if today < mainStart:
 					return "BEFORE"
-				elif today < mainEnd:
+				elif today > mainEnd:
 					return "AFTER"
 		else:
 			return "NONE"

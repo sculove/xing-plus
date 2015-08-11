@@ -1,0 +1,38 @@
+BEGIN_FUNCTION_MAP
+	.Func,기간별주가(t2203),t2203,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t2203InBlock,기본입력,input;
+	begin
+		단축코드,shcode,shcode,char,8;
+		선물최근월물,futcheck,futcheck,char,1;
+		날짜,date,date,char,8;
+		CTS종목코드,cts_code,cts_code,char,8;
+		전종목만기일,lastdate,lastdate,char,8;
+		조회요청건수,cnt,cnt,int,3;
+	end
+	t2203OutBlock,출력,output;
+	begin
+		날짜,date,date,char,8;
+		CTS종목코드,cts_code,cts_code,char,8;
+		전종목만기일,lastdate,lastdate,char,8;
+		최근월선물여부,nowfutyn,nowfutyn,char,1;
+	end
+	t2203OutBlock1,출력1,output,occurs;
+	begin
+		날짜,date,date,char,8;
+		시가,open,open,float,6.2;
+		고가,high,high,float,6.2;
+		저가,low,low,float,6.2;
+		종가,close,close,float,6.2;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,float,6.2;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		거래증가율,diff_vol,diff_vol,float,10.2;
+		미결수량,openyak,openyak,long,8;
+		미결증감,openyakupdn,openyakupdn,long,8;
+		거래대금,value,value,float,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

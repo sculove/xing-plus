@@ -1,0 +1,27 @@
+BEGIN_FUNCTION_MAP
+	.Func,종목Q클릭검색(씽큐스마트)(t1825),t1825,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1825InBlock,기본입력,input;
+	begin
+		검색코드,search_cd,search_cd,char,4;
+		구분(0:전체1:코스피2:코스닥),gubun,gubun,char,1;
+	end
+	t1825OutBlock,출력,output;
+	begin
+		검색종목수,JongCnt,JongCnt,long,4;
+	end
+	t1825OutBlock1,출력1,output,occurs;
+	begin
+		종목코드,shcode,shcode,char,6;
+		종목명,hname,hname,char,20;
+		전일대비구분,sign,sign,char,1;
+		연속봉수,signcnt,signcnt,long,3;
+		현재가,close,close,long,9;
+		전일대비,change,change,long,9;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,10;
+		거래량전일대비율,volumerate,volumerate,float,6.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

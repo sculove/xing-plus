@@ -1,0 +1,32 @@
+BEGIN_FUNCTION_MAP
+	.Func,LP대상종목정보조회(t1959),t1959,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1959InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+	end
+	t1959OutBlock1,LP대상전종목정보,output,occurs;
+	begin
+		종목코드,shcode,shcode,char,6;
+		종목명,hname,hname,char,40;
+		현재가,price,price,char,12;
+		부호,sign,sign,char,1;
+		대비,change,change,char,12;
+		등락율,rate,rate,float,5.2;
+		누적거래량,volume,volume,char,12;
+		누적거래대금,value,value,char,12;
+		LP주문가능여부,lp_gb,lp_gb,char,4;
+		LP회원사명1,lp_mem_nm1,lp_mem_nm1,char,20;
+		LP회원사명2,lp_mem_nm2,lp_mem_nm2,char,20;
+		LP회원사명3,lp_mem_nm3,lp_mem_nm3,char,20;
+		LP회원사명4,lp_mem_nm4,lp_mem_nm4,char,20;
+		LP회원사명5,lp_mem_nm5,lp_mem_nm5,char,20;
+		LP최소호가수량,lp_min_qty,lp_min_qty,char,10;
+		LP시작일,lp_st_date,lp_st_date,char,8;
+		LP종료일,lp_end_date,lp_end_date,char,8;
+		LP스프레드,lp_spread,lp_spread,float,5.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
+t1959

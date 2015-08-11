@@ -1,0 +1,38 @@
+BEGIN_FUNCTION_MAP
+	.Func,선물/옵션체결/미체결(t0434),t0434,tuxcode=t0434,headtype=D;
+	BEGIN_DATA_MAP
+	t0434InBlock,기본입력,input;
+	begin
+		계좌번호,accno,accno,char,11;
+		비밀번호,passwd,passwd,char,8;
+		종목번호,expcode,expcode,char,8;
+		체결구분,chegb,chegb,char,1;
+		정렬순서,sortgb,sortgb,char,1;
+		CTS_주문번호,cts_ordno,cts_ordno,char,7;
+	end
+	t0434OutBlock,출력,outputs;
+	begin
+		CTS_주문번호,cts_ordno,cts_ordno,char,7;
+	end
+	t0434OutBlock1,출력1,output,occurs;
+	begin
+		주문번호,ordno,ordno,long,7;
+		원주문번호,orgordno,orgordno,long,7;
+		구분,medosu,medosu,char,10;
+		유형,ordgb,ordgb,char,20;
+		주문수량,qty,qty,long,9;
+		주문가격,price,price,float,9.2;
+		체결수량,cheqty,cheqty,long,9;
+		체결가격,cheprice,cheprice,float,9.2;
+		미체결잔량,ordrem,ordrem,long,9;
+		상태,status,status,char,10;
+		주문시간,ordtime,ordtime,char,8;
+		주문매체,ordermtd,ordermtd,char,10;
+		종목번호,expcode,expcode,char,8;
+		사유코드,rtcode,rtcode,char,3;
+		처리순번,sysprocseq,sysprocseq,long,10;
+		호가타입,hogatype,hogatype,char,1;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
