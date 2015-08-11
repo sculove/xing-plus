@@ -12,6 +12,9 @@ class Util:
 		arrs.append(arr)
 		return arrs
 
+	def today():
+		return datetime.today().strftime("%Y%d%m")
+
 	# 장 전,후 시간
 	def timeType(today = None):
 		today = today if today else datetime.today()
