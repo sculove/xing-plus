@@ -6,7 +6,6 @@ Xing API를 보다 쉽게 활용할수 있는 라이브러리로, 개인 취미�
  - 이베스트 투자증권 Xing api (http://www.ebestsec.co.kr/)
  - anaconda python 3.4 (http://continuum.io/downloads)
  - ta-lib (Technical Analysis Library) http://www.lfd.uci.edu/~gohlke/pythonlibs/
- - Visual Studio Express 2013 for Desktop (https://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx)
 
 ## Getting Start
 작성중...
