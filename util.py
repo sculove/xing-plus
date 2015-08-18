@@ -79,7 +79,7 @@ class Util:
 		h = int(high)
 		l = int(low)
 		height = h-l
-		body = round((p-o)/height,2)
+		body = 0 if height == 0 else round((p-o)/height,2)
 
 		if body > 0:
 			#양봉
@@ -93,14 +93,24 @@ class Util:
 			bottom = (p-l)/height
 		else:
 			#보합
-			type = 0
-			top = (h-p)/height
-			bottom = (p-l)/height,
+			type = 0.0
+			top = 0.0
+			bottom = 0.0
 
-		print(p,o,h,l,height,body)
 		return {
 			"type" : type,
 			"top" : round(top,2) * 100,
 			"bottom" : round(bottom,2) * 100,
 			"body" : math.fabs(body) * 100
 		}
+
+	def profit(buy, sell):
+		#매매수수료
+		fee = (float(buy) * 0.00015) + (float(sell) * 0.00315)
+		profit = sell - buy - fee
+
+		return {
+			"profit" : profit,
+			"rate" : round(profit/buy * 100,2)
+		}
+
