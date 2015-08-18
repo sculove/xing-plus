@@ -45,6 +45,22 @@ class XAQueryEvents:
 	code = None
 	msg = None
 	count = 0
+	def parseErrorCode(szTrCode):
+		szTrCode = str(szTrCode)
+		print(szTrCode)
+		ht = {
+		    "-1" : "통신소켓 생성에 실패하였습니다",
+		    "-2" : "서버접속에 실패하였습니다",
+		    "-3" : "서버주소가 틀렸습니다",
+		    "-4" : "서버 접속시간이 초과되었습니다",
+		    "-5" : "이미 서버에 연결중입니다",
+		    "-6" : "해당TR은 사용할수 없습니다",
+		    "-7" : "로그인을 해야 사용이 가능합니다",
+		    "-21" : "TR의 시간당 전송제한에 걸렸습니다",
+		    "-23" : "로그인이 안되었거나, TR에 대한 정보를 찾을 수 없습니다",
+		}
+		return ht[szTrCode] + " (%s)" % szTrCode if szTrCode in ht else szTrCode
+
 	def OnReceiveData(self, szTrCode):
 		log.debug(" - onReceiveData (%s%s)" % (szTrCode, self._parseCode(szTrCode)) )
 		XAQueryEvents.status = 1
@@ -158,10 +174,7 @@ class Query:
 			log.debug(" - Call request (isNext:%s)" % isNext)
 			requestCode = self.query.Request(isNext)
 		if requestCode < 0:
-			if requestCode == -21:
-				log.critical("TR의 시간당 전송제한에 걸렸습니다 (%s)" %requestCode)
-			else:
-				log.critical("Request FAILED (%s)" % requestCode)
+			log.critical(Query.parseErrorCode(requestCode))
 			return
 
 		while XAQueryEvents.status == 0:
@@ -193,3 +206,5 @@ class Query:
 		else:
 			log.debug(">>>>> [Query] 결과(callNext=True):%s" % self.output)
 			return self.output
+
+
