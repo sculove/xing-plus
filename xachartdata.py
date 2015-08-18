@@ -22,10 +22,13 @@ chart = Chartdata().load("012510")
 	}))
 '''
 class Chartdata:
+	DAY = 9997
+	WEEK = 9998
+	MONTH = 9999
 	def __init__(self):
-		self.query = Query("t8412")
+		pass
 
-	def _supplimentDate(self):
+	def _supplimentDate(self, dday=2):
 		baseday = datetime.today()
 		# 장 전에는 전날과, 전전전날로 범위를 정함.
 		if Util.timeType() == "BEFORE":
@@ -34,30 +37,56 @@ class Chartdata:
 		while baseday.weekday() > 4:
 			baseday = baseday - timedelta(days=1)
 		if baseday.weekday() < 2:	# 월,화요일인 경우.
-			prevday = baseday - timedelta(days=4)
+			prevday = baseday - timedelta(days=dday+2)
 		else:
-			prevday = baseday - timedelta(days=2)
+			prevday = baseday - timedelta(days=dday)
 		return (prevday.strftime("%Y%m%d"), baseday.strftime("%Y%m%d"))
 
 	# 차트 데이터 구하기
-	def load(self, shcode, ncnt = 1, date = None):
-		date = date if date else self._supplimentDate()
-		self.df = (self.query.request({
-			"in" : {
-				"InBlock" : {
-					"shcode" : shcode,
-					"qrycnt" : 2000,
-					"comp_yn" : "Y",
-					"sdate" : date[0],
-					"edate" : date[1],
-					"ncnt" : ncnt
+	def load(self, shcode, gubun = 5, date = None):
+		if gubun >= Chartdata.DAY:
+			#2:일, 3:주, 4:월
+			date = date if date else self._supplimentDate(120)
+			if gubun == Chartdata.DAY:
+				gubun = 2
+			elif gubun == Chartdata.WEEK:
+				gubun = 3
+			elif gubun == Chartdata.MONTH:
+				gubun = 4
+			self.df = (Query("t8413").request({
+				"in" : {
+					"InBlock" : {
+						"shcode" : shcode,
+						"gubun" : gubun,
+						"qrycnt" : 2000,
+						"sdate" : date[0],
+						"edate" : date[1],
+						"comp_yn" : "Y"
+					}
+				},
+				"out" : {
+					"OutBlock" : ("cts_date",),
+					"OutBlock1" : DataFrame(columns=("date", "open", "high", "low", "close", "jdiff_vol","sign"))
 				}
-			},
-			"out" : {
-				"OutBlock" : ("cts_date", "cts_time"),
-				"OutBlock1" : DataFrame(columns=("date", "time", "open", "high", "low", "close", "jdiff_vol","sign"))
-			}
-		}))["OutBlock1"]
+			}))["OutBlock1"]
+		else:
+			date = date if date else self._supplimentDate()
+			self.df = (Query("t8412").request({
+				"in" : {
+					"InBlock" : {
+						"shcode" : shcode,
+						"qrycnt" : 2000,
+						"comp_yn" : "Y",
+						"sdate" : date[0],
+						"edate" : date[1],
+						"ncnt" : gubun
+					}
+				},
+				"out" : {
+					"OutBlock" : ("cts_date", "cts_time"),
+					"OutBlock1" : DataFrame(columns=("date", "time", "open", "high", "low", "close", "jdiff_vol","sign"))
+				}
+			}))["OutBlock1"]
 
 		self.data = {
 			"open" : self.df["open"].astype(float),
