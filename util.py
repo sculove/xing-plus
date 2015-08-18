@@ -13,7 +13,7 @@ class Util:
 		return arrs
 
 	def today():
-		return datetime.today().strftime("%Y%d%m")
+		return datetime.today().strftime("%Y%m%d")
 
 	# 장 전,후 시간
 	def timeType(today = None):
