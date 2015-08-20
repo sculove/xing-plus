@@ -108,7 +108,7 @@ class Query:
 		self.callNext = callNext;
 
 	# 파라미터 보충작업
-	def _supplimentParam(self, param):
+	def _refillParam(self, param):
 		if not "in" in param:
 			param["in"] = {
 				"InBlock" : {}
@@ -125,7 +125,7 @@ class Query:
 
 	def _parse(self, param):
 		self._reset()
-		param = self._supplimentParam(param)
+		param = self._refillParam(param)
 		# parse inputBlock
 		log.debug("<<<<< [Query] 입력:%s" % param["in"])
 		for v in param["in"].keys():
@@ -138,14 +138,14 @@ class Query:
 
 		#parse outputBlock
 		self.output = {}
-		for v in param["out"].keys():
-			if isinstance(param["out"][v], DataFrame):
+		for k,v in param["out"].items():
+			if isinstance(v, DataFrame):
 				#occur
-				self.output[v] = param["out"][v]
+				self.output[k] = v
 			else:
-				self.output[v] = {}
-				for p in param["out"][v]:
-					self.output[v][p] = None
+				self.output[k] = {}
+				for p in v:
+					self.output[k][p] = None
 		# print("** %s **\ninput : %s\noutput : %s" % (self.type, self.input, self.output))
 
 	def request(self, param, isNext = False):
@@ -154,9 +154,8 @@ class Query:
 			Query.sleep()
 
 		#input setting
-		for p in self.input.keys():
-			# pass
-			self.query.SetFieldData(self.type + self.inputName, p, 0, self.input[p])
+		for k,v in self.input.items():
+			self.query.SetFieldData(self.type + self.inputName, k, 0, v)
 
 		# 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 전송수가 임시로 확장됩니다 (5개로 추정됨)
 		if XAQueryEvents.count < Query.MAX_REQUEST:
@@ -181,21 +180,21 @@ class Query:
 			pythoncom.PumpWaitingMessages()
 
 		#output setting
-		for v in self.output.keys():
-			if isinstance(self.output[v], DataFrame):
+		for k,v in self.output.items():
+			if isinstance(v, DataFrame):
 				#occur
-				df = self.output[v]
+				df =v
 				if self.compress:
-					self.query.Decompress(self.type + v)
+					self.query.Decompress(self.type + k)
 				startIndex = len(df)
-				for p in range(0,self.query.GetBlockCount(self.type + v)):
+				for p in range(0,self.query.GetBlockCount(self.type + k)):
 					for col in list(df.columns.values):
-						df.set_value(p + startIndex, col, self.query.GetFieldData(self.type + v, col, p))
+						df.set_value(p + startIndex, col, self.query.GetFieldData(self.type + k, col, p))
 			else:
-				for col in self.output[v].keys():
-					self.output[v][col] = self.query.GetFieldData(self.type + v, col, 0)
+				for col in v.keys():
+					v[col] = self.query.GetFieldData(self.type + k, col, 0)
 					if self.query.IsNext:
-						self.input[col] = self.output[v][col]
+						self.input[col] = v[col]
 		XAQueryEvents.status = 0
 		if self.query.IsNext:
 			if self.callNext:
@@ -206,5 +205,3 @@ class Query:
 		else:
 			log.debug(">>>>> [Query] 결과(callNext=True):%s" % self.output)
 			return self.output
-
-
