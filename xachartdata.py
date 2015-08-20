@@ -28,7 +28,7 @@ class Chartdata:
 	def __init__(self):
 		pass
 
-	def _supplimentDate(self, dday=2):
+	def _refillDate(self, dday=2):
 		baseday = datetime.today()
 		# 장 전에는 전날과, 전전전날로 범위를 정함.
 		if Util.timeType() == "BEFORE":
@@ -46,7 +46,7 @@ class Chartdata:
 	def load(self, shcode, gubun = 5, date = None):
 		if gubun >= Chartdata.DAY:
 			#2:일, 3:주, 4:월
-			date = date if date else self._supplimentDate(120)
+			date = date if date else self._refillDate(120)
 			if gubun == Chartdata.DAY:
 				gubun = 2
 			elif gubun == Chartdata.WEEK:
@@ -70,7 +70,7 @@ class Chartdata:
 				}
 			}))["OutBlock1"]
 		else:
-			date = date if date else self._supplimentDate()
+			date = date if date else self._refillDate()
 			self.df = (Query("t8412").request({
 				"in" : {
 					"InBlock" : {
