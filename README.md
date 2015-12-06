@@ -7,12 +7,9 @@ Xing API를 보다 쉽게 활용할수 있는 라이브러리로, 개인 취미�
  - anaconda python 3.4+ (http://continuum.io/downloads)
  - ta-lib (Technical Analysis Library) http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
-## Getting Start
-작성중...
-
 ## 주요 객체 설명
 ### xasession
-서버에 로그인을 하는 객체
+서버에 로그인을 하는 객체  
 작성중...
 
 ### xaquery
