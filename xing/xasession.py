@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 import pythoncom
 import win32com.client
-
 from com.logger import Logger
 from xing.xacom import parseErrorCode
-
-
 log = Logger(__name__)
 
 class XASessionEvents:
@@ -39,7 +36,6 @@ class Session:
 
     def logout(self):
         if self.session.IsConnected():
-            print("로그인완료")
             self.session.DisconnectServer()
         else:
             print("로그인이 아님")
@@ -53,4 +49,3 @@ class Session:
                 "detailName" : self.session.GetAcctDetailName(p)
             })
         return acc
-

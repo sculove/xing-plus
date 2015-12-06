@@ -1,35 +1,25 @@
 # -*- coding: utf-8 -*-
-import time
-
 from pandas import DataFrame
 import pythoncom
 import win32com.client
-
 from com.logger import Logger
-from xing.xacom import parseErrorCode
-
-
+from xing import xacom
 log = Logger(__name__)
 
 '''
 Query("t8407").request({
-	"in" : {
 		"InBlock" : {
 			"nrec" : len(codes),
 			"shcode" : "".join(codes)
 		}
-	},
-	"out" :{
+	},{
 		"OutBlock1" : DataFrame(columns=("shcode","hname","price","open","high","low","sign","change","diff","volume"))
-	}
 });
 Query("t1101", False).request({
-	"in" : {
 		"InBlock" : {
 			"shcode" : shcode
 		}
-	},
-	"out" : {
+	},{
 		"OutBlock" : ("hname","price", "sign", "change", "diff", "volume", "jnilclose",
 			"offerho1", "bidho1", "offerrem1", "bidrem1", "preoffercha1","prebidcha1",
 			"offerho2", "bidho2", "offerrem2", "bidrem2", "preoffercha2","prebidcha2",
@@ -43,7 +33,6 @@ Query("t1101", False).request({
 			"offerho10", "bidho10", "offerrem10", "bidrem10", "preoffercha10","prebidcha10",
 			"offer", "bid", "preoffercha", "prebidcha", "uplmtprice", "dnlmtprice", "open", "high", "low", "ho_status", "hotime"
 		)
-	}
 })
 '''
 class XAQueryEvents:
@@ -52,45 +41,14 @@ class XAQueryEvents:
 	msg = None
 	count = 0
 	def OnReceiveData(self, szTrCode):
-		log.debug(" - onReceiveData (%s%s)" % (szTrCode, self._parseCode(szTrCode)) )
+		log.debug(" - onReceiveData (%s%s)" % (szTrCode, xacom.parseCode(szTrCode)) )
 		XAQueryEvents.status = 1
 	def OnReceiveMessage(self, systemError, messageCode, message):
 		XAQueryEvents.code = str(messageCode)
 		XAQueryEvents.msg = str(message)
 		log.debug(" - OnReceiveMessage (%s:%s)" % (XAQueryEvents.code, XAQueryEvents.msg))
-	def _parseCode(self, szTrCode):
-		ht = {
-			"t0424" : "주식잔고",
-			"t0425" : "주식체결/미체결",
-			"t8407" : "멀티현재가조회",
-			"t8412" : "주식챠트(N분)",
-			"t8413" : "주식챠트(일주월)",
-			"t8430" : "주식종목조회",
-			"t1833" : "종목검색(씽API용)",
-			"t1101" : "주식현재가호가조회",
-			"t1102" : "주식현재가(시세)조회",
-			"t1411" : "증거금율별종목조회",
-			"t1702" : "외인기관종목별동향",
-			"t1301" : "주식시간대별체결조회",
-			"t0167" : "서버시간조회",
-			"t9945" : "주식마스터조회API용",
-			"CSPAQ12200" : "현물계좌예수금 주문가능금액 총평가 조회",
-			"CSPAT00600" : "현물주문",
-			"CSPAT00700" : "현물정정주문",
-			"CSPAT00800" : "현물취소주문",
-			"CSPBQ00200" : "현물계좌 증거금률별 주문가능 수량 조회"
-		}
-		return ":" + ht[szTrCode] if szTrCode in ht else ""
 
 class Query:
-	MAX_REQUEST = 5
-	requestTime = time.time()
-	def sleep():
-		spendTime = time.time() - Query.requestTime
-		if spendTime < 1:
-# 			log.info("===== SLEEP...%f =====" % (1-spendTime))
-			time.sleep(1-spendTime + 0.1)
-
 	# callNext가 false일 경우, 한번만 조회, true일 경우, 다음이 있으면 계속 조회
 	def __init__(self, type, callNext = True):
 		self.query = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
@@ -98,38 +56,27 @@ class Query:
 		self.type = type;
 		self.callNext = callNext;
 
-	# 파라미터 보충작업
-	def _refillParam(self, param):
-		if not "in" in param:
-			param["in"] = {
-				"InBlock" : {}
-			}
-		elif not "InBlock" in param["in"]:
-			param["in"]["InBlock"] = {}
-		return param
-
 	def _reset(self):
 		XAQueryEvents.count = 0
 		XAQueryEvents.status = 0
 		XAQueryEvents.code = None
 		XAQueryEvents.msg = None
 
-	def _parse(self, param):
-		self._reset()
-		param = self._refillParam(param)
+	def _parseInput(self, param):
 		# parse inputBlock
-		log.info("<<<<< [Query] 입력:%s" % param["in"])
-		for v in param["in"].keys():
+		log.info("<<<<< [Query] 입력:%s" % param)
+		for v in param.keys():
 			if v != "Service":
 				self.inputName = v
-		self.input = param["in"][self.inputName]
+		self.input = param[self.inputName]
 		self.compress = "comp_yn" in self.input.keys() and self.input["comp_yn"] == "Y"
-		if "Service" in param["in"]:
-			self.service = param["in"]["Service"]
+		if "Service" in param:
+			self.service = param["Service"]
 
+	def _parseOutput(self, param):
 		#parse outputBlock
 		self.output = {}
-		for k,v in param["out"].items():
+		for k,v in param.items():
 			if isinstance(v, DataFrame):
 				#occur
 				self.output[k] = v
@@ -139,24 +86,28 @@ class Query:
 					self.output[k][p] = None
 		# print("** %s **\ninput : %s\noutput : %s" % (self.type, self.input, self.output))
 
-	def request(self, param, isNext = False):
+	def request(self, inparam, outparam, isNext=False):
+		if not inparam:
+			inparam = {"InBlock": {}}
 		if not isNext:
-			self._parse(param)
-			Query.sleep()
+			self._reset()
+			self._parseInput(inparam)
+			self._parseOutput(outparam)
+			xacom.sleep()
 
 		#input setting
 		for k,v in self.input.items():
 			self.query.SetFieldData(self.type + self.inputName, k, 0, v)
 
 		# 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 전송수가 임시로 확장됩니다 (5개로 추정됨)
-		if XAQueryEvents.count < Query.MAX_REQUEST:
+		if XAQueryEvents.count < xacom.getMaxRequest():
 			XAQueryEvents.count += 1
 		else:
 			XAQueryEvents.count = 1
-			Query.sleep()
+			xacom.sleep()
 
 		#call request
-		Query.requestTime = time.time()
+		xacom.resetTime()
 		if hasattr(self, "service"):
 # 			log.info(" - Call requestService")
 			requestCode = self.query.RequestService(self.type, self.service)
@@ -164,7 +115,7 @@ class Query:
 # 			log.info(" - Call request (isNext:%s)" % isNext)
 			requestCode = self.query.Request(isNext)
 		if requestCode < 0:
-			log.critical(parseErrorCode(requestCode))
+			log.critical(xacom.parseErrorCode(requestCode))
 			return
 
 		while XAQueryEvents.status == 0:
@@ -189,7 +140,7 @@ class Query:
 		XAQueryEvents.status = 0
 		if self.query.IsNext:
 			if self.callNext:
-				return self.request(param, True)
+				return self.request(inparam, outparam, True)
 			else:
 # 				log.debug(">>>>> [Query] 결과(callNext=False):%s" % self.output)
 				return self.output

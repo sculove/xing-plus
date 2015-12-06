@@ -1,3 +1,23 @@
+import time
+_MAX_REQUEST = 5
+_requestTime = 0
+
+# 최대 request 개수
+def getMaxRequest():
+    return _MAX_REQUEST
+
+# 요청 시간 초기화
+def resetTime():
+    _requestTime = time.time()
+
+# 최소 요청 시간까지 sleep
+def sleep():
+    spendTime = time.time() - _requestTime
+    if spendTime < 1:
+# 			log.info("===== SLEEP...%f =====" % (1-spendTime))
+        time.sleep(1-spendTime + 0.1)
+
+# 에러코드 메시지
 def parseErrorCode(szTrCode):
     szTrCode = str(szTrCode)
     ht = {
@@ -35,3 +55,28 @@ def parseErrorCode(szTrCode):
         "01796" : "비밀번호 연속 오류허용횟수를 초과하였습니다. 콜센터로 문의하시기 바랍니다"
     }
     return ht[szTrCode] + " (%s)" % szTrCode if szTrCode in ht else szTrCode
+
+# 요청 전문 제목 맵핑
+def parseCode(szTrCode):
+    ht = {
+        "t0424" : "주식잔고",
+        "t0425" : "주식체결/미체결",
+        "t8407" : "멀티현재가조회",
+        "t8412" : "주식챠트(N분)",
+        "t8413" : "주식챠트(일주월)",
+        "t8430" : "주식종목조회",
+        "t1833" : "종목검색(씽API용)",
+        "t1101" : "주식현재가호가조회",
+        "t1102" : "주식현재가(시세)조회",
+        "t1411" : "증거금율별종목조회",
+        "t1702" : "외인기관종목별동향",
+        "t1301" : "주식시간대별체결조회",
+        "t0167" : "서버시간조회",
+        "t9945" : "주식마스터조회API용",
+        "CSPAQ12200" : "현물계좌예수금 주문가능금액 총평가 조회",
+        "CSPAT00600" : "현물주문",
+        "CSPAT00700" : "현물정정주문",
+        "CSPAT00800" : "현물취소주문",
+        "CSPBQ00200" : "현물계좌 증거금률별 주문가능 수량 조회"
+    }
+    return ":" + ht[szTrCode] if szTrCode in ht else ""
