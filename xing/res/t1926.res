@@ -1,0 +1,43 @@
+BEGIN_FUNCTION_MAP
+	.Func,종목별신용정보(t1926),t1926,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1926InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+	end
+	t1926OutBlock,출력,output;
+	begin
+		융자신규수량,ynvolume,ynvolume,long,8;
+		융자상환수량,ysvolume,ysvolume,long,8;
+		융자잔고수량,yjvolume,yjvolume,long,8;
+		융자수량대비,yvchange,yvchange,long,8;
+		융자공여율,ygrate,ygrate,float,9.2;
+		융자잔고율,yjrate,yjrate,float,9.2;
+		융자신규금액,ynprice,ynprice,long,8;
+		융자상환금액,ysprice,ysprice,long,8;
+		융자잔고금액,yjprice,yjprice,long,8;
+		융자금액대비,yachange,yachange,long,8;
+		대주신규수량,dnvolume,dnvolume,long,8;
+		대주상환수량,dsvolume,dsvolume,long,8;
+		대주잔고수량,djvolume,djvolume,long,8;
+		대주수량대비,dvchange,dvchange,long,8;
+		대주공여율,dgrate,dgrate,float,9.2;
+		대주잔고율,djrate,djrate,float,9.2;
+		대주신규금액,dnprice,dnprice,long,8;
+		대주상환금액,dsprice,dsprice,long,8;
+		대주잔고금액,djprice,djprice,long,8;
+		대주금액대비,dachange,dachange,long,8;
+		결제일,mmdate,mmdate,char,8;
+		결제일종가,close,close,long,8;
+		결제일거래량,volume,volume,long,10;
+		결제일거래대금,value,value,long,12;
+		주가5일증가율,pr5days,pr5days,float,9.2;
+		주가20일증가율,pr20days,pr20days,float,9.2;
+		융자5일증가율,yj5days,yj5days,float,9.2;
+		융자20일증가율,yj20days,yj20days,float,9.2;
+		대주5일증가율,dj5days,dj5days,float,9.2;
+		대주20일증가율,dj20days,dj20days,float,9.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

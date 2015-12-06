@@ -1,0 +1,32 @@
+BEGIN_FUNCTION_MAP
+	.Func,시간대별투자자매매추이상세(t1603),t1603,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1603InBlock,기본입력,input;
+	begin
+		시장구분,market,market,char,1;
+		투자자구분,gubun1,gubun1,char,1;
+		전일분구분,gubun2,gubun2,char,1;
+		CTSTIME,cts_time,cts_time,char,8;
+		CTSIDX,cts_idx,cts_idx,long,4;
+		조회건수,cnt,cnt,int,3;
+		업종코드,upcode,upcode,char,3;
+	end
+	t1603OutBlock,출력,output;
+	begin
+		CTSIDX,cts_idx,cts_idx,long,4;
+		CTSTIME,cts_time,cts_time,char,8;
+	end
+	t1603OutBlock1,출력1,output,occurs;
+	begin
+		시간,time,time,char,8;
+		투자자구분,tjjcode,tjjcode,char,4;
+		매수수량,msvolume,msvolume,long,8;
+		매도수량,mdvolume,mdvolume,long,8;
+		매수금액,msvalue,msvalue,long,12;
+		매도금액,mdvalue,mdvalue,long,12;
+		순매수수량,svolume,svolume,long,8;
+		순매수금액,svalue,svalue,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

@@ -1,0 +1,32 @@
+BEGIN_FUNCTION_MAP
+	.Func,예상체결량상위조회(t1489),t1489,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1489InBlock,기본입력,input;
+	begin
+		거래소구분,gubun,gubun,char,1;
+		장구분,jgubun,jgubun,char,1;
+		종목체크,jongchk,jongchk,char,12;
+		IDX,idx,idx,long,4;
+		예상체결시작가격,yesprice,yesprice,long,8;
+		예상체결종료가격,yeeprice,yeeprice,long,8;
+		예상체결량,yevolume,yevolume,long,12;
+	end
+	t1489OutBlock,출력,output;
+	begin
+		IDX,idx,idx,long,4;
+	end
+	t1489OutBlock1,출력1,output,occurs;
+	begin
+		한글명,hname,hname,char,20;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		예상거래량,volume,volume,long,12;
+		매도호가,offerho,offerho,long,8;
+		매수호가,bidho,bidho,long,8;
+		종목코드,shcode,shcode,char,6;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

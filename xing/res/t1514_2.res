@@ -1,0 +1,46 @@
+BEGIN_FUNCTION_MAP
+	.Func,업종기간별추이(t1514),t1514,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1514InBlock,기본입력,input;
+	begin
+		업종코드,upcode,upcode,char,3;
+		구분1,gubun1,gubun1,char,1;
+		구분2,gubun2,gubun2,char,1;
+		CTS_일자,cts_date,cts_date,char,8;
+		조회건수,cnt,cnt,int,4;
+		비중구분,rate_gbn,rate_gbn,char,1;
+	end
+	t1514OutBlock,기본출력,output;
+	begin
+		CTS_일자,cts_date,cts_date,char,8;
+	end
+	t1514OutBlock1,기본출력1,output,occurs;
+	begin
+		일자,date,date,char,8;
+		지수,jisu,jisu,float,12.2;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,float,7.2;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		거래증가율,diff_vol,diff_vol,float,12.2;
+		거래대금1,value1,value1,long,12;
+		상승,high,high,long,4;
+		보합,unchg,unchg,long,4;
+		하락,low,low,long,4;
+		상승종목비율,uprate,uprate,float,6.2;
+		외인순매수,frgsvolume,frgsvolume,long,8;
+		시가,openjisu,openjisu,float,12.2;
+		고가,highjisu,highjisu,float,12.2;
+		저가,lowjisu,lowjisu,float,12.2;
+		거래대금2,value2,value2,long,12;
+		상한,up,up,long,4;
+		하한,down,down,long,4;
+		종목수,totjo,totjo,long,4;
+		기관순매수,orgsvolume,orgsvolume,long,8;
+		업종코드,upcode,upcode,char,3;
+		거래비중,rate,rate,float,7.2;
+		업종배당수익률,divrate,divrate,float,7.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

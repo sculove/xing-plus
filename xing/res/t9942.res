@@ -1,0 +1,15 @@
+BEGIN_FUNCTION_MAP
+	.Func,ELW마스터조회API용(t9942),t9942,block,headtype=A;
+	BEGIN_DATA_MAP
+	t9942InBlock,기본입력,input;
+	begin
+		Dummy,dummy,dummy,char,1;
+	end
+	t9942OutBlock,주식종목마스터,output,occurs;
+	begin
+		종목명,hname,hname,char,40;
+		단축코드,shcode,shcode,char,6;
+		확장코드,expcode,expcode,char,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP

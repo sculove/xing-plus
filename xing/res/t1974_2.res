@@ -1,0 +1,26 @@
+BEGIN_FUNCTION_MAP
+	.Func,ELW기초자산동일종목(t1974),t1974,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1974InBlock,입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+	end
+	t1974OutBlock,출력,output;
+	begin
+		종목갯수,cnt,cnt,long,4;
+	end
+	t1974OutBlock1,출력1,output,occurs;
+	begin
+		종목코드,shcode,shcode,char,6;
+		종목명,hname,hname,char,40;
+		콜/풋구분,cpgubun,cpgubun,char,2;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,float,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
+t1974

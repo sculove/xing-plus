@@ -1,0 +1,39 @@
+BEGIN_FUNCTION_MAP
+	.Func,기간별프로그램매매추이(t1633),t1633,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1633InBlock,기본입력,input;
+	begin
+		시장구분,gubun,gubun,char,1;
+		금액수량구분,gubun1,gubun1,char,1;
+		수치누적구분,gubun2,gubun2,char,1;
+		일주월구분,gubun3,gubun3,char,1;
+		from일자,fdate,fdate,char,8;
+		to일자,tdate,tdate,char,8;
+		직전대비증감구분,gubun4,gubun4,char,1;
+		날짜,date,date,char,8;
+	end
+	t1633OutBlock,출력,output;
+	begin
+		날짜,date,date,char,8;
+		IDX,idx,idx,long,4;
+	end
+	t1633OutBlock1,출력1,output,occurs;
+	begin
+		일자,date,date,char,8;
+		KP200,jisu,jisu,float,6.2;
+		대비구분,sign,sign,char,1;
+		대비,change,change,float,6.2;
+		전체순매수,tot3,tot3,long,12;
+		전체매수,tot1,tot1,long,12;
+		전체매도,tot2,tot2,long,12;
+		차익순매수,cha3,cha3,long,12;
+		차익매수,cha1,cha1,long,12;
+		차익매도,cha2,cha2,long,12;
+		비차익순매수,bcha3,bcha3,long,12;
+		비차익매수,bcha1,bcha1,long,12;
+		비차익매도,bcha2,bcha2,long,12;
+		거래량,volume,volume,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

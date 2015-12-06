@@ -1,0 +1,34 @@
+BEGIN_FUNCTION_MAP
+	.Func,외인기관종목별동향(t1701),t1701,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1701InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+		구분,gubun,gubun,char,1;
+		시작일자,fromdt,fromdt,char,8;
+		종료일자,todt,todt,char,8;
+		PR적용,prapp,prapp,long,3;
+		PR적용구분,prgubun,prgubun,char,1;
+		기관적용,orggubun,orggubun,char,1;
+		외인적용,frggubun,frggubun,char,1;
+	end
+	t1701OutBlock,출력,output,occurs;
+	begin
+		일자,date,date,char,8;
+		종가,close,close,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		누적거래량,volume,volume,long,12;
+		개인,psnvolume,psnvolume,long,12;
+		기관,orgvolume,orgvolume,long,12;
+		외국인,frgvolume,frgvolume,long,12;
+		외국계,frgvolumesum,frgvolumesum,long,12;
+		프로그램,pgmvolume,pgmvolume,long,12;
+		보유주식수,listing,listing,long,12;
+		발행증감,listupdn,listupdn,long,12;
+		소진율,sjrate,sjrate,float,6.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

@@ -1,0 +1,26 @@
+BEGIN_FUNCTION_MAP
+	.Func,프로그램매매종합조회(미니)(t1640),t1640,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1640InBlock,기본입력,input;
+	begin
+		구분,gubun,gubun,char,2;
+	end
+	t1640OutBlock,출력,output;
+	begin
+		매도수량,offervolume,offervolume,long,8;
+		매수수량,bidvolume,bidvolume,long,8;
+		순매수수량,volume,volume,long,8;
+		매도증감,offerdiff,offerdiff,long,8;
+		매수증감,biddiff,biddiff,long,8;
+		순매수증감,sundiff,sundiff,long,8;
+		베이시스,basis,basis,float,6.2;
+		매도금액,offervalue,offervalue,double,12.0;
+		매수금액,bidvalue,bidvalue,double,12.0;
+		순매수금액,value,value,double,12.0;
+		매도금액증감,offervaldiff,offervaldiff,double,12.0;
+		매수금액증감,bidvaldiff,bidvaldiff,double,12.0;
+		순매수증감,sunvaldiff,sunvaldiff,double,12.0;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

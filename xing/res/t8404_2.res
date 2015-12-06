@@ -1,0 +1,44 @@
+BEGIN_FUNCTION_MAP
+	.Func,주식선물시간대별체결조회(API용)(t8404),t8404,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t8404InBlock,기본입력,input;
+	begin
+		단축코드,focode,focode,char,8;
+		특이거래량,cvolume,cvolume,long,12;
+		시작시간,stime,stime,char,4;
+		종료시간,etime,etime,char,4;
+		시간CTS,cts_time,cts_time,char,10;
+	end
+	t8404OutBlock,출력,output;
+	begin
+		시간CTS,cts_time,cts_time,char,10;
+	end
+	t8404OutBlock1,출력1,output,occurs;
+	begin
+		시간,chetime,chetime,char,10;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,float,8;
+		체결수량,cvolume,cvolume,long,8;
+		체결강도,chdegree,chdegree,float,8.2;
+		매도호가,offerho,offerho,long,8;
+		매수호가,bidho,bidho,long,8;
+		거래량,volume,volume,double,12.0;
+		미결수량,openyak,openyak,long,8;
+		미결전일증감,jnilopenupdn,jnilopenupdn,long,8;
+		이론BASIS,ibasis,ibasis,long,8;
+		시장BASIS,sbasis,sbasis,long,8;
+		괴리율,kasis,kasis,float,6.2;
+		거래대금,value,value,double,12.0;
+		미결직전증감,j_openupdn,j_openupdn,long,8;
+		누적매수체결량,n_msvolume,n_msvolume,double,12.0;
+		누적매도체결량,n_mdvolume,n_mdvolume,double,12.0;
+		누적순매수체결량,s_msvolume,s_msvolume,double,12.0;
+		누적매수체결건수,n_mschecnt,n_mschecnt,long,8;
+		누적매도체결건수,n_mdchecnt,n_mdchecnt,long,8;
+		누적순매수체결건수,s_mschecnt,s_mschecnt,long,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
+t8404

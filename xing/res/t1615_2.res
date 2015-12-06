@@ -1,0 +1,28 @@
+BEGIN_FUNCTION_MAP
+	.Func,투자자매매종합1(t1615),t1615,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1615InBlock,기본입력,input;
+	begin
+		주식구분,gubun1,gubun1,char,1;
+		옵션구분,gubun2,gubun2,char,1;
+	end
+	t1615OutBlock,출력,output;
+	begin
+		위탁매도수량,dwvolume,dwvolume,long,12;
+		위탁매도금액,dwvalue,dwvalue,long,12;
+		자기매도수량,djvolume,djvolume,long,12;
+		자기매도금액,djvalue,djvalue,long,12;
+		합계수량,sum_volume,sum_volume,long,12;
+		합계금액,sum_value,sum_value,long,12;
+	end
+	t1615OutBlock1,출력1,output,occurs;
+	begin
+		시장명,hname,hname,char,20;
+		개인,sv_08,sv_08,long,12;
+		외국인,sv_17,sv_17,long,12;
+		기관계,sv_18,sv_18,long,12;
+		증권,sv_07,sv_07,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

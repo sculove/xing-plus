@@ -4,7 +4,7 @@ Xing API를 보다 쉽게 활용할수 있는 라이브러리로, 개인 취미�
 ## 개발환경
  - window7 32bit
  - 이베스트 투자증권 Xing api (http://www.ebestsec.co.kr/)
- - anaconda python 3.4 (http://continuum.io/downloads)
+ - anaconda python 3.5 (http://continuum.io/downloads)
  - ta-lib (Technical Analysis Library) http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 ## Getting Start
@@ -14,16 +14,4 @@ Xing API를 보다 쉽게 활용할수 있는 라이브러리로, 개인 취미�
 ### xasession
 작성중...
 ### xaquery
-작성중...
-### xachartdata
-작성중...
-
-## 유틸리티 객체
-### config
-작성중...
-### logger
-작성중...
-### util
-작성중...
-### sqlmanager
 작성중...

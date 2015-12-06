@@ -1,0 +1,43 @@
+BEGIN_FUNCTION_MAP
+	.Func,주식분별주가조회(t1302),t1302,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1302InBlock,기본입력,input;
+	begin
+		단축코드,shcode,shcode,char,6;
+		작업구분,gubun,gubun,char,1;
+		시간,time,time,char,6;
+		건수,cnt,cnt,int,3;
+	end
+	t1302OutBlock,출력,output;
+	begin
+		시간CTS,cts_time,cts_time,char,6;
+	end
+	t1302OutBlock1,출력1,output,occurs;
+	begin
+		시간,chetime,chetime,char,6;
+		종가,close,close,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		체결강도,chdegree,chdegree,float,8.2;
+		매도체결수량,mdvolume,mdvolume,long,12;
+		매수체결수량,msvolume,msvolume,long,12;
+		순매수체결량,revolume,revolume,long,12;
+		매도체결건수,mdchecnt,mdchecnt,long,8;
+		매수체결건수,mschecnt,mschecnt,long,8;
+		순체결건수,rechecnt,rechecnt,long,8;
+		거래량,volume,volume,long,12;
+		시가,open,open,long,8;
+		고가,high,high,long,8;
+		저가,low,low,long,8;
+		체결량,cvolume,cvolume,long,12;
+		매도체결건수(시간),mdchecnttm,mdchecnttm,long,8;
+		매수체결건수(시간),mschecnttm,mschecnttm,long,8;
+		매도잔량,totofferrem,totofferrem,long,12;
+		매수잔량,totbidrem,totbidrem,long,12;
+		시간별매도체결량,mdvolumetm,mdvolumetm,long,12;
+		시간별매수체결량,msvolumetm,msvolumetm,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

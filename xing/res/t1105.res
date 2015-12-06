@@ -1,0 +1,22 @@
+BEGIN_FUNCTION_MAP
+	.Func,주식피못/디마크조회(t1105),t1105,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1105InBlock,기본입력,input;
+	begin
+		단축코드,shcode,shcode,char,6;
+	end
+	t1105OutBlock,출력,output;
+	begin
+		단축코드,shcode,shcode,char,6;
+		피봇,pbot,pbot,long,8;
+		1차저항,offer1,offer1,long,8;
+		1차지지,supp1,supp1,long,8;
+		2차저항,offer2,offer2,long,8;
+		2차지지,supp2,supp2,long,8;
+		기준가격,stdprc,stdprc,long,8;
+		D저항,offerd,offerd,long,8;
+		D지지,suppd,suppd,long,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

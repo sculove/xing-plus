@@ -1,0 +1,37 @@
+BEGIN_FUNCTION_MAP
+	.Func,CME야간선물미결제약정추이(API용)(t8409),t8409,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t8409InBlock,기본입력,input;
+	begin
+		종목코드,focode,focode,char,8;
+		분일구분,bdgubun,bdgubun,char,1;
+		N분,nmin,nmin,int,3;
+		당일연결구분,tcgubun,tcgubun,char,1;
+		조회건수,cnt,cnt,int,4;
+	end
+	t8409OutBlock,출력,output;
+	begin
+		현재가,price,price,float,6.2;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,float,6.2;
+		등락율,diff,diff,float,6.2;
+		체결수량,cvolume,cvolume,long,8;
+		누적거래량,volume,volume,double,15.0;
+		미결제수량,openyak,openyak,long,8;
+	end
+	t8409OutBlock1,출력1,output,occurs;
+	begin
+		일자시간,dt,dt,char,14;
+		시가,open,open,float,6.2;
+		고가,high,high,float,6.2;
+		저가,low,low,float,6.2;
+		종가,close,close,float,6.2;
+		미결제시량,openopenyak,openopenyak,long,8;
+		미결제고량,highopenyak,highopenyak,long,8;
+		미결제저량,lowopenyak,lowopenyak,long,8;
+		미결제종량,closeopenyak,closeopenyak,long,8;
+		미결증감,openupdn,openupdn,long,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

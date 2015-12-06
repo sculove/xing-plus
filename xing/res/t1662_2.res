@@ -1,0 +1,30 @@
+BEGIN_FUNCTION_MAP
+	.Func,시간대별프로그램매매추이(차트)(t1662),t1662,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1662InBlock,기본입력,input;
+	begin
+		구분,gubun,gubun,char,1;
+		금액수량구분,gubun1,gubun1,char,1;
+		전일구분,gubun3,gubun3,char,1;
+	end
+	t1662OutBlock,출력,output,occurs;
+	begin
+		시간,time,time,char,6;
+		KP200,k200jisu,k200jisu,float,6.2;
+		대비구분,sign,sign,char,1;
+		대비,change,change,float,6.2;
+		BASIS,k200basis,k200basis,float,6.2;
+		전체순매수,tot3,tot3,long,12;
+		전체매수,tot1,tot1,long,12;
+		전체매도,tot2,tot2,long,12;
+		차익순매수,cha3,cha3,long,12;
+		차익매수,cha1,cha1,long,12;
+		차익매도,cha2,cha2,long,12;
+		비차익순매수,bcha3,bcha3,long,12;
+		비차익매수,bcha1,bcha1,long,12;
+		비차익매도,bcha2,bcha2,long,12;
+		거래량,volume,volume,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

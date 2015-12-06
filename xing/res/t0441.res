@@ -1,0 +1,37 @@
+BEGIN_FUNCTION_MAP
+	.Func,선물/옵션잔고평가(이동평균)(t0441),t0441,attr,tuxcode=t0441,headtype=D;
+	BEGIN_DATA_MAP
+	t0441InBlock,기본입력,input;
+	begin
+		계좌번호,accno,accno,char,11;
+		비밀번호,passwd,passwd,char,8;
+		CTS_종목번호,cts_expcode,cts_expcode,char,8;
+		CTS_매매구분,cts_medocd,cts_medocd,char,1;
+	end
+	t0441OutBlock,출력,output;
+	begin
+		매매손익합계,tdtsunik,tdtsunik,long,18;
+		CTS_종목번호,cts_expcode,cts_expcode,char,8;
+		CTS_매매구분,cts_medocd,cts_medocd,char,1;
+		평가금액,tappamt,tappamt,long,18;
+		평가손익,tsunik,tsunik,long,18;
+	end
+	t0441OutBlock1,출력1,output,occurs;
+	begin
+		종목번호,expcode,expcode,char,8;
+		구분,medosu,medosu,char,4;
+		잔고수량,jqty,jqty,long,10;
+		청산가능수량,cqty,cqty,long,10;
+		평균단가,pamt,pamt,float,10.2;
+		총매입금액,mamt,mamt,long,18;
+		매매구분,medocd,medocd,char,1;
+		매매손익,dtsunik,dtsunik,long,18;
+		처리순번,sysprocseq,sysprocseq,long,10;
+		현재가,price,price,float,9.2;
+		평가금액,appamt,appamt,long,18;
+		평가손익,dtsunik1,dtsunik1,long,18;
+		수익율,sunikrt,sunikrt,float,10.2;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

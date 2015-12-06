@@ -1,0 +1,34 @@
+BEGIN_FUNCTION_MAP
+	.Func,신호조회(t1809),t1809,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1809InBlock,기본입력,input;
+	begin
+		신호구분,gubun,gubun,char,1;
+		종목구분,jmGb,jmGb,char,1;
+		종목코드,jmcode,jmcode,char,6;
+		NEXTKEY,cts,cts,char,30;
+	end
+	t1809OutBlock,기본출력,output;
+	begin
+		NEXTKEY,cts,cts,char,30;
+	end
+	t1809OutBlock1,기본출력1,output,occurs;
+	begin
+		일자,date,date,char,8;
+		시간,time,time,char,6;
+		신호ID,signal_id,signal_id,char,4;
+		신호명,signal_desc,signal_desc,char,300;
+		신호강도,point,point,char,3;
+		뉴스신호키워드,keyword,keyword,char,40;
+		신호별구분,seq,seq,char,24;
+		신호구분,gubun,gubun,char,2;
+		신호종목,jmcode,jmcode,char,6;
+		종목가격,price,price,long,7;
+		종목등락부호,sign,sign,char,1;
+		대비등락율,chgrate,chgrate,float,6.2;
+		거래량,volume,volume,long,9;
+		신호일시,datetime,datetime,char,16;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

@@ -1,0 +1,28 @@
+BEGIN_FUNCTION_MAP
+	.Func,ELW시간대별예상체결조회(t1973),t1973,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1973InBlock,기본입력,input;
+	begin
+		단축코드,shcode,shcode,char,6;
+		시간CTS,cts_time,cts_time,char,8;
+	end
+	t1973OutBlock,출력,output;
+	begin
+		시간CTS,cts_time,cts_time,char,8;
+	end
+	t1973OutBlock1,출력1,output,occurs;
+	begin
+		시간,chetime,chetime,char,8;
+		예상체결가격,yeprice,yeprice,long,8;
+		예상체결구분,yegubun,yegubun,char,1;
+		전일종가대비구분,jnilysign,jnilysign,char,1;
+		전일종가대비,jnilychange,jnilychange,long,8;
+		예상체결등락율,yediff,yediff,float,6.2;
+		예상체결량,yevolume,yevolume,long,12;
+		예상매도체결량,ymdvolume,ymdvolume,long,12;
+		예상매수체결량,ymsvolume,ymsvolume,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
+t1973

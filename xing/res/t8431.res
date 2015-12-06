@@ -1,0 +1,20 @@
+BEGIN_FUNCTION_MAP
+	.Func,ELW종목조회(t8431),t8431,block,headtype=A;
+	BEGIN_DATA_MAP
+	t8431InBlock,기본입력,input;
+	begin
+		Dummy,dummy,dummy,char,1;
+	end
+	t8431OutBlock,주식종목마스터,output,occurs;
+	begin
+		종목명,hname,hname,char,40;
+		단축코드,shcode,shcode,char,6;
+		확장코드,expcode,expcode,char,12;
+		상한가,uplmtprice,uplmtprice,long,8;
+		하한가,dnlmtprice,dnlmtprice,long,8;
+		전일종가,jnilclose,jnilclose,long,8;
+		기준가,recprice,recprice,long,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

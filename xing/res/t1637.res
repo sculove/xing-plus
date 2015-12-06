@@ -1,0 +1,36 @@
+BEGIN_FUNCTION_MAP
+	.Func,종목별프로그램매매추이(t1637),t1637,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1637InBlock,기본입력,input;
+	begin
+		수량금액구분(0:수량1:금액),gubun1,gubun1,char,1;
+		시간일별구분(0:시간1:일자),gubun2,gubun2,char,1;
+		종목코드,shcode,shcode,char,6;
+		일자,date,date,char,8;
+		시간,time,time,char,6;
+		IDXCTS(9999:차트),cts_idx,cts_idx,long,4;
+	end
+	t1637OutBlock,출력,output;
+	begin
+		IDXCTS,cts_idx,cts_idx,long,4;
+	end
+	t1637OutBlock1,출력1,output,occurs;
+	begin
+		일자,date,date,char,8;
+		시간,time,time,char,6;
+		현재가,price,price,long,8;
+		대비구분,sign,sign,char,1;
+		대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		순매수금액,svalue,svalue,long,15;
+		매도금액,offervalue,offervalue,long,15;
+		매수금액,stksvalue,stksvalue,long,15;
+		순매수수량,svolume,svolume,long,12;
+		매도수량,offervolume,offervolume,long,12;
+		매수수량,stksvolume,stksvolume,long,12;
+		종목코드,shcode,shcode,char,6;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

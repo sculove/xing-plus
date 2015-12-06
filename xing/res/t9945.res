@@ -1,0 +1,19 @@
+BEGIN_FUNCTION_MAP
+	.Func,주식마스터조회API용-종목명40bytes(t9945),t9945,block,headtype=A;
+	BEGIN_DATA_MAP
+	t9945InBlock,기본입력,input;
+	begin
+		구분(KSP:1KSD:2),gubun,gubun,char,1;
+	end
+	t9945OutBlock,주식종목마스터,output,occurs;
+	begin
+		종목명,hname,hname,char,40;
+		단축코드,shcode,shcode,char,6;
+		확장코드,expcode,expcode,char,12;
+		ETF구분,etfchk,etfchk,char,1;
+		filler,filler,filler,char,5;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
+t9945

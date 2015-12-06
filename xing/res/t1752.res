@@ -1,0 +1,32 @@
+BEGIN_FUNCTION_MAP
+	.Func,종목별상위회원사(t1752),t1752,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1752InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+		조회날짜1,traddate1,traddate1,char,8;
+		조회날짜2,traddate2,traddate2,char,8;
+		외국계구분,fwgubun1,fwgubun1,char,1;
+		CTSIDX,cts_idx,cts_idx,long,4;
+	end
+	t1752OutBlock,기본출력,output;
+	begin
+		외국계매도,fwdvl,fwdvl,long,12;
+		외국계매수,fwsvl,fwsvl,long,12;
+		CTSIDX,cts_idx,cts_idx,long,4;
+	end
+	t1752OutBlock1,출력1,output,occurs;
+	begin
+		회원사,tradname,tradname,char,20;
+		매도수량,tradmdvol,tradmdvol,long,12;
+		매수수량,tradmsvol,tradmsvol,long,12;
+		순매수,tradmssvol,tradmssvol,long,12;
+		창구거래,wintrd,wintrd,long,12;
+		비중,winrat,winrat,float,6.1;
+		회원사코드,tradno,tradno,char,3;
+		외국계여부,wgubun,wgubun,char,1;
+		순비중,swinrat,swinrat,float,6.1;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

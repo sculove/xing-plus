@@ -1,0 +1,37 @@
+BEGIN_FUNCTION_MAP
+	.Func,종목별프로그램매매동향(t1636),t1636,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1636InBlock,기본입력,input;
+	begin
+		구분,gubun,gubun,char,1;
+		금액수량구분,gubun1,gubun1,char,1;
+		정렬기준,gubun2,gubun2,char,1;
+		종목코드,shcode,shcode,char,6;
+		IDXCTS,cts_idx,cts_idx,long,4;
+	end
+	t1636OutBlock,출력,output;
+	begin
+		IDXCTS,cts_idx,cts_idx,long,4;
+	end
+	t1636OutBlock1,출력1,output,occurs;
+	begin
+		순위,rank,rank,long,8;
+		종목명,hname,hname,char,20;
+		현재가,price,price,long,8;
+		대비구분,sign,sign,char,1;
+		대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		순매수금액,svalue,svalue,long,12;
+		매도금액,offervalue,offervalue,long,12;
+		매수금액,stksvalue,stksvalue,long,12;
+		순매수수량,svolume,svolume,long,12;
+		매도수량,offervolume,offervolume,long,12;
+		매수수량,stksvolume,stksvolume,long,12;
+		시가총액,sgta,sgta,long,15;
+		비중,rate,rate,float,6.2;
+		종목코드,shcode,shcode,char,6;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

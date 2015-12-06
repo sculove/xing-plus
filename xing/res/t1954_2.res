@@ -1,0 +1,46 @@
+BEGIN_FUNCTION_MAP
+	.Func,ELW일별주가(t1954),t1954,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1954InBlock,기본입력,input;
+	begin
+		단축코드,shcode,shcode,char,6;
+		날짜,date,date,char,8;
+		건수,cnt,cnt,long,3;
+	end
+	t1954OutBlock,출력,output;
+	begin
+		날짜,date,date,char,8;
+		기초자산구분,bsjgubun,bsjgubun,char,1;
+		기초자산코드(현물),bscode,bscode,char,6;
+		기초자산코드(지수),bjcode,bjcode,char,3;
+	end
+	t1954OutBlock1,출력1,output,occurs;
+	begin
+		날짜,date,date,char,8;
+		시가,open,open,long,8;
+		고가,high,high,long,8;
+		저가,low,low,long,8;
+		종가,close,close,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,float,12;
+		기초자산(현물),bsprice,bsprice,long,8;
+		기초자산(지수),bjprice,bjprice,float,8.2;
+		전일대비구분,bsign,bsign,char,1;
+		전일대비(현물),bschange,bschange,long,8;
+		전일대비(지수),bjchange,bjchange,float,8.2;
+		등락율,bdiff,bdiff,float,6.2;
+		기초자산거래량,bvolume,bvolume,float,12;
+		패리티,parity,parity,float,6.2;
+		e.기어링,egearing,egearing,float,6.2;
+		프리미엄,premium,premium,float,6.2;
+		손익분기,berate,berate,float,6.2;
+		자본지지,capt,capt,float,6.2;
+		기어링,gearing,gearing,float,6.2;
+		Moneyness,mness,mness,char,1;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
+t1954

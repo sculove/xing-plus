@@ -1,0 +1,34 @@
+BEGIN_FUNCTION_MAP
+	.Func,테마종목별시세조회(t1537),t1537,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1537InBlock,기본입력,input;
+	begin
+		테마코드,tmcode,tmcode,char,4;
+	end
+	t1537OutBlock,출력,output;
+	begin
+		상승종목수,upcnt,upcnt,long,4;
+		테마종목수,tmcnt,tmcnt,long,4;
+		상승종목비율,uprate,uprate,long,4;
+		테마명,tmname,tmname,char,36;
+	end
+	t1537OutBlock1,출력1,output,occurs;
+	begin
+		종목명,hname,hname,char,20;
+		현재가,price,price,long,8;
+		전일대비구분,sign,sign,char,1;
+		전일대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		누적거래량,volume,volume,long,12;
+		전일동시간,jniltime,jniltime,float,9.2;
+		종목코드,shcode,shcode,char,6;
+		예상체결가,yeprice,yeprice,long,8;
+		시가,open,open,long,8;
+		고가,high,high,long,8;
+		저가,low,low,long,8;
+		누적거래대금(단위:백만),value,value,long,12;
+		시가총액(단위:백만),marketcap,marketcap,long,12;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

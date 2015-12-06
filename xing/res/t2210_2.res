@@ -1,0 +1,20 @@
+BEGIN_FUNCTION_MAP
+	.Func,선물옵션시간대별체결조회(단일출력용),t2210,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t2210InBlock,기본입력,input;
+	begin
+		단축코드,focode,focode,char,8;
+		특이거래량,cvolume,cvolume,long,12;
+		시작시간,stime,stime,char,4;
+		종료시간,etime,etime,char,4;
+	end
+	t2210OutBlock,출력,output;
+	begin
+		매도체결수량,mdvolume,mdvolume,long,8;
+		매도체결건수,mdchecnt,mdchecnt,long,8;
+		매수체결수량,msvolume,msvolume,long,8;
+		매수체결건수,mschecnt,mschecnt,long,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

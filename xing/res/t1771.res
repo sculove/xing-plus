@@ -1,0 +1,38 @@
+BEGIN_FUNCTION_MAP
+	.Func,종목별회원사추이(t1771),t1771,attr,block,headtype=A;
+	BEGIN_DATA_MAP
+	t1771InBlock,기본입력,input;
+	begin
+		종목코드,shcode,shcode,char,6;
+		거래원코드,tradno,tradno,char,3;
+		구분1,gubun1,gubun1,char,1;
+		거래원날짜1,traddate1,traddate1,char,8;
+		거래원날짜2,traddate2,traddate2,char,8;
+		CTSIDX,cts_idx,cts_idx,long,4;
+		요청건수,cnt,cnt,int,3;
+	end
+	t1771OutBlock,기본출력,output;
+	begin
+		CTSIDX,cts_idx,cts_idx,long,4;
+	end
+	t1771OutBlock2,출력2,output,occurs;
+	begin
+		날짜,traddate,traddate,char,8;
+		시간,tradtime,tradtime,char,8;
+		현재가,price,price,long,8;
+		대비구분,sign,sign,char,1;
+		대비,change,change,long,8;
+		등락율,diff,diff,float,6.2;
+		거래량,volume,volume,long,12;
+		매도,tradmdcha,tradmdcha,long,12;
+		매수,tradmscha,tradmscha,long,12;
+		매도대금,tradmdval,tradmdval,long,18;
+		매수대금,tradmsval,tradmsval,long,18;
+		순매수,tradmsscha,tradmsscha,long,12;
+		누적순매수,tradmttvolume,tradmttvolume,long,12;
+		평균단가,tradavg,tradavg,long,8;
+		누적평균단가,tradmttavg,tradmttavg,long,8;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+

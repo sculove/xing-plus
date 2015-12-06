@@ -1,0 +1,22 @@
+BEGIN_FUNCTION_MAP
+	.Func,뉴스본문(t3102),t3102,block,headtype=A;
+	BEGIN_DATA_MAP
+	t3102InBlock,기본입력,input;
+	begin
+		뉴스번호,sNewsno,sNewsno,char,24;
+	end
+	t3102OutBlock,기본출력,output,occurs;
+	begin
+		뉴스종목,sJongcode,sJongcode,char,6;
+	end
+	t3102OutBlock1,기본출력1,output,occurs;
+	begin
+		뉴스본문,sBody,sBody,char,100;
+	end
+	t3102OutBlock2,기본출력2,output;
+	begin
+		뉴스타이틀,sTitle,sTitle,char,300;
+	end
+	END_DATA_MAP
+END_FUNCTION_MAP
+
