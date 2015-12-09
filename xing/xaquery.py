@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from pandas import DataFrame
 import pythoncom
+import time
 import win32com.client
 from com.logger import Logger
 from xing import xacom
@@ -36,19 +37,47 @@ Query("t1101", False).request({
 })
 '''
 class XAQueryEvents:
-	status = 0
-	code = None
-	msg = None
-	count = 0
+	def __init__(self):
+		self.status = 0
+		self.code = None
+		self.msg = None
+
+	def reset(self):
+		self.status = 0
+		self.code = None
+		self.msg = None
+
 	def OnReceiveData(self, szTrCode):
-		log.debug(" - onReceiveData (%s%s)" % (szTrCode, xacom.parseCode(szTrCode)) )
-		XAQueryEvents.status = 1
+		log.debug(" - onReceiveData (%s%s)" % (szTrCode, xacom.parseTR(szTrCode)) )
+		self.status = 1
+
 	def OnReceiveMessage(self, systemError, messageCode, message):
-		XAQueryEvents.code = str(messageCode)
-		XAQueryEvents.msg = str(message)
-		log.debug(" - OnReceiveMessage (%s:%s)" % (XAQueryEvents.code, XAQueryEvents.msg))
+		self.code = str(messageCode)
+		self.msg = str(message)
+		log.debug(" - OnReceiveMessage (%s:%s)" % (self.code, self.msg))
 
 class Query:
+	MAX_REQUEST = 5
+	REQUEST_TIME = 0
+	REQUEST_COUNT = 0
+
+	# 요청 시간 초기화
+	def resetTime():
+		# 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 전송수가 임시로 확장됩니다 (5개로 추정됨)
+		if Query.REQUEST_COUNT < Query.MAX_REQUEST:
+			Query.REQUEST_COUNT += 1
+		else:
+			Query.REQUEST_COUNT = 1
+			Query.sleep()
+		Query.REQUEST_TIME = time.time()
+
+	# 최소 요청 시간까지 sleep
+	def sleep():
+		spendTime = time.time() - Query.REQUEST_TIME
+		if spendTime < 1:
+			log.info("===== SLEEP...%f =====" % (1-spendTime))
+			time.sleep(1-spendTime + 0.1)
+
 	# callNext가 false일 경우, 한번만 조회, true일 경우, 다음이 있으면 계속 조회
 	def __init__(self, type, callNext = True):
 		self.query = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
@@ -56,14 +85,8 @@ class Query:
 		self.type = type;
 		self.callNext = callNext;
 
-	def _reset(self):
-		XAQueryEvents.count = 0
-		XAQueryEvents.status = 0
-		XAQueryEvents.code = None
-		XAQueryEvents.msg = None
-
+	# parse inputBlock
 	def _parseInput(self, param):
-		# parse inputBlock
 		log.info("<<<<< [Query] 입력:%s" % param)
 		for v in param.keys():
 			if v != "Service":
@@ -73,8 +96,8 @@ class Query:
 		if "Service" in param:
 			self.service = param["Service"]
 
+	#parse outputBlock
 	def _parseOutput(self, param):
-		#parse outputBlock
 		self.output = {}
 		for k,v in param.items():
 			if isinstance(v, DataFrame):
@@ -86,28 +109,22 @@ class Query:
 					self.output[k][p] = None
 		# print("** %s **\ninput : %s\noutput : %s" % (self.type, self.input, self.output))
 
-	def request(self, inparam, outparam, isNext=False):
-		if not inparam:
-			inparam = {"InBlock": {}}
+	# TR을 전송한다.
+	def request(self, input, output, isNext=False):
+		if not input:
+			input = {"InBlock": {}}
 		if not isNext:
-			self._reset()
-			self._parseInput(inparam)
-			self._parseOutput(outparam)
-			xacom.sleep()
+			self.query.reset()
+			self._parseInput(input)
+			self._parseOutput(output)
+			Query.sleep()
 
 		#input setting
 		for k,v in self.input.items():
 			self.query.SetFieldData(self.type + self.inputName, k, 0, v)
 
-		# 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 전송수가 임시로 확장됩니다 (5개로 추정됨)
-		if XAQueryEvents.count < xacom.getMaxRequest():
-			XAQueryEvents.count += 1
-		else:
-			XAQueryEvents.count = 1
-			xacom.sleep()
-
 		#call request
-		xacom.resetTime()
+		Query.resetTime()
 		if hasattr(self, "service"):
 # 			log.info(" - Call requestService")
 			requestCode = self.query.RequestService(self.type, self.service)
@@ -118,8 +135,9 @@ class Query:
 			log.critical(xacom.parseErrorCode(requestCode))
 			return
 
-		while XAQueryEvents.status == 0:
+		while self.query.status == 0:
 			pythoncom.PumpWaitingMessages()
+			time.sleep(0.1)
 
 		#output setting
 		for k,v in self.output.items():
@@ -137,10 +155,11 @@ class Query:
 					v[col] = self.query.GetFieldData(self.type + k, col, 0)
 					if self.query.IsNext:
 						self.input[col] = v[col]
-		XAQueryEvents.status = 0
+
+		self.query.status = 0
 		if self.query.IsNext:
 			if self.callNext:
-				return self.request(inparam, outparam, True)
+				return self.request(input, output, True)
 			else:
 # 				log.debug(">>>>> [Query] 결과(callNext=False):%s" % self.output)
 				return self.output

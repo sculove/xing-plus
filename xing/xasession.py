@@ -2,17 +2,26 @@
 import pythoncom
 import win32com.client
 from com.logger import Logger
-from xing.xacom import parseErrorCode
+from xing import xacom
+import time
 log = Logger(__name__)
 
 class XASessionEvents:
-    code = -1
-    msg = None
+    def __init__(self):
+        self.code = -1
+        self.msg = None
+
+    def reset(self):
+        self.code = -1
+        self.msg = None
+
     def OnLogin(self, code, msg):
-        XASessionEvents.code = str(code);
-        XASessionEvents.msg = str(msg);
+        self.code = str(code)
+        self.msg = str(msg)
+
     def OnLogout(self):
         print("OnLogout method is called")
+
     def OnDisconnect(self):
         print("OnDisconnect method is called")
 
@@ -21,24 +30,22 @@ class Session:
         self.session = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
 
     def login(self, server, user):
-        XASessionEvents.code = -1
-        XASessionEvents.msg = None
+        self.session.reset()
         self.session.ConnectServer(server["address"], server["port"])
         self.session.Login(user["id"], user["passwd"], user["certificate_passwd"], server["type"], 0)
-        while XASessionEvents.code == -1:
+        while self.session.code == -1:
             pythoncom.PumpWaitingMessages()
-        if XASessionEvents.code == "0000":
+            time.sleep(0.1)
+
+        if self.session.code == "0000":
             log.info("로그인 성공")
             return True
         else:
-            log.critical("로그인 실패 : %s" % parseErrorCode(XASessionEvents.code))
+            log.critical("로그인 실패 : %s" % xacom.parseErrorCode(self.session.code))
             return False
 
     def logout(self):
-        if self.session.IsConnected():
-            self.session.DisconnectServer()
-        else:
-            print("로그인이 아님")
+        self.session.DisconnectServer()
 
     def account(self):
         acc = []

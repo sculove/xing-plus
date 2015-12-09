@@ -1,22 +1,3 @@
-import time
-_MAX_REQUEST = 5
-_requestTime = 0
-
-# 최대 request 개수
-def getMaxRequest():
-    return _MAX_REQUEST
-
-# 요청 시간 초기화
-def resetTime():
-    _requestTime = time.time()
-
-# 최소 요청 시간까지 sleep
-def sleep():
-    spendTime = time.time() - _requestTime
-    if spendTime < 1:
-# 			log.info("===== SLEEP...%f =====" % (1-spendTime))
-        time.sleep(1-spendTime + 0.1)
-
 # 에러코드 메시지
 def parseErrorCode(szTrCode):
     szTrCode = str(szTrCode)
@@ -57,7 +38,7 @@ def parseErrorCode(szTrCode):
     return ht[szTrCode] + " (%s)" % szTrCode if szTrCode in ht else szTrCode
 
 # 요청 전문 제목 맵핑
-def parseCode(szTrCode):
+def parseTR(szTrCode):
     ht = {
         "t0424" : "주식잔고",
         "t0425" : "주식체결/미체결",
