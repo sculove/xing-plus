@@ -62,3 +62,7 @@ Query("t1101", False).request({
 		)
 })
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sculove/xing-plus/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
