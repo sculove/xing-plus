@@ -48,7 +48,7 @@ class XAQueryEvents:
 		self.msg = None
 
 	def OnReceiveData(self, szTrCode):
-		log.debug(" - onReceiveData (%s%s)" % (szTrCode, xacom.parseTR(szTrCode)) )
+		log.debug(" - onReceiveData (%s:%s)" % (szTrCode, xacom.parseTR(szTrCode)) )
 		self.status = 1
 
 	def OnReceiveMessage(self, systemError, messageCode, message):
@@ -62,6 +62,7 @@ class Query:
 	REQUEST_COUNT = 0
 
 	# 요청 시간 초기화
+	@staticmethod
 	def resetTime():
 		# 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 전송수가 임시로 확장됩니다 (5개로 추정됨)
 		if Query.REQUEST_COUNT < Query.MAX_REQUEST:
@@ -71,6 +72,7 @@ class Query:
 			Query.sleep()
 		Query.REQUEST_TIME = time.time()
 
+	@staticmethod
 	# 최소 요청 시간까지 sleep
 	def sleep():
 		spendTime = time.time() - Query.REQUEST_TIME
