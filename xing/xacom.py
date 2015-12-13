@@ -58,6 +58,13 @@ def parseTR(szTrCode):
         "CSPAT00600" : "현물주문",
         "CSPAT00700" : "현물정정주문",
         "CSPAT00800" : "현물취소주문",
-        "CSPBQ00200" : "현물계좌 증거금률별 주문가능 수량 조회"
+        "CSPBQ00200" : "현물계좌 증거금률별 주문가능 수량 조회",
+        "HA_" : "KOSDAQ호가잔량",
+        "H1_" : "KOSPI호가잔량",
+        "SC0" : "주식주문접수",
+        "SC1" : "주식주문체결",
+        "SC2" : "주식주문정정",
+        "SC3" : "주식주문취소",
+        "SC4" : "주식주문거부"
     }
-    return ":" + ht[szTrCode] if szTrCode in ht else ""
+    return ht[szTrCode] if szTrCode in ht else ""
