@@ -5,7 +5,8 @@ from queue import Queue
 
 import pythoncom
 import win32com.client
-from com.logger import Logger
+
+from xing.logger import Logger
 
 log = Logger(__name__)
 

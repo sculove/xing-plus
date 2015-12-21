@@ -3,8 +3,9 @@ import time
 
 import pythoncom
 import win32com.client
-from com.logger import Logger
+
 from xing import xacom
+from xing.logger import Logger
 
 log = Logger(__name__)
 

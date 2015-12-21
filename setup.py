@@ -1,21 +1,23 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="xing-plus",
-    version="0.0.1",
+    version="0.0.5",
     license="MIT License",
     author="sculove",
     author_email="sculove@gmail.com",
+    url="https://github.com/sculove/xing-plus",
     keywords=["xing","stock","systemtrading"],
-    url="https://github.com/sculove/xing-plus",  # 관련 홈페이지
-    description="support more easy xing api for eBEST INVESTMENT",
+    platform="win32",
+    description="more easy eBEST INVESTMENT API",
+    long_description="xing plus supports more easy api for eBEST INVESTMENT",
     classifiers=[
-        'Development Status :: 1 - Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3'
+        "Environment :: Win32 (MS Windows)",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3"
     ],
-    install_requires=["pythoncom", "pandas", "talib"],  # 필요로 하는 패키지
-    packages=["xing", "com"]
+    packages=find_packages(),
+    package_data={"": ["*.res"]},
+    install_requires=["pandas>=0.17.0", "ta-lib>=0.4.9"]
 )

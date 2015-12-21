@@ -5,7 +5,12 @@ Xing API를 보다 쉽게 활용할수 있는 라이브러리로, 개인 취미�
  - window7 32bit
  - 이베스트 투자증권 Xing api (http://www.ebestsec.co.kr/)
  - anaconda python 3.4+ (http://continuum.io/downloads)
- - ta-lib (Technical Analysis Library) http://www.lfd.uci.edu/~gohlke/pythonlibs/
+ - ta-lib 0.4.9+ (Technical Analysis Library) http://www.lfd.uci.edu/~gohlke/pythonlibs/
+
+## Install
+```
+pip install xing-plus
+```
 
 ## 주요 객체 설명
 ### xasession
@@ -62,7 +67,3 @@ Query("t1101", False).request({
 		)
 })
 ```
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sculove/xing-plus/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-

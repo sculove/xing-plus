@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
 
-from com import util
 from pandas import DataFrame, Series
 from talib import abstract
+
+from xing import util
 from xing.xaquery import Query
 
 # https://cryptotrader.org/talib
