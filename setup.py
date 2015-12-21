@@ -1,4 +1,9 @@
+# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
+
+# https://pythonhosted.org/setuptools/setuptools.html#building-and-distributing-packages-with-setuptools
+# http://blog.dokenzy.com/archives/986
+# http://stackoverflow.com/questions/7522250/how-to-include-package-data-with-setuptools-distribute
 
 setup(
     name="xing-plus",

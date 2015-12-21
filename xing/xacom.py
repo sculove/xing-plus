@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # 에러코드 메시지
 def parseErrorCode(szTrCode):
     szTrCode = str(szTrCode)
