@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-from pandas import DataFrame
-import pythoncom
 import time
+
+import pythoncom
 import win32com.client
 from com.logger import Logger
+from pandas import DataFrame
 from xing import xacom
+
 log = Logger(__name__)
 
 '''
@@ -48,7 +50,7 @@ class XAQueryEvents:
 		self.msg = None
 
 	def OnReceiveData(self, szTrCode):
-		log.debug(" - onReceiveData (%s:%s)" % (szTrCode, xacom.parseTR(szTrCode)) )
+		log.debug(" - onReceiveData (%s:%s)" % (szTrCode, xacom.parseTR(szTrCode)))
 		self.status = 1
 
 	def OnReceiveMessage(self, systemError, messageCode, message):

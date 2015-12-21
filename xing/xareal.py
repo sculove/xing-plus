@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-import win32com.client
-import pythoncom
 import threading
-from com.logger import Logger
-from queue import Queue
 import time
+from queue import Queue
+
+import pythoncom
+import win32com.client
+from com.logger import Logger
+
 log = Logger(__name__)
 
 class XARealEvents:

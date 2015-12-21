@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import time
+
 import pythoncom
 import win32com.client
 from com.logger import Logger
 from xing import xacom
-import time
+
 log = Logger(__name__)
 
 class XASessionEvents:
