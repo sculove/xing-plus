@@ -21,76 +21,129 @@ chart = Chartdata().load("012510", Chartdata.DAY)
 	}))
 '''
 class Chartdata:
-	DAY = 9997
-	WEEK = 9998
-	MONTH = 9999
+	DAY = 99997
+	WEEK = 99998
+	MONTH = 99999
 	def __init__(self):
 		pass
 
-	def _refillDate(self, dday=2):
-		baseday = datetime.today()
-		# 장 전에는 전날과, 전전전날로 범위를 정함.
-		if util.timeType() == "BEFORE":
-			baseday = baseday - timedelta(days=1)
-		# 평일 찾기
-		while baseday.weekday() > 4:
-			baseday = baseday - timedelta(days=1)
-		if baseday.weekday() < 2:	# 월,화요일인 경우.
-			prevday = baseday - timedelta(days=dday+2)
-		else:
-			prevday = baseday - timedelta(days=dday)
-		return (prevday.strftime("%Y%m%d"), baseday.strftime("%Y%m%d"))
+	def load(self, shcode, param):
+		pass
 
-	# 차트 데이터 구하기
-	def load(self, shcode, gubun = 5, date = None):
-        # 일, 주, 월 조회
-		if gubun >= Chartdata.DAY:
-			#2:일, 3:주, 4:월
-			date = date if date else self._refillDate(120)
-			if gubun == Chartdata.DAY:
-				gubun = 2
-			elif gubun == Chartdata.WEEK:
-				gubun = 3
-			elif gubun == Chartdata.MONTH:
-				gubun = 4
-			self.df = (Query("t8413").request({
+	def loadAll(self, shcode, param):
+		pass
+
+	def _query(self, shcode, type, startdate, enddate):
+		chartType = self._getChartType(type):
+		if chartType == 0:	# 분
+			df = (Query("t8412").request({
 					"InBlock" : {
 						"shcode" : shcode,
-						"gubun" : gubun,
 						"qrycnt" : 2000,
-						"sdate" : date[0],
-						"edate" : date[1],
+						"comp_yn" : "Y",
+						"sdate" : startdate,
+						"edate" : enddate,
+						"ncnt" : type
+					}
+				},{
+					"OutBlock" : ("cts_date", "cts_time"),
+					"OutBlock1" : DataFrame(columns=("date", "time", "open", "high", "low", "close", "jdiff_vol","sign"))
+			}))["OutBlock1"]
+		else:
+			df = (Query("t8413").request({
+					"InBlock" : {
+						"shcode" : shcode,
+						"gubun" : chartType,
+						"qrycnt" : 2000,
+						"sdate" : startdate,
+						"edate" : enddate,
 						"comp_yn" : "Y"
 					}
 				},{
 					"OutBlock" : ("cts_date",),
 					"OutBlock1" : DataFrame(columns=("date", "open", "high", "low", "close", "jdiff_vol","sign"))
 			}))["OutBlock1"]
-		else:
-            # 분조회
-			date = date if date else self._refillDate()
-			self.df = (Query("t8412").request({
-					"InBlock" : {
-						"shcode" : shcode,
-						"qrycnt" : 2000,
-						"comp_yn" : "Y",
-						"sdate" : date[0],
-						"edate" : date[1],
-						"ncnt" : gubun
-					}
-				},{
-					"OutBlock" : ("cts_date", "cts_time"),
-					"OutBlock1" : DataFrame(columns=("date", "time", "open", "high", "low", "close", "jdiff_vol","sign"))
-			}))["OutBlock1"]
+		return df
 
-		self.data = {
-			"open" : self.df["open"].astype(float),
-			"high" : self.df["high"].astype(float),
-			"low" : self.df["low"].astype(float),
-			"close" : self.df["close"].astype(float),
-			"volume" : self.df["jdiff_vol"].astype(float)
-		}
-		return self
+
+	# 2: 일, 3: 주, 4: 월
+	def _getChartType(self, type):
+		chartType = 0
+		if type >= Chartdata.DAY:
+			if chartType == Chartdata.DAY:
+				chartType = 2
+			elif chartType == Chartdata.WEEK:
+				chartType = 3
+			elif chartType == Chartdata.MONTH:
+				chartType = 4
+		return chartType
+
+
+
+
+	# def _refillDate(self, dday=2):
+	# 	baseday = datetime.today()
+	# 	# 장 전에는 전날과, 전전전날로 범위를 정함.
+	# 	if util.timeType() == "BEFORE":
+	# 		baseday = baseday - timedelta(days=1)
+	# 	# 평일 찾기
+	# 	while baseday.weekday() > 4:
+	# 		baseday = baseday - timedelta(days=1)
+	# 	if baseday.weekday() < 2:	# 월,화요일인 경우.
+	# 		prevday = baseday - timedelta(days=dday+2)
+	# 	else:
+	# 		prevday = baseday - timedelta(days=dday)
+	# 	return (prevday.strftime("%Y%m%d"), baseday.strftime("%Y%m%d"))
+
+	# def load(self, shcode, gubun = 5, date = None):
+ #        # 일, 주, 월 조회
+	# 	if gubun >= Chartdata.DAY:
+	# 		#2:일, 3:주, 4:월
+	# 		date = date if date else self._refillDate(120)
+	# 		if gubun == Chartdata.DAY:
+	# 			gubun = 2
+	# 		elif gubun == Chartdata.WEEK:
+	# 			gubun = 3
+	# 		elif gubun == Chartdata.MONTH:
+	# 			gubun = 4
+	# 		self.df = (Query("t8413").request({
+	# 				"InBlock" : {
+	# 					"shcode" : shcode,
+	# 					"gubun" : gubun,
+	# 					"qrycnt" : 2000,
+	# 					"sdate" : date[0],
+	# 					"edate" : date[1],
+	# 					"comp_yn" : "Y"
+	# 				}
+	# 			},{
+	# 				"OutBlock" : ("cts_date",),
+	# 				"OutBlock1" : DataFrame(columns=("date", "open", "high", "low", "close", "jdiff_vol","sign"))
+	# 		}))["OutBlock1"]
+	# 	else:
+ #            # 분조회
+	# 		date = date if date else self._refillDate()
+	# 		self.df = (Query("t8412").request({
+	# 				"InBlock" : {
+	# 					"shcode" : shcode,
+	# 					"qrycnt" : 2000,
+	# 					"comp_yn" : "Y",
+	# 					"sdate" : date[0],
+	# 					"edate" : date[1],
+	# 					"ncnt" : gubun
+	# 				}
+	# 			},{
+	# 				"OutBlock" : ("cts_date", "cts_time"),
+	# 				"OutBlock1" : DataFrame(columns=("date", "time", "open", "high", "low", "close", "jdiff_vol","sign"))
+	# 		}))["OutBlock1"]
+
+	# 	self.data = {
+	# 		"open" : self.df["open"].astype(float),
+	# 		"high" : self.df["high"].astype(float),
+	# 		"low" : self.df["low"].astype(float),
+	# 		"close" : self.df["close"].astype(float),
+	# 		"volume" : self.df["jdiff_vol"].astype(float)
+	# 	}
+	# 	return self
 
 	# 지표 계산
 	def process(self, param):
