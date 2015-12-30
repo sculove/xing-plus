@@ -10,35 +10,77 @@ from xing.xaquery import Query
 # https://cryptotrader.org/talib
 # https://github.com/mrjbq7/ta-lib
 '''
-chart = Chartdata().load("012510", Chartdata.DAY)
-	print(chart.process({
-		"SMA" : [ 5, 10, 20, 60],
-		"BBANDS" : [20, 2],	#period, 승수
-		# "ATR" : 14,	#period
-		# "STOCH" : [ 5, 3, 0],	#K period, D period, D type
-		# "MACD" : [12, 26, 9],  # short, long, signal
-		# "RSI" : 14,  # period
-	}))
+chart = Chartdata("012510").load({
+		Chartdata.DAY : [ startdate , enddate ]
+		Chartdata.WEEK : [ startdate , enddate ]
+		Chartdata.MONTH : [ startdate , enddate ]
+		1 : [ startdate , enddate ]
+	})
+print(chart.process({
+	"SMA" : [ 5, 10, 20, 60],
+	"BBANDS" : [20, 2],	#period, 승수
+	# "ATR" : 14,	#period
+	# "STOCH" : [ 5, 3, 0],	#K period, D period, D type
+	# "MACD" : [12, 26, 9],  # short, long, signal
+	# "RSI" : 14,  # period
+}))
 '''
 class Chartdata:
 	DAY = 99997
 	WEEK = 99998
 	MONTH = 99999
-	def __init__(self):
+	def __init__(self, shcode):
+		self._shcode = shcode
+		self._data = {}
+
+	def clean(self, type = None):
+		if type and type in self._data:
+			self._data[type] = None
+		else:
+			self._data = {}
+
+
+	def load(self, param):
+		p = self._parseParam(param)
+		for k,v in p.items():
+			if k in self._data:
+				lastrow = self._data[k].iloc[len(self._data[k])-1]
+				df = self._query(shcode, k, lastrow["date"], p[k][1])
+				# @todo 합치기 ()
+				# 기존 date 정보를 다 지우고 새로 받은 df와 합치기
+
+			else:
+				self._data[k] = self._query(shcode, k, p[k][0], p[k][1])
 		pass
 
-	def load(self, shcode, param):
-		pass
+	"""
+        Chartdata.DAY : [ "20100101", "20101231"],
+        Chartdata.MONTH : ("20100101", "20101231"),
+        Chartdata.WEEK : [ "20100101" ],
+        5 : ["2010"],
+        12 : ("2010",),
+        15 : "2010",
+        30 : ""
+    """
+	def _parseParam(param):
+		result = {}
+	    for k,v in param.items():
+	        if isinstance(v, (list, tuple)):
+	            if len(v) < 2:
+	                result[k] = [v[0], "99999999"]
+	            else:
+	                result[k] = v[:2]
+	        else:
+	            result[k] = [v, "99999999"]
+	    return result
 
-	def loadAll(self, shcode, param):
-		pass
 
-	def _query(self, shcode, type, startdate, enddate):
+	def _query(self, type, startdate = "", enddate = "99999999"):
 		chartType = self._getChartType(type):
 		if chartType == 0:	# 분
-			df = (Query("t8412").request({
+			df = (Query("t8412", True).request({
 					"InBlock" : {
-						"shcode" : shcode,
+						"shcode" : self._shcode,
 						"qrycnt" : 2000,
 						"comp_yn" : "Y",
 						"sdate" : startdate,
@@ -50,9 +92,9 @@ class Chartdata:
 					"OutBlock1" : DataFrame(columns=("date", "time", "open", "high", "low", "close", "jdiff_vol","sign"))
 			}))["OutBlock1"]
 		else:
-			df = (Query("t8413").request({
+			df = (Query("t8413", True).request({
 					"InBlock" : {
-						"shcode" : shcode,
+						"shcode" : self._shcode,
 						"gubun" : chartType,
 						"qrycnt" : 2000,
 						"sdate" : startdate,
