@@ -74,7 +74,13 @@ class Chartdata:
                 else:
                     # 마지막 날짜의 데이터 삭제 후 추가 정보 합치기
                     df = self._data[k][self._data[k].date != lastDate]
-                    self._data[k] = df.append(self._query(k, lastDate, p[k][1]), ignore_index=True)
+                    appendDf = self._query(k, lastDate, p[k][1])
+                    dfLen = len(df)
+                    for i in range(len(appendDf)):
+                        for col in list(df.columns.values):
+                            df.set_value(dfLen + i, col, appendDf.get_value(i, col))
+                    self._data[k] = df
+                    # self._data[k] = df.append(self._query(k, lastDate, p[k][1]), ignore_index=True)
             else:
                 print("----new")
                 self._data[k] = self._query(k, p[k][0], p[k][1])
