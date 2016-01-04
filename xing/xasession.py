@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import time
-
 import pythoncom
 import win32com.client
 
 from xing import xacom
+from xing.xaquery import Query
 from xing.logger import Logger
 
 log = Logger(__name__)
@@ -59,3 +59,17 @@ class Session:
                 "detailName" : self.session.GetAcctDetailName(p)
             })
         return acc
+
+    # 서버에 시간을 조회해서 서버 연결여부를 확인한다.
+    # 연결될 경우, time과 dt를 포함한 dictionary를 반환한다. 연결이 끊어졌을 경우, None을 반환
+    def heartbeat(self):
+        result = Query("t0167").request(input=None, output={
+            "OutBlock" : ("dt","time")
+        })
+        if result:
+            return {
+                "time" : result["OutBlock"]["time"][:6],
+                "dt" : result["OutBlock"]["dt"]
+            }
+        else:
+            return None

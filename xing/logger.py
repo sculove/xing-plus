@@ -30,6 +30,6 @@ def Logger(name):
 
 class LoggerSetting:
     LEVEL = "DEBUG"
-    FILE ="everyday3per.log"
+    FILE ="xingplus.log"
     MAX_BYTE = 10
     BACK_COUNT = 10

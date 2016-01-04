@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timedelta
-
 from pandas import DataFrame, Series
 from talib import abstract
-
-from xing import util
 from xing.xaquery import Query
 
 # https://cryptotrader.org/talib
@@ -13,17 +9,16 @@ from xing.xaquery import Query
 chart = Chartdata("012510").load({
         Chartdata.DAY : [ startdate , enddate ]
         Chartdata.WEEK : [ startdate , enddate ]
-        Chartdata.MONTH : [ startdate , enddate ]
-        1 : [ startdate , enddate ]
+        Chartdata.MONTH : [ startdate ]
+        1 : startdate
+    }).process({
+        "SMA" : [ 5, 10, 20, 60],
+        "BBANDS" : [20, 2],	#period, 승수
+        "ATR" : 14,	#period
+        "STOCH" : [ 5, 3, 0],	#K period, D period, D type
+        "MACD" : [12, 26, 9],  # short, long, signal
+        "RSI" : 14,  # period
     })
-print(chart.process({
-    "SMA" : [ 5, 10, 20, 60],
-    "BBANDS" : [20, 2],	#period, 승수
-    # "ATR" : 14,	#period
-    # "STOCH" : [ 5, 3, 0],	#K period, D period, D type
-    # "MACD" : [12, 26, 9],  # short, long, signal
-    # "RSI" : 14,  # period
-}))
 '''
 class Chartdata:
     DAY = 99997
@@ -32,12 +27,6 @@ class Chartdata:
     def __init__(self, shcode):
         self._shcode = shcode
         self._data = {}
-
-    def clean(self, type = None):
-        if type and type in self._data:
-            self._data[type] = None
-        else:
-            self._data = {}
 
     '''
         Chartdata.DAY : [ "20100101", "20101231"],
@@ -65,12 +54,10 @@ class Chartdata:
     def load(self, param):
         p = self._parseParam(param)
         for k,v in p.items():
-            print("#############", k)
             if k in self._data:
-                print("----update")
                 lastDate = self._data[k].iloc[len(self._data[k])-1]["date"]
                 if lastDate >= p[k][1]:
-                    print("스킵",lastDate, p[k][1])
+                    print("skip...",lastDate, p[k][1])
                     pass
                 else:
                     # 마지막 날짜의 데이터 삭제 후 추가 정보 합치기
@@ -82,7 +69,6 @@ class Chartdata:
                             df.set_value(dfLen + i, col, appendDf.get_value(i, col))
                     self._data[k] = df
             else:
-                print("----new")
                 self._data[k] = self._query(k, p[k][0], p[k][1])
             print(self._data[k])
         return self
@@ -120,7 +106,6 @@ class Chartdata:
             }))["OutBlock1"]
         return df
 
-
     # 2: 일, 3: 주, 4: 월
     def _getChartType(self, type):
         chartType = 0
@@ -132,31 +117,6 @@ class Chartdata:
             elif type == Chartdata.MONTH:
                 chartType = 4
         return chartType
-
-
-
-
-    # def _refillDate(self, dday=2):
-    # 	baseday = datetime.today()
-    # 	# 장 전에는 전날과, 전전전날로 범위를 정함.
-    # 	if util.timeType() == "BEFORE":
-    # 		baseday = baseday - timedelta(days=1)
-    # 	# 평일 찾기
-    # 	while baseday.weekday() > 4:
-    # 		baseday = baseday - timedelta(days=1)
-    # 	if baseday.weekday() < 2:	# 월,화요일인 경우.
-    # 		prevday = baseday - timedelta(days=dday+2)
-    # 	else:
-    # 		prevday = baseday - timedelta(days=dday)
-    # 	return (prevday.strftime("%Y%m%d"), baseday.strftime("%Y%m%d"))
-    # 	self.data = {
-    # 		"open" : self.df["open"].astype(float),
-    # 		"high" : self.df["high"].astype(float),
-    # 		"low" : self.df["low"].astype(float),
-    # 		"close" : self.df["close"].astype(float),
-    # 		"volume" : self.df["jdiff_vol"].astype(float)
-    # 	}
-    # 	return self
 
     # 지표 계산
     def process(self, param):
@@ -204,8 +164,16 @@ class Chartdata:
 
         return self
 
+    # 데이터 얻음
     def get(self, type):
         if type:
             return self._data[type]
         else:
             return self._data
+
+    # 특정 데이터를 삭제한다.
+    def clean(self, type = None):
+        if type and type in self._data:
+            self._data[type] = None
+        else:
+            self._data = {}

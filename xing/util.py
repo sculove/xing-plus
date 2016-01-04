@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
+from datetime import datetime, timedelta
 import math
 import pandas
 
@@ -8,7 +8,6 @@ def timeType(today = None):
 	today = today if today else datetime.today()
 	mainStart = today.replace(hour=8, minute=50, second=0, microsecond=0)
 	mainEnd = today.replace(hour=15, minute=0, second=0, microsecond=0)
-
 	if today.weekday() < 5:
 		if today >= mainStart and today <= mainEnd:
 			return "SHOWTIME"
@@ -20,8 +19,17 @@ def timeType(today = None):
 	else:
 		return "NONE"
 
+# 오늘 날자를 구함.
 def today():
 	return datetime.today().strftime("%Y%m%d")
+
+# 가장 최근 영업일을 구함.
+def latestBusinessDay():
+	baseday = datetime.today()
+	if baseday.weekday() > 4:
+		while baseday.weekday() > 4:
+			baseday = baseday - timedelta(days=1)
+	return baseday.strftime("%Y%m%d")
 
 # def printMax(x):
 # 	pandas.set_option("display.max_rows", len(x))
