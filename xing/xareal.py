@@ -10,7 +10,7 @@ from xing.logger import Logger
 
 log = Logger(__name__)
 
-class XARealEvents:
+class _XARealEvents:
     def __init__(self):
         self.queue = None
         self.outputStyle = None
@@ -35,7 +35,7 @@ Real("SC1", ("eventid", "ordxctptncode", "ordmktcode", "ordptncode", "mgmtbrnno"
 class Real(threading.Thread):
     def __init__(self, type, outputStyle, queue):
         threading.Thread.__init__(self)
-        self.real = win32com.client.DispatchWithEvents("XA_DataSet.XAReal", XARealEvents)
+        self.real = win32com.client.DispatchWithEvents("XA_DataSet.XAReal", _XARealEvents)
         self.real.LoadFromResFile("res/" + type + ".res")
         self.real.queue = queue
         self.real.outputStyle = outputStyle

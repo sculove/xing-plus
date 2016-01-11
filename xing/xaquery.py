@@ -1,45 +1,13 @@
 # -*- coding: utf-8 -*-
 import time
-
 import pythoncom
 import win32com.client
 from pandas import DataFrame
-
 from xing import xacom
 from xing.logger import Logger
 
 log = Logger(__name__)
-
-'''
-Query("t8407").request({
-		"InBlock" : {
-			"nrec" : len(codes),
-			"shcode" : "".join(codes)
-		}
-	},{
-		"OutBlock1" : DataFrame(columns=("shcode","hname","price","open","high","low","sign","change","diff","volume"))
-});
-Query("t1101", False).request({
-		"InBlock" : {
-			"shcode" : shcode
-		}
-	},{
-		"OutBlock" : ("hname","price", "sign", "change", "diff", "volume", "jnilclose",
-			"offerho1", "bidho1", "offerrem1", "bidrem1", "preoffercha1","prebidcha1",
-			"offerho2", "bidho2", "offerrem2", "bidrem2", "preoffercha2","prebidcha2",
-			"offerho3", "bidho3", "offerrem3", "bidrem3", "preoffercha3","prebidcha3",
-			"offerho4", "bidho4", "offerrem4", "bidrem4", "preoffercha4","prebidcha4",
-			"offerho5", "bidho5", "offerrem5", "bidrem5", "preoffercha5","prebidcha5",
-			"offerho6", "bidho6", "offerrem6", "bidrem6", "preoffercha6","prebidcha6",
-			"offerho7", "bidho7", "offerrem7", "bidrem7", "preoffercha7","prebidcha7",
-			"offerho8", "bidho8", "offerrem8", "bidrem8", "preoffercha8","prebidcha8",
-			"offerho9", "bidho9", "offerrem9", "bidrem9", "preoffercha9","prebidcha9",
-			"offerho10", "bidho10", "offerrem10", "bidrem10", "preoffercha10","prebidcha10",
-			"offer", "bid", "preoffercha", "prebidcha", "uplmtprice", "dnlmtprice", "open", "high", "low", "ho_status", "hotime"
-		)
-})
-'''
-class XAQueryEvents:
+class _XAQueryEvents:
 	def __init__(self):
 		self.status = 0
 		self.code = None
@@ -60,32 +28,49 @@ class XAQueryEvents:
 		log.debug(" - OnReceiveMessage (%s:%s)" % (self.code, self.msg))
 
 class Query:
-	MAX_REQUEST = 5
-	REQUEST_TIME = 0
-	REQUEST_COUNT = 0
+	"""TR 조회를 위한 XAQuery 확장 클래스
 
-	# 요청 시간 초기화
+		:param str type: TR 번호
+		:param bool callNext: callNext가 False인 경우, 한번만 조회, True일 경우, 다음(occur)이 있으면 계속 조회 (기본값은 True)
+
+
+		::
+
+			Query("t8407")
+			Query("t1101", False)
+	"""
+	_MAX_REQUEST = 5
+	_REQUEST_TIME = 0
+	_REQUEST_COUNT = 0
+
 	@staticmethod
-	def resetTime():
-		# 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 전송수가 임시로 확장됩니다 (5개로 추정됨)
-		if Query.REQUEST_COUNT < Query.MAX_REQUEST:
-			Query.REQUEST_COUNT += 1
+	def _sleepTime():
+		"""요청 시간 초기화
+
+		연속조회 가능한 수보다 초과할 경우, 요청이 가능할때까지 sleep
+		"""
+		if Query._REQUEST_COUNT < Query._MAX_REQUEST:
+			Query._REQUEST_COUNT += 1
 		else:
-			Query.REQUEST_COUNT = 1
+			Query._REQUEST_COUNT = 1
 			Query.sleep()
-		Query.REQUEST_TIME = time.time()
+		Query._REQUEST_TIME = time.time()
 
 	@staticmethod
-	# 최소 요청 시간까지 sleep
 	def sleep():
-		spendTime = time.time() - Query.REQUEST_TIME
+		"""최소 TR 요청 시간까지 sleep
+
+		직전 TR 호출 경과시간이 1초 미만일 경우, 1초가 경과할때까지 sleep
+
+		.. note:: 일반적으로는 1초에 하나의 TR만 전송 가능함. 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 요청 수가 임시로 5개로 확장된다.
+		"""
+		spendTime = time.time() - Query._REQUEST_TIME
 		if spendTime < 1:
 			log.info("===== SLEEP...%f =====" % (1-spendTime))
 			time.sleep(1-spendTime + 0.1)
 
-	# callNext가 false일 경우, 한번만 조회, true일 경우, 다음이 있으면 계속 조회
 	def __init__(self, type, callNext = True):
-		self.query = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", XAQueryEvents)
+		self.query = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", _XAQueryEvents)
 		self.query.LoadFromResFile("res/" + type + ".res")
 		self.type = type;
 		self.callNext = callNext;
@@ -116,6 +101,48 @@ class Query:
 
 	# TR을 전송한다.
 	def request(self, input, output, isNext=False):
+		"""TR을 요청한다.
+
+		:param input: TR의 input block 정보
+		:param output: TR의 output block 정보. output block을 여러개가 존재할 수 있으며, DataFrame타입일 경우, occur 데이터를 반환한다.
+		:param isNext: 연속 조회를 사용하기 위한 내부 파라미터로서 직접 사용하지 않는다.
+
+
+		::
+
+				Query("t8407").request({
+			 		"InBlock" : {
+			 			"nrec" : len(codes),
+			 			"shcode" : "".join(codes)
+			 		}
+			 	},{
+			 		"OutBlock1" : DataFrame(columns=("shcode","hname","price","open","high",
+							"low","sign","change","diff","volume"))
+				})
+
+				Query("t1101", False).request({
+			 		"InBlock" : {
+			 			"shcode" : shcode
+			 		}
+				},{
+			 		"OutBlock" : ("hname","price", "sign", "change", "diff", "volume", "jnilclose",
+			 		"offerho1", "bidho1", "offerrem1", "bidrem1", "preoffercha1","prebidcha1",
+			 		"offerho2", "bidho2", "offerrem2", "bidrem2", "preoffercha2","prebidcha2",
+			 		"offerho3", "bidho3", "offerrem3", "bidrem3", "preoffercha3","prebidcha3",
+			 		"offerho4", "bidho4", "offerrem4", "bidrem4", "preoffercha4","prebidcha4",
+			 		"offerho5", "bidho5", "offerrem5", "bidrem5", "preoffercha5","prebidcha5",
+			 		"offerho6", "bidho6", "offerrem6", "bidrem6", "preoffercha6","prebidcha6",
+			 		"offerho7", "bidho7", "offerrem7", "bidrem7", "preoffercha7","prebidcha7",
+			 		"offerho8", "bidho8", "offerrem8", "bidrem8", "preoffercha8","prebidcha8",
+			 		"offerho9", "bidho9", "offerrem9", "bidrem9", "preoffercha9","prebidcha9",
+			 		"offerho10", "bidho10", "offerrem10", "bidrem10", "preoffercha10","prebidcha10",
+			 		"offer", "bid", "preoffercha", "prebidcha", "uplmtprice", "dnlmtprice",
+			              "open", "high", "low", "ho_status", "hotime"
+			 		)
+				})
+
+		"""
+
 		if not input:
 			input = {"InBlock": {}}
 		if not isNext:
@@ -129,7 +156,7 @@ class Query:
 			self.query.SetFieldData(self.type + self.inputName, k, 0, v)
 
 		#call request
-		Query.resetTime()
+		Query._sleepTime()
 		if hasattr(self, "service"):
 # 			log.info(" - Call requestService")
 			requestCode = self.query.RequestService(self.type, self.service)

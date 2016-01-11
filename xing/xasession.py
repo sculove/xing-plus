@@ -9,7 +9,7 @@ from xing.logger import Logger
 
 log = Logger(__name__)
 
-class XASessionEvents:
+class _XASessionEvents:
     def __init__(self):
         self.code = -1
         self.msg = None
@@ -30,7 +30,7 @@ class XASessionEvents:
 
 class Session:
     def __init__(self):
-        self.session = win32com.client.DispatchWithEvents("XA_Session.XASession", XASessionEvents)
+        self.session = win32com.client.DispatchWithEvents("XA_Session.XASession", _XASessionEvents)
 
     def login(self, server, user):
         self.session.reset()

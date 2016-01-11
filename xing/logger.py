@@ -3,6 +3,9 @@ import logging.handlers
 
 # http://victorlin.me/posts/2012/08/26/good-logging-practice-in-python
 def Logger(name):
+    """ 파일로그 클래스
+    """
+
     # 로거 인스턴스를 만든다
     log = logging.getLogger(name)
         # 환경변수를 읽어서 로깅 레벨과 로그를 남길 파일의 경로를 변수에 저장한다
@@ -29,6 +32,8 @@ def Logger(name):
     return log
 
 class LoggerSetting:
+    """ 파일로그 환경을 설정하는 클래스
+    """
     LEVEL = "DEBUG"
     FILE ="xingplus.log"
     MAX_BYTE = 10
