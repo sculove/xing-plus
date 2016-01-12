@@ -3,8 +3,9 @@ from datetime import datetime, timedelta
 import math
 import pandas
 
-# 장 전,후 시간
 def timeType(today = None):
+	"""장 전,후 시간을 반환
+	"""
 	today = today if today else datetime.today()
 	mainStart = today.replace(hour=8, minute=50, second=0, microsecond=0)
 	mainEnd = today.replace(hour=15, minute=0, second=0, microsecond=0)
@@ -19,12 +20,14 @@ def timeType(today = None):
 	else:
 		return "NONE"
 
-# 오늘 날자를 구함.
 def today():
+	"""오늘 날자를 반환
+	"""
 	return datetime.today().strftime("%Y%m%d")
 
-# 가장 최근 영업일을 구함.
 def latestBusinessDay():
+	"""가장 최근 영업일을 반환
+	"""
 	baseday = datetime.today()
 	if baseday.weekday() > 4:
 		while baseday.weekday() > 4:

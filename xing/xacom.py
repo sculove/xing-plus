@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-# 에러코드 메시지
 def parseErrorCode(szTrCode):
+    """에러코드 메시지
+
+    ::
+        parseErrorCode("00310") # 모의투자 조회가 완료되었습니다
+    """
     szTrCode = str(szTrCode)
     ht = {
         "-1" : "통신소켓 생성에 실패하였습니다",
@@ -38,8 +42,9 @@ def parseErrorCode(szTrCode):
     }
     return ht[szTrCode] + " (%s)" % szTrCode if szTrCode in ht else szTrCode
 
-# 요청 전문 제목 맵핑
 def parseTR(szTrCode):
+    """요청 TR 코드 파싱
+    """
     ht = {
         "t0424" : "주식잔고",
         "t0425" : "주식체결/미체결",
@@ -70,10 +75,12 @@ def parseTR(szTrCode):
     }
     return ht[szTrCode] if szTrCode in ht else ""
 
-# 장 운영시간
-# -코스피로 장시간을 확인해야함.
-# -성물/옵션 장마감 5분전, 1분전, 10초전은 들어오지 않음
 def parseJstatus(jstatus):
+    """장 운영시간 파싱
+
+        - 코스피로 장시간을 확인해야함.
+        - 선물/옵션 장마감 5분전, 1분전, 10초전은 들어오지 않음
+    """
     ht = {
         "11" : "장전동시호가개시",
         "21" : "장시작",
@@ -99,8 +106,9 @@ def parseJstatus(jstatus):
     }
     return ht[jstatus] if jstatus in ht else ""
 
-# 장 구분
 def parseMarket(jangubun):
+    """장 구분
+    """
     ht = {
         "1" : "코스피",
         "2" : "코스닥",
