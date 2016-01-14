@@ -5,25 +5,25 @@ from xing.xaquery import Query
 
 # https://cryptotrader.org/talib
 # https://github.com/mrjbq7/ta-lib
-'''
-chart = Chartdata("012510").load({
-        Chartdata.DAY : [ startdate , enddate ]
-        Chartdata.WEEK : [ startdate , enddate ]
-        Chartdata.MONTH : [ startdate ]
-        1 : startdate
-    }).process({
-        "SMA" : [ 5, 10, 20, 60],
-        "BBANDS" : [20, 2],	#period, 승수
-        "ATR" : 14,	#period
-        "STOCH" : [ 5, 3, 0],	#K period, D period, D type
-        "MACD" : [12, 26, 9],  # short, long, signal
-        "RSI" : 14,  # period
-    })
-'''
 class Chartdata:
+    """차트 데이터를 추출 및 관리하고, 이를 통해 보조지표를 생성하는 클래스
+
+        :param shcode: 종목 코드
+        :type shcode: str
+
+    ::
+
+        chart = Chartdata("012510")
+    """
     DAY = 99997
+    """Chartdata '일'에 대한 상수
+    """
     WEEK = 99998
+    """Chartdata '주'에 대한 상수
+    """
     MONTH = 99999
+    """Chartdata '월'에 대한 상수
+    """
     def __init__(self, shcode):
         self._shcode = shcode
         self._data = {}
@@ -50,8 +50,25 @@ class Chartdata:
                 p[k] = [v, "99999999"]
         return p
 
-    # 차트 데이터를 조회하여 누적한다.
     def load(self, param):
+        """차트 데이터를 조회하여 누적한다.
+
+            :param param: 조회할 차트 종류(분,일,월,주)와 조회할 기간
+            :type param: object { 조회할차트정보 : [시작일(yyyymmdd), 종료일(yyyymmdd)]}
+            :return: self
+
+            .. note:: 한번 load한 데이터는 load는 clean 하지 않는 이상, 기존 데이터를 갱신하지 않고, 존재하지 않는 기간만 추가한다.
+
+            ::
+
+                chart = Chartdata("012510")
+                chart.load({
+                    Chartdata.DAY : [ startdate , enddate ]
+                    Chartdata.WEEK : [ startdate , enddate ]
+                    Chartdata.MONTH : [ startdate ]
+                    1 : startdate
+                })
+        """
         p = self._parseParam(param)
         for k,v in p.items():
             if k in self._data:
@@ -120,6 +137,24 @@ class Chartdata:
 
     # 지표 계산
     def process(self, param):
+        """load에 의해 누적된 데이터를 기준으로 보조 지표를 계산한다.
+
+            :param param: 보조지표 정보를 전달한다.
+            :type param: object { "SMA" : [], "BBANDS" : [], "ATR" : number, "STOCH" : [], "MACD" : [], "RSI" : number }
+
+            .. warning:: process는 load 이후에 호출되어야 의미가 있다.
+
+        ::
+
+            chart.process({
+                "SMA" : [ 5, 10, 20, 60],   # 이동평균선
+                "BBANDS" : [20, 2], #볼랜져 밴드 period, 승수
+                "ATR" : 14, #ATR 지표 period
+                "STOCH" : [ 5, 3, 0],   #스토케스틱 K period, D period, D type
+                "MACD" : [12, 26, 9],  # short, long, signal
+                "RSI" : 14,  # period
+            })
+        """
         for k,v in self._data.items():
             data = {
                 "open" : v["open"].astype(float),
@@ -164,15 +199,40 @@ class Chartdata:
 
         return self
 
-    # 데이터 얻음
-    def get(self, type):
+    def get(self, type = None):
+        """load와 process에 의해 처리된 데이터를 반환한다.
+
+            :param type: 차트의 종류 (예, 일,주,월,1분, 5분, ...). 기본값은 None
+            :type type: str, int
+            :return: 데이터를 반환한다.
+            :rtype: DataFrame, None
+
+        ::
+
+            chart.get() # 전체 데이터를 반환한다.
+            chart.get(5)    # 5분 차트 데이터를 반환한다.
+            chart.get(Chartdata.DAY)    # 일 차트 데이터를 반환한다.
+        """
         if type:
-            return self._data[type]
+            if type in self._data:
+                return self._data[type]
+            else:
+                return None
         else:
             return self._data
 
-    # 특정 데이터를 삭제한다.
     def clean(self, type = None):
+        """load와 process에 의해 처리된 데이터를 삭제한다.
+
+            :param type: 차트의 종류 (예, 일,주,월,1분, 5분, ...). 기본값 None
+            :type type: str, int
+
+        ::
+
+            chart.clean() # 전체 데이터를 삭제한다.
+            chart.clean(5)    # 5분 차트 데이터를 삭제한다.
+            chart.get(Chartdata.DAY)    # 일 차트 데이터를 삭제한다.
+        """
         if type and type in self._data:
             self._data[type] = None
         else:

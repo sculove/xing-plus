@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="xing-plus",
-    version="0.0.5",
+    version="1.0.0",
     license="MIT License",
     author="sculove",
     author_email="sculove@gmail.com",

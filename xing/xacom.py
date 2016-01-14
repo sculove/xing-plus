@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
-def parseErrorCode(szTrCode):
+def parseErrorCode(code):
     """에러코드 메시지
 
-    ::
-        parseErrorCode("00310") # 모의투자 조회가 완료되었습니다
+        :param code: 에러 코드
+        :type code: str
+        :return: 에러코드 메시지를 반환
+
+        ::
+
+            parseErrorCode("00310") # 모의투자 조회가 완료되었습니다
     """
-    szTrCode = str(szTrCode)
+    code = str(code)
     ht = {
         "-1" : "통신소켓 생성에 실패하였습니다",
         "-2" : "서버접속에 실패하였습니다",
@@ -40,10 +45,18 @@ def parseErrorCode(szTrCode):
         "03669" : "비밀번호 오류입니다. (5회중 4회 남았습니다)",
         "01796" : "비밀번호 연속 오류허용횟수를 초과하였습니다. 콜센터로 문의하시기 바랍니다"
     }
-    return ht[szTrCode] + " (%s)" % szTrCode if szTrCode in ht else szTrCode
+    return ht[code] + " (%s)" % code if code in ht else code
 
-def parseTR(szTrCode):
+def parseTR(trCode):
     """요청 TR 코드 파싱
+
+        :param trCode: TR 코드
+        :type trCode: str
+        :return: TR코드 내역을 반환
+
+        ::
+
+            parseTR("t0425") # 주식체결/미체결
     """
     ht = {
         "t0424" : "주식잔고",
@@ -73,13 +86,23 @@ def parseTR(szTrCode):
         "SC3" : "주식주문취소",
         "SC4" : "주식주문거부"
     }
-    return ht[szTrCode] if szTrCode in ht else ""
+    return ht[trCode] if trCode in ht else ""
 
 def parseJstatus(jstatus):
     """장 운영시간 파싱
 
-        - 코스피로 장시간을 확인해야함.
-        - 선물/옵션 장마감 5분전, 1분전, 10초전은 들어오지 않음
+        :param jstatus: 장 운영시간 코드
+        :type jstatus: str
+        :return: 장 운영시간 내역을 반환
+
+        ::
+
+            parseJstatus("66") # 사이드카 매수발동
+
+        .. note::
+
+            - 코스피로 장시간을 확인해야함.
+            - 선물/옵션 장마감 5분전, 1분전, 10초전은 들어오지 않음
     """
     ht = {
         "11" : "장전동시호가개시",
@@ -108,6 +131,14 @@ def parseJstatus(jstatus):
 
 def parseMarket(jangubun):
     """장 구분
+
+        :param jangubun: 시장 구분 코드
+        :type jangubun: str
+        :return: 시장 내역을 반환
+
+        ::
+
+            parseMarket("1") # 코스피
     """
     ht = {
         "1" : "코스피",
