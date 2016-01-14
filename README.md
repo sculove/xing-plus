@@ -8,6 +8,7 @@ Xing API를 보다 쉽게 활용할수 있는 라이브러리로, 개인 취미�
  - ta-lib 0.4.9+ (Technical Analysis Library) http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 ## Install
+https://pypi.python.org/pypi/xing-plus/
 ```
 pip install xing-plus
 ```
