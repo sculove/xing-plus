@@ -13,3 +13,4 @@ pip install xing-plus
 ```
 
 ## API 문서
+http://sculove.github.io/xing-plus/
