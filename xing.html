@@ -1,0 +1,1031 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>xing-plus package &mdash; xing-plus 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="xing-plus 1.0.0 documentation" href="index.html"/>
+        <link rel="prev" title="Welcome to xing-plus’s documentation!" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> xing-plus
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">xing-plus package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-xing.xachartdata">xing.xachartdata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xing.xaquery">xing.xaquery module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xing.xareal">xing.xareal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xing.xasession">xing.xasession module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xing.xacom">xing.xacom module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xing.logger">xing.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-xing.util">xing.util module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">xing-plus</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>xing-plus package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/xing.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xing-plus-package">
+<h1>xing-plus package<a class="headerlink" href="#xing-plus-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-xing.xachartdata">
+<span id="xing-xachartdata-module"></span><h2>xing.xachartdata module<a class="headerlink" href="#module-xing.xachartdata" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xing.xachartdata.Chartdata">
+<em class="property">class </em><code class="descclassname">xing.xachartdata.</code><code class="descname">Chartdata</code><span class="sig-paren">(</span><em>shcode</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xachartdata.Chartdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>차트 데이터를 추출 및 관리하고, 이를 통해 보조지표를 생성하는 클래스</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param shcode:</th><td class="field-body">종목 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type shcode:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">chart</span> <span class="o">=</span> <span class="n">Chartdata</span><span class="p">(</span><span class="s">&quot;012510&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="xing.xachartdata.Chartdata.DAY">
+<code class="descname">DAY</code><em class="property"> = 99997</em><a class="headerlink" href="#xing.xachartdata.Chartdata.DAY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chartdata &#8216;일&#8217;에 대한 상수</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xing.xachartdata.Chartdata.MONTH">
+<code class="descname">MONTH</code><em class="property"> = 99999</em><a class="headerlink" href="#xing.xachartdata.Chartdata.MONTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chartdata &#8216;월&#8217;에 대한 상수</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xing.xachartdata.Chartdata.WEEK">
+<code class="descname">WEEK</code><em class="property"> = 99998</em><a class="headerlink" href="#xing.xachartdata.Chartdata.WEEK" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chartdata &#8216;주&#8217;에 대한 상수</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xachartdata.Chartdata.clean">
+<code class="descname">clean</code><span class="sig-paren">(</span><em>type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xachartdata.Chartdata.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>load와 process에 의해 처리된 데이터를 삭제한다.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">차트의 종류 (예, 일,주,월,1분, 5분, ...). 기본값 None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">str, int</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">chart</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span> <span class="c"># 전체 데이터를 삭제한다.</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>    <span class="c"># 5분 차트 데이터를 삭제한다.</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Chartdata</span><span class="o">.</span><span class="n">DAY</span><span class="p">)</span>    <span class="c"># 일 차트 데이터를 삭제한다.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xachartdata.Chartdata.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xachartdata.Chartdata.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>load와 process에 의해 처리된 데이터를 반환한다.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">차트의 종류 (예, 일,주,월,1분, 5분, ...). 기본값은 None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">str, int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">데이터를 반환한다.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">DataFrame, None</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">chart</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="c"># 전체 데이터를 반환한다.</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>    <span class="c"># 5분 차트 데이터를 반환한다.</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Chartdata</span><span class="o">.</span><span class="n">DAY</span><span class="p">)</span>    <span class="c"># 일 차트 데이터를 반환한다.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xachartdata.Chartdata.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>param</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xachartdata.Chartdata.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>차트 데이터를 조회하여 누적한다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>param</strong> (<em>object { 조회할차트정보 : [시작일(yyyymmdd), 종료일(yyyymmdd)]}</em>) &#8211; 조회할 차트 종류(분,일,월,주)와 조회할 기간</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">한번 load한 데이터는 load는 clean 하지 않는 이상, 기존 데이터를 갱신하지 않고, 존재하지 않는 기간만 추가한다.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>chart = Chartdata(&quot;012510&quot;)
+chart.load({
+    Chartdata.DAY : [ startdate , enddate ]
+    Chartdata.WEEK : [ startdate , enddate ]
+    Chartdata.MONTH : [ startdate ]
+    1 : startdate
+})
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xachartdata.Chartdata.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>param</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xachartdata.Chartdata.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>load에 의해 누적된 데이터를 기준으로 보조 지표를 계산한다.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param param:</th><td class="field-body">보조지표 정보를 전달한다.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type param:</th><td class="field-body">object { &#8220;SMA&#8221; : [], &#8220;BBANDS&#8221; : [], &#8220;ATR&#8221; : number, &#8220;STOCH&#8221; : [], &#8220;MACD&#8221; : [], &#8220;RSI&#8221; : number }</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">process는 load 이후에 호출되어야 의미가 있다.</p>
+</div>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">chart</span><span class="o">.</span><span class="n">process</span><span class="p">({</span>
+    <span class="s">&quot;SMA&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>   <span class="c"># 이동평균선</span>
+    <span class="s">&quot;BBANDS&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="c">#볼랜져 밴드 period, 승수</span>
+    <span class="s">&quot;ATR&quot;</span> <span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="c">#ATR 지표 period</span>
+    <span class="s">&quot;STOCH&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>   <span class="c">#스토케스틱 K period, D period, D type</span>
+    <span class="s">&quot;MACD&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>  <span class="c"># short, long, signal</span>
+    <span class="s">&quot;RSI&quot;</span> <span class="p">:</span> <span class="mi">14</span><span class="p">,</span>  <span class="c"># period</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xing.xaquery">
+<span id="xing-xaquery-module"></span><h2>xing.xaquery module<a class="headerlink" href="#module-xing.xaquery" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xing.xaquery.Query">
+<em class="property">class </em><code class="descclassname">xing.xaquery.</code><code class="descname">Query</code><span class="sig-paren">(</span><em>type</em>, <em>callNext=True</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xaquery.Query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>TR 조회를 위한 XAQuery 확장 클래스</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> (<em>str</em>) &#8211; TR 번호</li>
+<li><strong>callNext</strong> (<em>bool</em>) &#8211; callNext가 False인 경우, 한번만 조회, True일 경우, 다음(occur)이 있으면 계속 조회 (기본값은 True)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Query</span><span class="p">(</span><span class="s">&quot;t8407&quot;</span><span class="p">)</span>
+<span class="n">Query</span><span class="p">(</span><span class="s">&quot;t1101&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="xing.xaquery.Query.request">
+<code class="descname">request</code><span class="sig-paren">(</span><em>input</em>, <em>output</em>, <em>isNext=False</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xaquery.Query.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>TR을 요청한다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>input</strong> (<em>object { &#8220;InBlock&#8221; : { ... } }</em>) &#8211; TR의 input block 정보</li>
+<li><strong>output</strong> (<em>object { &#8220;OutBlock&#8221; : DataFrame or tuple, &#8220;OutBlock1&#8221; : DataFrame or tuple} }</em>) &#8211; TR의 output block 정보. output block을 여러개가 존재할 수 있으며, DataFrame타입일 경우, occur 데이터를 반환한다.</li>
+<li><strong>isNext</strong> &#8211; 연속 조회를 사용하기 위한 내부 파라미터로서 직접 사용하지 않는다.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">input 키값이 &#8220;Service&#8221;인 경우, RequestService 로 요청할 수 있다. 예) 종목검색(씽API용), ChartIndex(차트지표데이터 조회) TR</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">절대 개발자가 isNext값을 지정하지 않는다.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Query</span><span class="p">(</span><span class="s">&quot;t8407&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">request</span><span class="p">({</span>
+        <span class="s">&quot;InBlock&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;nrec&quot;</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">codes</span><span class="p">),</span>
+                <span class="s">&quot;shcode&quot;</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+        <span class="p">}</span>
+<span class="p">},{</span>
+        <span class="s">&quot;OutBlock1&quot;</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;shcode&quot;</span><span class="p">,</span><span class="s">&quot;hname&quot;</span><span class="p">,</span><span class="s">&quot;price&quot;</span><span class="p">,</span><span class="s">&quot;open&quot;</span><span class="p">,</span><span class="s">&quot;high&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;low&quot;</span><span class="p">,</span><span class="s">&quot;sign&quot;</span><span class="p">,</span><span class="s">&quot;change&quot;</span><span class="p">,</span><span class="s">&quot;diff&quot;</span><span class="p">,</span><span class="s">&quot;volume&quot;</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="n">Query</span><span class="p">(</span><span class="s">&quot;t1101&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">request</span><span class="p">({</span>
+        <span class="s">&quot;InBlock&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;shcode&quot;</span> <span class="p">:</span> <span class="n">shcode</span>
+        <span class="p">}</span>
+<span class="p">},{</span>
+        <span class="s">&quot;OutBlock&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="s">&quot;hname&quot;</span><span class="p">,</span><span class="s">&quot;price&quot;</span><span class="p">,</span> <span class="s">&quot;sign&quot;</span><span class="p">,</span> <span class="s">&quot;change&quot;</span><span class="p">,</span> <span class="s">&quot;diff&quot;</span><span class="p">,</span> <span class="s">&quot;volume&quot;</span><span class="p">,</span> <span class="s">&quot;jnilclose&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho1&quot;</span><span class="p">,</span> <span class="s">&quot;bidho1&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem1&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem1&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha1&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha1&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho2&quot;</span><span class="p">,</span> <span class="s">&quot;bidho2&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem2&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem2&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha2&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha2&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho3&quot;</span><span class="p">,</span> <span class="s">&quot;bidho3&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem3&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem3&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha3&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha3&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho4&quot;</span><span class="p">,</span> <span class="s">&quot;bidho4&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem4&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem4&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha4&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha4&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho5&quot;</span><span class="p">,</span> <span class="s">&quot;bidho5&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem5&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem5&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha5&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha5&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho6&quot;</span><span class="p">,</span> <span class="s">&quot;bidho6&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem6&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem6&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha6&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha6&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho7&quot;</span><span class="p">,</span> <span class="s">&quot;bidho7&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem7&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem7&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha7&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha7&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho8&quot;</span><span class="p">,</span> <span class="s">&quot;bidho8&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem8&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem8&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha8&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha8&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho9&quot;</span><span class="p">,</span> <span class="s">&quot;bidho9&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem9&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem9&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha9&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha9&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offerho10&quot;</span><span class="p">,</span> <span class="s">&quot;bidho10&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem10&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem10&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha10&quot;</span><span class="p">,</span><span class="s">&quot;prebidcha10&quot;</span><span class="p">,</span>
+        <span class="s">&quot;offer&quot;</span><span class="p">,</span> <span class="s">&quot;bid&quot;</span><span class="p">,</span> <span class="s">&quot;preoffercha&quot;</span><span class="p">,</span> <span class="s">&quot;prebidcha&quot;</span><span class="p">,</span> <span class="s">&quot;uplmtprice&quot;</span><span class="p">,</span> <span class="s">&quot;dnlmtprice&quot;</span><span class="p">,</span>
+      <span class="s">&quot;open&quot;</span><span class="p">,</span> <span class="s">&quot;high&quot;</span><span class="p">,</span> <span class="s">&quot;low&quot;</span><span class="p">,</span> <span class="s">&quot;ho_status&quot;</span><span class="p">,</span> <span class="s">&quot;hotime&quot;</span>
+        <span class="p">)</span>
+<span class="p">})</span>
+
+<span class="n">Query</span><span class="p">(</span><span class="s">&quot;t1833&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">request</span><span class="p">({</span>
+        <span class="s">&quot;Service&quot;</span> <span class="p">:</span> <span class="n">filepath</span>
+<span class="p">},</span> <span class="p">{</span>
+        <span class="s">&quot;OutBlock&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="s">&quot;JongCnt&quot;</span><span class="p">,),</span>
+        <span class="s">&quot;OutBlock1&quot;</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;shcode&quot;</span><span class="p">,</span> <span class="s">&quot;hname&quot;</span><span class="p">,</span> <span class="s">&quot;close&quot;</span><span class="p">,</span> <span class="s">&quot;change&quot;</span><span class="p">,</span><span class="s">&quot;diff&quot;</span><span class="p">))</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="xing.xaquery.Query.sleep">
+<em class="property">static </em><code class="descname">sleep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xing.xaquery.Query.sleep" title="Permalink to this definition">¶</a></dt>
+<dd><p>최소 TR 요청 시간까지 sleep</p>
+<p>직전 TR 호출 경과시간이 1초 미만일 경우, 1초가 경과할때까지 sleep</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">일반적으로는 1초에 하나의 TR만 전송 가능함. 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 요청 수가 임시로 5개로 확장된다.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Query</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xing.xareal">
+<span id="xing-xareal-module"></span><h2>xing.xareal module<a class="headerlink" href="#module-xing.xareal" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xing.xareal.Real">
+<em class="property">class </em><code class="descclassname">xing.xareal.</code><code class="descname">Real</code><span class="sig-paren">(</span><em>type</em>, <em>outputStyle</em>, <em>queue</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.Real" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></code></p>
+<p>실시간 TR을 모니터링하는 작업 클래스</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> (<em>str</em>) &#8211; 실시간 TR 코드</li>
+<li><strong>outputStyle</strong> (<em>tuple</em>) &#8211; 실시간 TR 반환 데이터 컬럼</li>
+<li><strong>queue</strong> (<em>Queue</em>) &#8211; 실시간 TR 반환 데이터를 저장할 큐 객체</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">self</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">real</span> <span class="o">=</span> <span class="n">Real</span><span class="p">(</span><span class="s">&quot;SC1&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;eventid&quot;</span><span class="p">,</span> <span class="s">&quot;ordxctptncode&quot;</span><span class="p">,</span> <span class="s">&quot;ordmktcode&quot;</span><span class="p">,</span> <span class="s">&quot;ordptncode&quot;</span><span class="p">,</span> <span class="s">&quot;mgmtbrnno&quot;</span><span class="p">,</span>
+    <span class="s">&quot;accno1&quot;</span><span class="p">,</span><span class="s">&quot;Isuno&quot;</span><span class="p">,</span> <span class="s">&quot;Isunm&quot;</span><span class="p">,</span> <span class="s">&quot;ordno&quot;</span><span class="p">,</span> <span class="s">&quot;orgordno&quot;</span><span class="p">,</span> <span class="s">&quot;execno&quot;</span><span class="p">,</span>
+    <span class="s">&quot;ordqty&quot;</span><span class="p">,</span> <span class="s">&quot;ordprc&quot;</span><span class="p">,</span> <span class="s">&quot;execqty&quot;</span><span class="p">,</span> <span class="s">&quot;execprc&quot;</span><span class="p">,</span> <span class="s">&quot;ordtrxptncode&quot;</span><span class="p">,</span>
+    <span class="s">&quot;secbalqty&quot;</span><span class="p">,</span> <span class="s">&quot;avrpchsprc&quot;</span><span class="p">,</span> <span class="s">&quot;pchsant&quot;</span><span class="p">),</span> <span class="n">Queue</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="xing.xareal.Real.addTarget">
+<code class="descname">addTarget</code><span class="sig-paren">(</span><em>value=None</em>, <em>name='shcode'</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.Real.addTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>타겟을 등록한다. 여기서 타겟은 모니터링하는 대상이다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>None, str</em>) &#8211; 모니터링할 대상. 기본값은 None</li>
+<li><strong>name</strong> (<em>str</em>) &#8211; 모니터링할 대상의 속성. 기본값은 &#8220;shcode&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">self</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>타겟에 정보를 전달할 필요가 없는 &#8216;주문 체결&#8217;과 같은 작업도 addTarget를 호출하여 모니터링을 시작해야한다.</li>
+<li>&#8216;코스피 호가&#8217;는 타겟(종목코드(shcode))를 추가로 여러개 모니터링 할 수 있다.</li>
+</ul>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">real</span><span class="o">.</span><span class="n">addTarget</span><span class="p">()</span>
+<span class="n">real</span><span class="o">.</span><span class="n">addTarget</span><span class="p">(</span><span class="s">&quot;005930&quot;</span><span class="p">)</span>
+<span class="n">real</span><span class="o">.</span><span class="n">addTarget</span><span class="p">([</span><span class="s">&quot;005930&quot;</span><span class="p">,</span><span class="s">&quot;035420&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xareal.Real.removeAllTargets">
+<code class="descname">removeAllTargets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.Real.removeAllTargets" title="Permalink to this definition">¶</a></dt>
+<dd><p>모든 타겟의 모니터링을 제거한다.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">real</span><span class="o">.</span><span class="n">removeAllTargets</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xareal.Real.removeTarget">
+<code class="descname">removeTarget</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.Real.removeTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>특정 타겟의 모니터링을 제거한다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>key</strong> (<em>str</em>) &#8211; 특정 타겟</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">real</span><span class="o">.</span><span class="n">removeAllTargets</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xareal.Real.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.Real.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>실시간 TR을 모니터링 한다</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">real</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="xing.xareal.RealManager">
+<em class="property">class </em><code class="descclassname">xing.xareal.</code><code class="descname">RealManager</code><a class="headerlink" href="#xing.xareal.RealManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>실시간 TR을 모니터링하는 작업 클래스(Real)을 관리하는 클래스</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">manager</span> <span class="o">=</span> <span class="n">RealManager</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="xing.xareal.RealManager.addTask">
+<code class="descname">addTask</code><span class="sig-paren">(</span><em>type</em>, <em>outputStyle</em>, <em>maxQueue</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.RealManager.addTask" title="Permalink to this definition">¶</a></dt>
+<dd><p>실시간 작업을 추가한다</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">실시간 TR 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param outputStyle:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">실시간 TR 반환 데이터 컬럼</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">type outputStyle:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">tuple</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param maxQueue:</th><td class="field-body">실시간 TR 반환 데이터를 저장할 큐의 개수</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type maxQueue:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">Real</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># 주문 체결</span>
+<span class="n">manager</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="s">&quot;SC1&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;Isuno&quot;</span><span class="p">,</span> <span class="s">&quot;Isunm&quot;</span><span class="p">,</span> <span class="s">&quot;ordno&quot;</span><span class="p">,</span> <span class="s">&quot;orgordno&quot;</span><span class="p">,</span>
+         <span class="s">&quot;eventid&quot;</span><span class="p">,</span> <span class="s">&quot;ordxctptncode&quot;</span><span class="p">,</span> <span class="s">&quot;ordmktcode&quot;</span><span class="p">,</span>
+         <span class="s">&quot;ordptncode&quot;</span><span class="p">,</span> <span class="s">&quot;mgmtbrnno&quot;</span><span class="p">,</span>  <span class="s">&quot;accno1&quot;</span><span class="p">,</span>
+         <span class="s">&quot;execno&quot;</span><span class="p">,</span> <span class="s">&quot;ordqty&quot;</span><span class="p">,</span> <span class="s">&quot;ordprc&quot;</span><span class="p">,</span> <span class="s">&quot;execqty&quot;</span><span class="p">,</span>
+         <span class="s">&quot;execprc&quot;</span><span class="p">,</span> <span class="s">&quot;ordtrxptncode&quot;</span><span class="p">,</span> <span class="s">&quot;secbalqty&quot;</span><span class="p">,</span>
+         <span class="s">&quot;avrpchsprc&quot;</span><span class="p">,</span> <span class="s">&quot;pchsant&quot;</span><span class="p">),</span> <span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">addTarget</span><span class="p">()</span>
+
+<span class="c"># 코스피 호가</span>
+<span class="n">manager</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="s">&quot;H1_&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;shcode&quot;</span><span class="p">,</span> <span class="s">&quot;hottime&quot;</span><span class="p">,</span><span class="s">&quot;totofferrem&quot;</span><span class="p">,</span> <span class="s">&quot;totbidrem&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho1&quot;</span><span class="p">,</span> <span class="s">&quot;bidho1&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem1&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem1&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho2&quot;</span><span class="p">,</span> <span class="s">&quot;bidho2&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem2&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem2&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho3&quot;</span><span class="p">,</span> <span class="s">&quot;bidho3&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem3&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem3&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho4&quot;</span><span class="p">,</span> <span class="s">&quot;bidho4&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem4&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem4&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho5&quot;</span><span class="p">,</span> <span class="s">&quot;bidho5&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem5&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem5&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho6&quot;</span><span class="p">,</span> <span class="s">&quot;bidho6&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem6&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem6&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho7&quot;</span><span class="p">,</span> <span class="s">&quot;bidho7&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem7&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem7&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho8&quot;</span><span class="p">,</span> <span class="s">&quot;bidho8&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem8&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem8&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho9&quot;</span><span class="p">,</span> <span class="s">&quot;bidho9&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem9&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem9&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho10&quot;</span><span class="p">,</span> <span class="s">&quot;bidho10&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem10&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem10&quot;</span>
+        <span class="p">),</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">addTarget</span><span class="p">(</span><span class="s">&quot;004170&quot;</span><span class="p">)</span>
+
+<span class="c"># 코스닥 호가</span>
+<span class="n">manager</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="s">&quot;HA_&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;shcode&quot;</span><span class="p">,</span> <span class="s">&quot;hottime&quot;</span><span class="p">,</span><span class="s">&quot;totofferrem&quot;</span><span class="p">,</span> <span class="s">&quot;totbidrem&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho1&quot;</span><span class="p">,</span> <span class="s">&quot;bidho1&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem1&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem1&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho2&quot;</span><span class="p">,</span> <span class="s">&quot;bidho2&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem2&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem2&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho3&quot;</span><span class="p">,</span> <span class="s">&quot;bidho3&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem3&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem3&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho4&quot;</span><span class="p">,</span> <span class="s">&quot;bidho4&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem4&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem4&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho5&quot;</span><span class="p">,</span> <span class="s">&quot;bidho5&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem5&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem5&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho6&quot;</span><span class="p">,</span> <span class="s">&quot;bidho6&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem6&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem6&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho7&quot;</span><span class="p">,</span> <span class="s">&quot;bidho7&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem7&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem7&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho8&quot;</span><span class="p">,</span> <span class="s">&quot;bidho8&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem8&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem8&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho9&quot;</span><span class="p">,</span> <span class="s">&quot;bidho9&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem9&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem9&quot;</span><span class="p">,</span>
+            <span class="s">&quot;offerho10&quot;</span><span class="p">,</span> <span class="s">&quot;bidho10&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem10&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem10&quot;</span>
+        <span class="p">),</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">addTarget</span><span class="p">(</span><span class="s">&quot;168330&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xareal.RealManager.getQueue">
+<code class="descname">getQueue</code><span class="sig-paren">(</span><em>type</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.RealManager.getQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>실시간 작업의 큐를 얻는다.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">실시간 TR 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">실시간 작업 객체의 큐</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">Queue</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">manager</span><span class="o">.</span><span class="n">getQueue</span><span class="p">(</span><span class="s">&quot;SC1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xareal.RealManager.getTask">
+<code class="descname">getTask</code><span class="sig-paren">(</span><em>type</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.RealManager.getTask" title="Permalink to this definition">¶</a></dt>
+<dd><p>실시간 작업을 얻는다.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">실시간 TR 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">return:</th><td class="field-body">실시간 작업 객체</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">Real</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">manager</span><span class="o">.</span><span class="n">getTask</span><span class="p">(</span><span class="s">&quot;SC1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xareal.RealManager.removeTask">
+<code class="descname">removeTask</code><span class="sig-paren">(</span><em>type</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.RealManager.removeTask" title="Permalink to this definition">¶</a></dt>
+<dd><p>실시간 작업을 제거한다.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param type:</th><td class="field-body">실시간 TR 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">manager</span><span class="o">.</span><span class="n">removeTask</span><span class="p">(</span><span class="s">&quot;SC1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xareal.RealManager.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>cb=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xareal.RealManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>실시간 TR별 큐의 정보를 추출하여 callback 함수로 전달한다.</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param cb:</th><td class="field-body">큐에서 추출된 정보를 받을 callback 함수</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type type:</th><td class="field-body">def</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">callback 함수는 type(실시간 TR코드)와 data(실시간 TR의 outputStyle의 데이터)를 파라미터로 갖는다.</p>
+</div>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>def callback(type, data):
+    for i in range(len(data)):
+        if type == &quot;SC1&quot;:
+            # ...
+        elif type == &quot;JIF&quot;:
+            # ...
+        else:
+            # ...
+
+manager.run(callback)
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xing.xasession">
+<span id="xing-xasession-module"></span><h2>xing.xasession module<a class="headerlink" href="#module-xing.xasession" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="xing.xasession.Session">
+<em class="property">class </em><code class="descclassname">xing.xasession.</code><code class="descname">Session</code><a class="headerlink" href="#xing.xasession.Session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>세션 관리를 XASession 확장 클래스</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Session</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="xing.xasession.Session.account">
+<code class="descname">account</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xing.xasession.Session.account" title="Permalink to this definition">¶</a></dt>
+<dd><p>계좌 정보를 반환한다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">계좌 정보를 반환한다.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">object {no:&#8221;계좌번호&#8221;,name:&#8221;계좌이름&#8221;,detailName:&#8221;계좌상세이름&#8221;}</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">session</span><span class="o">.</span><span class="n">account</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xasession.Session.heartbeat">
+<code class="descname">heartbeat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xing.xasession.Session.heartbeat" title="Permalink to this definition">¶</a></dt>
+<dd><p>서버에 시간을 조회해서 서버 연결여부를 확인한다.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">연결될 경우, time과 dt를 포함한 dictionary를 반환한다. 연결이 끊어졌을 경우, None을 반환한다</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">None, object<ul class="simple">
+<li>서버와의 연결이 끊어졌으면 None</li>
+<li>서버와의 연결이 유효하면 { time:&#8221;mmhhss&#8221;, dt:&#8221;yyyymmdd&#8221;}</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">session</span><span class="o">.</span><span class="n">heartbeat</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xasession.Session.login">
+<code class="descname">login</code><span class="sig-paren">(</span><em>server</em>, <em>user</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xasession.Session.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>서버 연결을 요청한다</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server</strong> (<em>object {address:&#8221;서버주소&#8221;, port:서버포트, type: 서버타입}</em>) &#8211; 서버 정보</li>
+<li><strong>user</strong> (<em>object {id:&#8221;아이디&#8221;, passwd:&#8221;비밀번호&#8221;, account_passwd:&#8221;계좌비밀번호&#8221;, certificate_passwd:&#8221;공인인증서비밀번호&#8221;}</em>) &#8211; 사용자 정보</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">로그인이 성공하면 True, 실패하면 Fasle</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">server</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&quot;address&quot;</span> <span class="p">:</span><span class="s">&quot;hts.ebestsec.co.kr&quot;</span><span class="p">,</span>    <span class="c"># 서버주소</span>
+    <span class="s">&quot;port&quot;</span> <span class="p">:</span> <span class="mi">20001</span><span class="p">,</span> <span class="c"># 서버포트</span>
+    <span class="s">&quot;type&quot;</span> <span class="p">:</span> <span class="mi">0</span>  <span class="c"># 서버 타입</span>
+<span class="p">}</span>
+<span class="n">user</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&quot;id&quot;</span> <span class="p">:</span> <span class="s">&quot;sculove&quot;</span><span class="p">,</span>   <span class="c"># 아이디</span>
+    <span class="s">&quot;passwd&quot;</span> <span class="p">:</span> <span class="s">&quot;12345678&quot;</span><span class="p">,</span>  <span class="c"># 비밀번호</span>
+    <span class="s">&quot;account_passwd&quot;</span> <span class="p">:</span> <span class="s">&quot;1234&quot;</span><span class="p">,</span>  <span class="c"># 계좌 비밀번호</span>
+    <span class="s">&quot;certificate_passwd&quot;</span> <span class="p">:</span> <span class="s">&quot;12345678&quot;</span>   <span class="c"># 공인인증서 비밀번호</span>
+<span class="p">}</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="xing.xasession.Session.logout">
+<code class="descname">logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xing.xasession.Session.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>서버와의 연결을 끊는다.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">session</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xing.xacom">
+<span id="xing-xacom-module"></span><h2>xing.xacom module<a class="headerlink" href="#module-xing.xacom" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="xing.xacom.parseErrorCode">
+<code class="descclassname">xing.xacom.</code><code class="descname">parseErrorCode</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xacom.parseErrorCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>에러코드 메시지</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>code</strong> (<em>str</em>) &#8211; 에러 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">에러코드 메시지를 반환</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">parseErrorCode</span><span class="p">(</span><span class="s">&quot;00310&quot;</span><span class="p">)</span> <span class="c"># 모의투자 조회가 완료되었습니다</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="xing.xacom.parseJstatus">
+<code class="descclassname">xing.xacom.</code><code class="descname">parseJstatus</code><span class="sig-paren">(</span><em>jstatus</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xacom.parseJstatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>장 운영시간 파싱</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>jstatus</strong> (<em>str</em>) &#8211; 장 운영시간 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">장 운영시간 내역을 반환</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">parseJstatus</span><span class="p">(</span><span class="s">&quot;66&quot;</span><span class="p">)</span> <span class="c"># 사이드카 매수발동</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>코스피로 장시간을 확인해야함.</li>
+<li>선물/옵션 장마감 5분전, 1분전, 10초전은 들어오지 않음</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="xing.xacom.parseMarket">
+<code class="descclassname">xing.xacom.</code><code class="descname">parseMarket</code><span class="sig-paren">(</span><em>jangubun</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xacom.parseMarket" title="Permalink to this definition">¶</a></dt>
+<dd><p>장 구분</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>jangubun</strong> (<em>str</em>) &#8211; 시장 구분 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">시장 내역을 반환</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">parseMarket</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">)</span> <span class="c"># 코스피</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="xing.xacom.parseTR">
+<code class="descclassname">xing.xacom.</code><code class="descname">parseTR</code><span class="sig-paren">(</span><em>trCode</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.xacom.parseTR" title="Permalink to this definition">¶</a></dt>
+<dd><p>요청 TR 코드 파싱</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>trCode</strong> (<em>str</em>) &#8211; TR 코드</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TR코드 내역을 반환</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">parseTR</span><span class="p">(</span><span class="s">&quot;t0425&quot;</span><span class="p">)</span> <span class="c"># 주식체결/미체결</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-xing.logger">
+<span id="xing-logger-module"></span><h2>xing.logger module<a class="headerlink" href="#module-xing.logger" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="xing.logger.Logger">
+<code class="descclassname">xing.logger.</code><code class="descname">Logger</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.logger.Logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>파일 로그 클래스</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; 로그 이름</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="xing.logger.LoggerSetting">
+<em class="property">class </em><code class="descclassname">xing.logger.</code><code class="descname">LoggerSetting</code><a class="headerlink" href="#xing.logger.LoggerSetting" title="Permalink to this definition">¶</a></dt>
+<dd><p>파일 로그 환경을 설정하는 클래스</p>
+<dl class="attribute">
+<dt id="xing.logger.LoggerSetting.BACK_COUNT">
+<code class="descname">BACK_COUNT</code><em class="property"> = 10</em><a class="headerlink" href="#xing.logger.LoggerSetting.BACK_COUNT" title="Permalink to this definition">¶</a></dt>
+<dd><p>로그 파일 유지 개수</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xing.logger.LoggerSetting.FILE">
+<code class="descname">FILE</code><em class="property"> = 'xingplus.log'</em><a class="headerlink" href="#xing.logger.LoggerSetting.FILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>로그 파일명</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xing.logger.LoggerSetting.LEVEL">
+<code class="descname">LEVEL</code><em class="property"> = 'DEBUG'</em><a class="headerlink" href="#xing.logger.LoggerSetting.LEVEL" title="Permalink to this definition">¶</a></dt>
+<dd><p>로그 레벨</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="xing.logger.LoggerSetting.MAX_MBYTE">
+<code class="descname">MAX_MBYTE</code><em class="property"> = 10</em><a class="headerlink" href="#xing.logger.LoggerSetting.MAX_MBYTE" title="Permalink to this definition">¶</a></dt>
+<dd><p>로그 파일 하나의 최대 크기 (MByte)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-xing.util">
+<span id="xing-util-module"></span><h2>xing.util module<a class="headerlink" href="#module-xing.util" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="xing.util.latestBusinessDay">
+<code class="descclassname">xing.util.</code><code class="descname">latestBusinessDay</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xing.util.latestBusinessDay" title="Permalink to this definition">¶</a></dt>
+<dd><p>가장 최근 영업일을 yyyymmdd 형태로 반환</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">latestBusinessDay</span><span class="p">()</span>     <span class="c"># 20160104</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="xing.util.timeType">
+<code class="descclassname">xing.util.</code><code class="descname">timeType</code><span class="sig-paren">(</span><em>base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#xing.util.timeType" title="Permalink to this definition">¶</a></dt>
+<dd><p>장 전,후 시간을 반환</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>base</strong> (<em>datetime</em>) &#8211; 기준일시</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">기준일시에 맞는 타입문자를 반환<p>BEFORE(장시작 전),SHOWTIME(장 운영시간),AFTER(장종료 후)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">timeType</span><span class="p">()</span>
+<span class="n">timeType</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="xing.util.today">
+<code class="descclassname">xing.util.</code><code class="descname">today</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xing.util.today" title="Permalink to this definition">¶</a></dt>
+<dd><p>오늘 날자를 yyyymmdd 형태로 반환</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">today</span><span class="p">()</span> <span class="c"># 20160101</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to xing-plus’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, sculove.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
