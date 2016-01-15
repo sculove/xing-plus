@@ -15,3 +15,10 @@ pip install xing-plus
 
 ## API 문서
 http://sculove.github.io/xing-plus/
+
+
+## 라이센스
+Licensed under MIT:  
+https://opensource.org/licenses/MIT 
+
+[![Analytics](https://ga-beacon.appspot.com/UA-37362821-9/xing-plus/readme)](https://github.com/sculove/xing-plus)
