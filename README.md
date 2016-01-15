@@ -1,7 +1,7 @@
 # xing-plus
 Xing API를 보다 쉽게 활용할수 있는 라이브러리로, 개인 취미생활 프로젝트를 위한 SDK 입니다.
 
-## 개발환경
+## Development Environment
  - window7 32bit
  - 이베스트 투자증권 Xing api (http://www.ebestsec.co.kr/)
  - anaconda python 3.4+ (http://continuum.io/downloads)
@@ -13,11 +13,11 @@ https://pypi.python.org/pypi/xing-plus/
 pip install xing-plus
 ```
 
-## API 문서
+## API Document
 http://sculove.github.io/xing-plus/
 
 
-## 라이센스
+## License
 Licensed under MIT:  
 https://opensource.org/licenses/MIT 
 
