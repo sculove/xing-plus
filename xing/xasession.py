@@ -31,7 +31,7 @@ class Session:
 
         ::
 
-            Session()
+            session = Session()
     """
     def __init__(self):
         self.session = win32com.client.DispatchWithEvents("XA_Session.XASession", _XASessionEvents)

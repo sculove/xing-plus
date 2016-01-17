@@ -37,8 +37,8 @@ class Query:
 
 		::
 
-			Query("t8407")
-			Query("t1101", False)
+			query = Query("t8407")
+			query = Query("t1101", False)
 	"""
 	_MAX_REQUEST = 5
 	_REQUEST_TIME = 0
@@ -113,6 +113,8 @@ class Query:
 		:param output: TR의 output block 정보. output block을 여러개가 존재할 수 있으며, DataFrame타입일 경우, occur 데이터를 반환한다.
 		:type output: object { "OutBlock" : DataFrame or tuple, "OutBlock1" : DataFrame or tuple} }
 		:param isNext: 연속 조회를 사용하기 위한 내부 파라미터로서 직접 사용하지 않는다.
+		:return: output으로 지정한 형태로 값이 채워져서 반환된다.
+		:rtype: object
 
 		.. note::
 
@@ -125,17 +127,22 @@ class Query:
 
 				Query("t8407").request({
 			 		"InBlock" : {
-			 			"nrec" : len(codes),
-			 			"shcode" : "".join(codes)
+			 			"nrec" : 2,
+			 			"shcode" : "".join(["005930","035420"])
 			 		}
 			 	},{
 			 		"OutBlock1" : DataFrame(columns=("shcode","hname","price","open","high",
 							"low","sign","change","diff","volume"))
 				})
+				# 반환값
+				{
+					# output에서 지정한 DataFrame에 row값이 채워진 DataFrame이 반환된다.
+					"OutBlock1" : DataFrame
+				}
 
 				Query("t1101", False).request({
 			 		"InBlock" : {
-			 			"shcode" : shcode
+			 			"shcode" : "005930"
 			 		}
 				},{
 			 		"OutBlock" : ("hname","price", "sign", "change", "diff", "volume", "jnilclose",
@@ -153,6 +160,11 @@ class Query:
 			              "open", "high", "low", "ho_status", "hotime"
 			 		)
 				})
+				# 반환값
+				{
+					# output에서 지정한 DataFrame에 row값이 채워진 DataFrame이 반환된다.
+					"OutBlock" : DataFrame
+				}
 
 				Query("t1833").request({
 					"Service" : filepath
@@ -160,6 +172,13 @@ class Query:
 					"OutBlock" : ("JongCnt",),
 					"OutBlock1" : DataFrame(columns=("shcode", "hname", "close", "change","diff"))
 				})
+				# 반환값
+				{
+					# output에서 지정한 tuple은 키와 값이 있는 direction으로 변경되어 반환된다.
+					"OutBlock" : { "JongCnt": ... },
+					# output에서 지정한 DataFrame에 row값이 채워진 DataFrame이 반환된다.
+					"OutBlock1" : DataFrame
+				}
 		"""
 
 		if not input:

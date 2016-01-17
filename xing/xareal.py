@@ -162,7 +162,7 @@ class RealManager:
                         "offerho8", "bidho8", "offerrem8", "bidrem8",
                         "offerho9", "bidho9", "offerrem9", "bidrem9",
                         "offerho10", "bidho10", "offerrem10", "bidrem10"
-                    ), 100).addTarget("004170")
+                    ), 100).addTarget(["005930","035420"])
 
             # 코스닥 호가
             manager.addTask("HA_", ("shcode", "hottime","totofferrem", "totbidrem",

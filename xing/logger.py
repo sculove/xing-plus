@@ -10,7 +10,7 @@ def Logger(name):
 
         ::
 
-            Logger(__name__)
+            log = Logger(__name__)
     """
 
     # 로거 인스턴스를 만든다
@@ -40,6 +40,11 @@ def Logger(name):
 
 class LoggerSetting:
     """파일 로그 환경을 설정하는 클래스
+
+        ::
+
+            LoggerSetting.LEVEL = "INFO"
+            LoggerSetting.FILE = "logfile.log"
     """
     LEVEL = "DEBUG"
     """로그 레벨
