@@ -33,7 +33,7 @@
     <link rel="top" title="xing-plus 1.0.0 documentation" href="index.html"/>
         <link rel="prev" title="Welcome to xing-plus’s documentation!" href="index.html"/>
 
-<script>
+  <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -319,8 +319,8 @@ chart.load({
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Query</span><span class="p">(</span><span class="s">&quot;t8407&quot;</span><span class="p">)</span>
-<span class="n">Query</span><span class="p">(</span><span class="s">&quot;t1101&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">query</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="s">&quot;t8407&quot;</span><span class="p">)</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="s">&quot;t1101&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="method">
@@ -331,11 +331,17 @@ chart.load({
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>input</strong> (<em>object { &#8220;InBlock&#8221; : { ... } }</em>) &#8211; TR의 input block 정보</li>
 <li><strong>output</strong> (<em>object { &#8220;OutBlock&#8221; : DataFrame or tuple, &#8220;OutBlock1&#8221; : DataFrame or tuple} }</em>) &#8211; TR의 output block 정보. output block을 여러개가 존재할 수 있으며, DataFrame타입일 경우, occur 데이터를 반환한다.</li>
 <li><strong>isNext</strong> &#8211; 연속 조회를 사용하기 위한 내부 파라미터로서 직접 사용하지 않는다.</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">output으로 지정한 형태로 값이 채워져서 반환된다.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object</p>
 </td>
 </tr>
 </tbody>
@@ -350,17 +356,22 @@ chart.load({
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">Query</span><span class="p">(</span><span class="s">&quot;t8407&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">request</span><span class="p">({</span>
         <span class="s">&quot;InBlock&quot;</span> <span class="p">:</span> <span class="p">{</span>
-                <span class="s">&quot;nrec&quot;</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">codes</span><span class="p">),</span>
-                <span class="s">&quot;shcode&quot;</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+                <span class="s">&quot;nrec&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s">&quot;shcode&quot;</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;005930&quot;</span><span class="p">,</span><span class="s">&quot;035420&quot;</span><span class="p">])</span>
         <span class="p">}</span>
 <span class="p">},{</span>
         <span class="s">&quot;OutBlock1&quot;</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;shcode&quot;</span><span class="p">,</span><span class="s">&quot;hname&quot;</span><span class="p">,</span><span class="s">&quot;price&quot;</span><span class="p">,</span><span class="s">&quot;open&quot;</span><span class="p">,</span><span class="s">&quot;high&quot;</span><span class="p">,</span>
                         <span class="s">&quot;low&quot;</span><span class="p">,</span><span class="s">&quot;sign&quot;</span><span class="p">,</span><span class="s">&quot;change&quot;</span><span class="p">,</span><span class="s">&quot;diff&quot;</span><span class="p">,</span><span class="s">&quot;volume&quot;</span><span class="p">))</span>
 <span class="p">})</span>
+<span class="c"># 반환값</span>
+<span class="p">{</span>
+        <span class="c"># output에서 지정한 DataFrame에 row값이 채워진 DataFrame이 반환된다.</span>
+        <span class="s">&quot;OutBlock1&quot;</span> <span class="p">:</span> <span class="n">DataFrame</span>
+<span class="p">}</span>
 
 <span class="n">Query</span><span class="p">(</span><span class="s">&quot;t1101&quot;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">request</span><span class="p">({</span>
         <span class="s">&quot;InBlock&quot;</span> <span class="p">:</span> <span class="p">{</span>
-                <span class="s">&quot;shcode&quot;</span> <span class="p">:</span> <span class="n">shcode</span>
+                <span class="s">&quot;shcode&quot;</span> <span class="p">:</span> <span class="s">&quot;005930&quot;</span>
         <span class="p">}</span>
 <span class="p">},{</span>
         <span class="s">&quot;OutBlock&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="s">&quot;hname&quot;</span><span class="p">,</span><span class="s">&quot;price&quot;</span><span class="p">,</span> <span class="s">&quot;sign&quot;</span><span class="p">,</span> <span class="s">&quot;change&quot;</span><span class="p">,</span> <span class="s">&quot;diff&quot;</span><span class="p">,</span> <span class="s">&quot;volume&quot;</span><span class="p">,</span> <span class="s">&quot;jnilclose&quot;</span><span class="p">,</span>
@@ -378,6 +389,11 @@ chart.load({
       <span class="s">&quot;open&quot;</span><span class="p">,</span> <span class="s">&quot;high&quot;</span><span class="p">,</span> <span class="s">&quot;low&quot;</span><span class="p">,</span> <span class="s">&quot;ho_status&quot;</span><span class="p">,</span> <span class="s">&quot;hotime&quot;</span>
         <span class="p">)</span>
 <span class="p">})</span>
+<span class="c"># 반환값</span>
+<span class="p">{</span>
+        <span class="c"># output에서 지정한 DataFrame에 row값이 채워진 DataFrame이 반환된다.</span>
+        <span class="s">&quot;OutBlock&quot;</span> <span class="p">:</span> <span class="n">DataFrame</span>
+<span class="p">}</span>
 
 <span class="n">Query</span><span class="p">(</span><span class="s">&quot;t1833&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">request</span><span class="p">({</span>
         <span class="s">&quot;Service&quot;</span> <span class="p">:</span> <span class="n">filepath</span>
@@ -385,6 +401,13 @@ chart.load({
         <span class="s">&quot;OutBlock&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="s">&quot;JongCnt&quot;</span><span class="p">,),</span>
         <span class="s">&quot;OutBlock1&quot;</span> <span class="p">:</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;shcode&quot;</span><span class="p">,</span> <span class="s">&quot;hname&quot;</span><span class="p">,</span> <span class="s">&quot;close&quot;</span><span class="p">,</span> <span class="s">&quot;change&quot;</span><span class="p">,</span><span class="s">&quot;diff&quot;</span><span class="p">))</span>
 <span class="p">})</span>
+<span class="c"># 반환값</span>
+<span class="p">{</span>
+        <span class="c"># output에서 지정한 tuple은 키와 값이 있는 direction으로 변경되어 반환된다.</span>
+        <span class="s">&quot;OutBlock&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="s">&quot;JongCnt&quot;</span><span class="p">:</span> <span class="o">...</span> <span class="p">},</span>
+        <span class="c"># output에서 지정한 DataFrame에 row값이 채워진 DataFrame이 반환된다.</span>
+        <span class="s">&quot;OutBlock1&quot;</span> <span class="p">:</span> <span class="n">DataFrame</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -561,7 +584,7 @@ chart.load({
             <span class="s">&quot;offerho8&quot;</span><span class="p">,</span> <span class="s">&quot;bidho8&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem8&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem8&quot;</span><span class="p">,</span>
             <span class="s">&quot;offerho9&quot;</span><span class="p">,</span> <span class="s">&quot;bidho9&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem9&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem9&quot;</span><span class="p">,</span>
             <span class="s">&quot;offerho10&quot;</span><span class="p">,</span> <span class="s">&quot;bidho10&quot;</span><span class="p">,</span> <span class="s">&quot;offerrem10&quot;</span><span class="p">,</span> <span class="s">&quot;bidrem10&quot;</span>
-        <span class="p">),</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">addTarget</span><span class="p">(</span><span class="s">&quot;004170&quot;</span><span class="p">)</span>
+        <span class="p">),</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">addTarget</span><span class="p">([</span><span class="s">&quot;005930&quot;</span><span class="p">,</span><span class="s">&quot;035420&quot;</span><span class="p">])</span>
 
 <span class="c"># 코스닥 호가</span>
 <span class="n">manager</span><span class="o">.</span><span class="n">addTask</span><span class="p">(</span><span class="s">&quot;HA_&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;shcode&quot;</span><span class="p">,</span> <span class="s">&quot;hottime&quot;</span><span class="p">,</span><span class="s">&quot;totofferrem&quot;</span><span class="p">,</span> <span class="s">&quot;totbidrem&quot;</span><span class="p">,</span>
@@ -695,7 +718,7 @@ manager.run(callback)
 <em class="property">class </em><code class="descclassname">xing.xasession.</code><code class="descname">Session</code><a class="headerlink" href="#xing.xasession.Session" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>세션 관리를 XASession 확장 클래스</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Session</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
 </pre></div>
 </div>
 <dl class="method">
@@ -891,7 +914,7 @@ manager.run(callback)
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">log</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -900,6 +923,10 @@ manager.run(callback)
 <dt id="xing.logger.LoggerSetting">
 <em class="property">class </em><code class="descclassname">xing.logger.</code><code class="descname">LoggerSetting</code><a class="headerlink" href="#xing.logger.LoggerSetting" title="Permalink to this definition">¶</a></dt>
 <dd><p>파일 로그 환경을 설정하는 클래스</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">LoggerSetting</span><span class="o">.</span><span class="n">LEVEL</span> <span class="o">=</span> <span class="s">&quot;INFO&quot;</span>
+<span class="n">LoggerSetting</span><span class="o">.</span><span class="n">FILE</span> <span class="o">=</span> <span class="s">&quot;logfile.log&quot;</span>
+</pre></div>
+</div>
 <dl class="attribute">
 <dt id="xing.logger.LoggerSetting.BACK_COUNT">
 <code class="descname">BACK_COUNT</code><em class="property"> = 10</em><a class="headerlink" href="#xing.logger.LoggerSetting.BACK_COUNT" title="Permalink to this definition">¶</a></dt>
