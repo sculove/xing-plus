@@ -84,7 +84,8 @@ def parseTR(trCode):
         "SC1" : "주식주문체결",
         "SC2" : "주식주문정정",
         "SC3" : "주식주문취소",
-        "SC4" : "주식주문거부"
+        "SC4" : "주식주문거부",
+        "JIF" : "장운영정보"
     }
     return ht[trCode] if trCode in ht else ""
 
