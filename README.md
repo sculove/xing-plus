@@ -16,6 +16,8 @@ pip install xing-plus
 ## API Document
 http://sculove.github.io/xing-plus/
 
+### Examples Project
+https://github.com/sculove/xing-plus-app/
 
 ## License
 Licensed under MIT:  
