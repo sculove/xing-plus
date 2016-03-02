@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="xing-plus",
-    version="1.0.1",
+    version="1.0.2",
     license="MIT License",
     author="sculove",
     author_email="sculove@gmail.com",
@@ -24,6 +24,7 @@ setup(
         "Natural Language :: Korean"
     ],
     packages=find_packages(),
-    package_data={"": ["*.res"]},
+    package_dir={"xing": "xing", "res": "xing/res"},
+    package_data={"xing": ["res/*.res"]},
     install_requires=["pandas>=0.17.0", "ta-lib>=0.4.9"]
 )
