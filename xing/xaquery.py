@@ -19,13 +19,14 @@ class _XAQueryEvents:
 		self.msg = None
 
 	def OnReceiveData(self, szTrCode):
-		log.debug(" - onReceiveData (%s:%s)" % (szTrCode, xacom.parseTR(szTrCode)))
+		log.debug(" - [%s:%s] OnReceiveData" % (szTrCode, xacom.parseTR(szTrCode)))
 		self.status = 1
 
 	def OnReceiveMessage(self, systemError, messageCode, message):
 		self.code = str(messageCode)
 		self.msg = str(message)
-		log.debug(" - OnReceiveMessage (%s:%s)" % (self.code, self.msg))
+		if self.code != "00000":
+			log.debug(" - [%s:%s] OnReceiveMessage" % (self.code, self.msg))
 
 class Query:
 	"""TR 조회를 위한 XAQuery 확장 클래스
@@ -82,7 +83,7 @@ class Query:
 
 	# parse inputBlock
 	def _parseInput(self, param):
-		log.info("<<<<< [Query] 입력:%s" % param)
+		log.info(">>>>> [%s-Query] 입력:%s" % (self.type, param))
 		for v in param.keys():
 			if v != "Service":
 				self.inputName = v
@@ -231,8 +232,8 @@ class Query:
 			if self.callNext:
 				return self.request(input, output, True)
 			else:
-# 				log.debug(">>>>> [Query] 결과(callNext=False):%s" % self.output)
+# 				log.debug("<<<<< [%s-Query] 결과(callNext=False):%s" % (self.type,self.output))
 				return self.output
 		else:
-# 			log.debug(">>>>> [Query] 결과(callNext=True):%s" % self.output)
+# 			log.debug("<<<<< [%s-Query] 결과(callNext=True):%s" % (self.type,self.output))
 			return self.output

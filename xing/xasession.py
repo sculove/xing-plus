@@ -81,8 +81,10 @@ class Session:
         elif argvCount >= 2:
             server = argv[0]
             user = argv[1]
-        else:
+
+        if not user["id"] or not user["passwd"]:
             log.critical("로그인 실패 : 서버와 사용자 정보를 입력해주세요")
+            return False
 
         self.session.reset()
         self.session.ConnectServer(server["address"], server["port"])

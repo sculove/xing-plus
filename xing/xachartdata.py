@@ -2,6 +2,7 @@
 from pandas import DataFrame, Series
 from talib import abstract
 from xing.xaquery import Query
+from xing import xacom
 
 # https://cryptotrader.org/talib
 # https://github.com/mrjbq7/ta-lib
@@ -32,22 +33,22 @@ class Chartdata:
         Chartdata.DAY : [ "20100101", "20101231"],
         Chartdata.MONTH : ("20100101", "20101231"),
         Chartdata.WEEK : [ "20100101" ],
-        5 : ["2010"],
-        12 : ("2010",),
-        15 : "2010",
+        5 : ["20100101"],
+        12 : ("20100101",),
+        15 : "20100101",
         30 : ""
     '''
     def _parseParam(self, param):
-        pass
         p = {}
+        today =  xacom.today()
         for k,v in param.items():
             if isinstance(v, (list, tuple)):
                 if len(v) < 2:
-                    p[k] = [v[0], "99999999"]
+                    p[k] = [v[0], today]
                 else:
                     p[k] = v[:2]
             else:
-                p[k] = [v, "99999999"]
+                p[k] = [v, today]
         return p
 
     def load(self, param):
@@ -72,26 +73,26 @@ class Chartdata:
         p = self._parseParam(param)
         for k,v in p.items():
             if k in self._data:
-                lastDate = self._data[k].iloc[len(self._data[k])-1]["date"]
-                if lastDate >= p[k][1]:
-                    print("skip...",lastDate, p[k][1])
+                latestDate = self._data[k]["date"].max()
+                isMinType = self._getChartType(k) == 0
+
+                if latestDate > p[k][1]:
+                    pass
+                elif not isMinType and latestDate == p[k][1]:
+                    # 분타입이 아니고 마지막 날자와 조회날짜가 같으면 skip
                     pass
                 else:
-                    # 마지막 날짜의 데이터 삭제 후 추가 정보 합치기
-                    df = self._data[k][self._data[k].date != lastDate]
-                    appendDf = self._query(k, lastDate, p[k][1])
-                    dfLen = len(df)
-                    for i in range(len(appendDf)):
-                        for col in list(appendDf.columns.values):
-                            df.set_value(dfLen + i, col, appendDf.get_value(i, col))
-                    self._data[k] = df
+                    # 분 타입인 경우, 마지막 날짜의 데이터 삭제. 그렇지 않은 일주월 타입은 삭제하지 않음
+                    df = self._data[k][self._data[k].date != latestDate] if isMinType else self._data[k]
+                    newDf = self._query(k, latestDate, p[k][1]).append(df)
+                    self._data[k] = newDf.sort_values(by=["date"], ascending=[True])
             else:
-                self._data[k] = self._query(k, p[k][0], p[k][1])
-            print(self._data[k])
+                self._data[k] = self._query(k, p[k][0], p[k][1]).sort_values(by=["date"], ascending=[True])
         return self
 
     # 차트 데이터를 조회한다.
-    def _query(self, type, startdate = "", enddate = "99999999"):
+    def _query(self, type, startdate = "", enddate = ""):
+        enddate = enddate if enddate else xacom.today()
         chartType = self._getChartType(type)
         if chartType == 0:	# 분
             df = (Query("t8412", True).request({
@@ -231,7 +232,7 @@ class Chartdata:
 
             chart.clean() # 전체 데이터를 삭제한다.
             chart.clean(5)    # 5분 차트 데이터를 삭제한다.
-            chart.get(Chartdata.DAY)    # 일 차트 데이터를 삭제한다.
+            chart.clean(Chartdata.DAY)    # 일 차트 데이터를 삭제한다.
         """
         if type and type in self._data:
             self._data[type] = None
