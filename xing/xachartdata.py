@@ -136,17 +136,63 @@ class Chartdata:
                 chartType = 4
         return chartType
 
+    # 지표 계산 (단위건)
+    def _process(self, v, param):
+        data = {
+            "open" : v["open"].astype(float),
+            "high" : v["high"].astype(float),
+            "low" : v["low"].astype(float),
+            "close" : v["close"].astype(float),
+            "volume" : v["jdiff_vol"].astype(float)
+        }
+
+        # 이동평균선
+        if "SMA" in param:
+            for p in param["SMA"]:
+                v["SMA" + str(p)] = Series(abstract.SMA(data, p), index=v.index)
+
+        # Bollinger Bands
+        if "BBANDS" in param:
+            temp = abstract.BBANDS(data, param["BBANDS"][0], param["BBANDS"][1], param["BBANDS"][1])
+            v["BBANDS-UPPER"] = temp[0]
+            v["BBANDS-MIDDLE"] = temp[1]
+            v["BBANDS-LOWER"] = temp[2]
+
+        # Slow stochastic
+        if "STOCH" in param:
+            temp = abstract.STOCH(data, param["STOCH"][0], param["STOCH"][1], param["STOCH"][2])
+            v["STOCH-K"] = temp[0]
+            v["STOCH-D"] = temp[1]
+
+        # ATR (Average True Range)
+        if "ATR" in param:
+            v["ATR"] = Series(abstract.ATR(data, param["ATR"]), index=v.index)
+
+        # MACD (Moving Average Convergence/Divergence)
+        if "MACD" in param:
+            temp = abstract.MACD(data, param["MACD"][0], param["MACD"][1], param["MACD"][2])
+            v["MACD-OUT"] = temp[0]
+            v["MACD-SIGNAL"] = temp[1]
+            v["MACD-HIST"] = temp[2]
+
+        # RSI (Relative Strength Index)
+        if "RSI" in param:
+            v["RSI"] = Series(abstract.RSI(data, param["RSI"]), index=v.index)
+
+
     # 지표 계산
-    def process(self, param):
+    def process(self, *argv):
         """load에 의해 누적된 데이터를 기준으로 보조 지표를 계산한다.
 
+            :param key: 차트 데이터의 키값을 입력한다. (생략가능)
+            :type param: int
             :param param: 보조지표 정보를 전달한다.
             :type param: object { "SMA" : [], "BBANDS" : [], "ATR" : number, "STOCH" : [], "MACD" : [], "RSI" : number }
 
             .. warning:: process는 load 이후에 호출되어야 의미가 있다.
 
         ::
-
+            # 모든 데이터를 기준으로 보조지표를 계산
             chart.process({
                 "SMA" : [ 5, 10, 20, 60],   # 이동평균선
                 "BBANDS" : [20, 2], #볼랜져 밴드 period, 승수
@@ -155,49 +201,25 @@ class Chartdata:
                 "MACD" : [12, 26, 9],  # short, long, signal
                 "RSI" : 14,  # period
             })
+
+            # 5분 차트에 대해서만 보조지표를 계산
+            chart.process(5, {
+                "SMA" : [ 5, 10, 20, 60],   # 이동평균선
+                "BBANDS" : [20, 2], #볼랜져 밴드 period, 승수
+                "ATR" : 14, #ATR 지표 period
+                "STOCH" : [ 5, 3, 0],   #스토케스틱 K period, D period, D type
+                "MACD" : [12, 26, 9],  # short, long, signal
+                "RSI" : 14,  # period
+            })
         """
-        for k,v in self._data.items():
-            data = {
-                "open" : v["open"].astype(float),
-                "high" : v["high"].astype(float),
-                "low" : v["low"].astype(float),
-                "close" : v["close"].astype(float),
-                "volume" : v["jdiff_vol"].astype(float)
-            }
-
-            # 이동평균선
-            if "SMA" in param:
-                for p in param["SMA"]:
-                    v["SMA" + str(p)] = Series(abstract.SMA(data, p), index=v.index)
-
-            # Bollinger Bands
-            if "BBANDS" in param:
-                temp = abstract.BBANDS(data, param["BBANDS"][0], param["BBANDS"][1], param["BBANDS"][1])
-                v["BBANDS-UPPER"] = temp[0]
-                v["BBANDS-MIDDLE"] = temp[1]
-                v["BBANDS-LOWER"] = temp[2]
-
-            # Slow stochastic
-            if "STOCH" in param:
-                temp = abstract.STOCH(data, param["STOCH"][0], param["STOCH"][1], param["STOCH"][2])
-                v["STOCH-K"] = temp[0]
-                v["STOCH-D"] = temp[1]
-
-            # ATR (Average True Range)
-            if "ATR" in param:
-                v["ATR"] = Series(abstract.ATR(data, param["ATR"]), index=v.index)
-
-            # MACD (Moving Average Convergence/Divergence)
-            if "MACD" in param:
-                temp = abstract.MACD(data, param["MACD"][0], param["MACD"][1], param["MACD"][2])
-                v["MACD-OUT"] = temp[0]
-                v["MACD-SIGNAL"] = temp[1]
-                v["MACD-HIST"] = temp[2]
-
-            # RSI (Relative Strength Index)
-            if "RSI" in param:
-                v["RSI"] = Series(abstract.RSI(data, param["RSI"]), index=v.index)
-
+        argvCount = len(argv)
+        if argvCount == 1:
+            for k,v in self._data.items():
+                self._process(v, argv[0])
+        elif argvCount == 2:
+            v = argv[0]
+            if v and v in self._data:
+                    self._process(self._data[v], argv[1])
         return self
 
     def get(self, type = None):
