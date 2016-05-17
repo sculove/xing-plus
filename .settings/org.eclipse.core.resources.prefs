@@ -1,2 +1,7 @@
 eclipse.preferences.version=1
+encoding//xing/logger.py=utf-8
+encoding//xing/xachartdata.py=utf-8
+encoding//xing/xacom.py=utf-8
 encoding//xing/xaquery.py=utf-8
+encoding//xing/xareal.py=utf-8
+encoding//xing/xasession.py=utf-8
