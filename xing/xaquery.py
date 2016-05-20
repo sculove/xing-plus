@@ -41,7 +41,10 @@ class Query:
 			query = Query("t8407")
 			query = Query("t1101", False)
 	"""
-	_MAX_REQUEST = 5
+	_MAX_REQUEST = 0 
+	_REQUSET_TIME_TABLE = []
+	_REQUEST_TIME_10MIN_LIMIT = 0
+	_MAX_REQUEST_10MIN_LIMIT = 200
 	_REQUEST_TIME = 0
 	_REQUEST_COUNT = 0
 
@@ -51,11 +54,13 @@ class Query:
 
 		연속조회 가능한 수보다 초과할 경우, 요청이 가능할때까지 sleep
 		"""
-		if Query._REQUEST_COUNT < Query._MAX_REQUEST:
-			Query._REQUEST_COUNT += 1
-		else:
-			Query._REQUEST_COUNT = 1
-			Query.sleep()
+		
+
+# 		if Query._REQUEST_COUNT < Query._MAX_REQUEST:
+# 			Query._REQUEST_COUNT += 1
+# 		else:
+# 			Query._REQUEST_COUNT = 1
+# 			Query.sleep()
 		Query._REQUEST_TIME = time.time()
 
 	@staticmethod
@@ -65,15 +70,33 @@ class Query:
 		직전 TR 호출 경과시간이 1초 미만일 경우, 1초가 경과할때까지 sleep
 
 		.. note:: 일반적으로는 1초에 하나의 TR만 전송 가능함. 연속조회인 경우에만 연속조회 실패를 방지하기 위하여 초당 요청 수가 임시로 5개로 확장된다.
+		
+		.. reuqest는 10분당 200개까지 가능..
 
 		::
 
 			Query.sleep()
 		"""
-		spendTime = time.time() - Query._REQUEST_TIME
-		if spendTime < 1:
-			log.info("===== SLEEP...%f =====" % (1-spendTime))
-			time.sleep(1-spendTime + 0.1)
+		log.info("length ----->>>> " + len(Query._REQUSET_TIME_TABLE))
+
+		if len(Query._REQUSET_TIME_TABLE) >= Query._MAX_REQUEST_10MIN_LIMIT: 
+			log.info("time table index 0 - before pop : " + Query._REQUSET_TIME_TABLE[0])
+			spendTime = time.time() - Query._REQUSET_TIME_TABLE[0]
+			log.info("spendTime , TIME TABLE INDEX 0 " + spendTime + " , " + Query._REQUSET_TIME_TABLE[0])
+			Query._REQUSET_TIME_TABLE.pop(0)
+			log.info("time table index 0 - after pop : " + Query._REQUSET_TIME_TABLE[0])
+			if spendTime < 60*10:
+				log.info("===== 10MIN, 200 REQUSET (MAX) LIMIT SLEEP...%f =====" % (60*10-spendTime))
+				time.sleep(60*10 - spendTime + 0.1 )
+		else:
+			spendTime = time.time() - Query._REQUEST_TIME
+			if spendTime < 1:
+				log.info("===== SLEEP...%f =====" % (1-spendTime))
+				time.sleep(1-spendTime + 0.1)
+
+		Query._REQUSET_TIME_TABLE.append(time.time())
+
+		log.info("length ----->>>> " + len(Query._REQUSET_TIME_TABLE) + "," + Query._REQUSET_TIME_TABLE[len(Query._REQUSET_TIME_TABLE)-1])
 
 	def __init__(self, type, callNext = True):
 		self.query = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", _XAQueryEvents)
@@ -197,10 +220,10 @@ class Query:
 		#call request
 		Query._sleepTime()
 		if hasattr(self, "service"):
-# 			log.info(" - Call requestService")
+			log.info(" - Call requestService")
 			requestCode = self.query.RequestService(self.type, self.service)
 		else:
-# 			log.info(" - Call request (isNext:%s)" % isNext)
+			log.info(" - Call request (isNext:%s)" % isNext)
 			requestCode = self.query.Request(isNext)
 		if requestCode < 0:
 			log.critical(xacom.parseErrorCode(requestCode))
