@@ -45,7 +45,7 @@ class Query:
 	_REQUSET_TIME_TABLE = []
 	_REQUEST_TIME_10MIN_LIMIT = 0
 	_MAX_REQUEST_10MIN_LIMIT = 200
-	_REQUEST_TIME = 0
+	_LAST_REQUEST_TIME = 0
 	_REQUEST_COUNT = 0
 
 	@staticmethod
@@ -61,7 +61,7 @@ class Query:
 # 		else:
 # 			Query._REQUEST_COUNT = 1
 # 			Query.sleep()
-		Query._REQUEST_TIME = time.time()
+		Query._LAST_REQUEST_TIME = time.time()
 
 	@staticmethod
 	def sleep():
@@ -77,26 +77,28 @@ class Query:
 
 			Query.sleep()
 		"""
-		log.info("length ----->>>> " + len(Query._REQUSET_TIME_TABLE))
-
+		log.info("length ----->>>> %d " , len(Query._REQUSET_TIME_TABLE))
+		
+		curTime = time.time()
+		lastSpendTime = curTime - Query._LAST_REQUEST_TIME
+		
 		if len(Query._REQUSET_TIME_TABLE) >= Query._MAX_REQUEST_10MIN_LIMIT: 
-			log.info("time table index 0 - before pop : " + Query._REQUSET_TIME_TABLE[0])
-			spendTime = time.time() - Query._REQUSET_TIME_TABLE[0]
-			log.info("spendTime , TIME TABLE INDEX 0 " + spendTime + " , " + Query._REQUSET_TIME_TABLE[0])
+# 			log.info("time table index 0 - before pop : %d " , Query._REQUSET_TIME_TABLE[0])
+			limitSpendTime = curTime - Query._REQUSET_TIME_TABLE[0]
+			log.info("limitSpendTime , TIME TABLE INDEX 0 %d, %d", limitSpendTime , lastSpendTime)
 			Query._REQUSET_TIME_TABLE.pop(0)
-			log.info("time table index 0 - after pop : " + Query._REQUSET_TIME_TABLE[0])
-			if spendTime < 60*10:
-				log.info("===== 10MIN, 200 REQUSET (MAX) LIMIT SLEEP...%f =====" % (60*10-spendTime))
-				time.sleep(60*10 - spendTime + 0.1 )
+# 			log.info("time table index 0 - after pop : %d " , Query._REQUSET_TIME_TABLE[0])
+			if limitSpendTime < 60*10:
+				log.info("===== 10MIN, 200 REQUSET (MAX) LIMIT SLEEP...%f =====" % (max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1])))
+				time.sleep(max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1]))
 		else:
-			spendTime = time.time() - Query._REQUEST_TIME
-			if spendTime < 1:
-				log.info("===== SLEEP...%f =====" % (1-spendTime))
-				time.sleep(1-spendTime + 0.1)
+			if lastSpendTime < 1:
+				log.info("===== SLEEP...%f =====" % (1-lastSpendTime))
+				time.sleep(1-lastSpendTime + 0.1)
 
-		Query._REQUSET_TIME_TABLE.append(time.time())
+		Query._REQUSET_TIME_TABLE.append(curTime)
 
-		log.info("length ----->>>> " + len(Query._REQUSET_TIME_TABLE) + "," + Query._REQUSET_TIME_TABLE[len(Query._REQUSET_TIME_TABLE)-1])
+#		log.info("length ----->>>> " + len(Query._REQUSET_TIME_TABLE) + "," + Query._REQUSET_TIME_TABLE[len(Query._REQUSET_TIME_TABLE)-1])
 
 	def __init__(self, type, callNext = True):
 		self.query = win32com.client.DispatchWithEvents("XA_DataSet.XAQuery", _XAQueryEvents)
