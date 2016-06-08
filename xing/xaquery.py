@@ -56,11 +56,11 @@ class Query:
 		"""
 		
 
-# 		if Query._REQUEST_COUNT < Query._MAX_REQUEST:
-# 			Query._REQUEST_COUNT += 1
-# 		else:
-# 			Query._REQUEST_COUNT = 1
-# 			Query.sleep()
+		if Query._REQUEST_COUNT < Query._MAX_REQUEST:
+			Query._REQUEST_COUNT += 1
+		else:
+			Query._REQUEST_COUNT = 1
+			Query.sleep()
 		Query._LAST_REQUEST_TIME = time.time()
 
 	@staticmethod
@@ -83,20 +83,18 @@ class Query:
 		lastSpendTime = curTime - Query._LAST_REQUEST_TIME
 		
 		if len(Query._REQUSET_TIME_TABLE) >= Query._MAX_REQUEST_10MIN_LIMIT: 
-# 			log.info("time table index 0 - before pop : %d " , Query._REQUSET_TIME_TABLE[0])
 			limitSpendTime = curTime - Query._REQUSET_TIME_TABLE[0]
-			log.info("limitSpendTime , TIME TABLE INDEX 0 %d, %d", limitSpendTime , lastSpendTime)
+			log.info("limitSpendTime , lastSpendTime %f, %f", limitSpendTime, lastSpendTime)
 			Query._REQUSET_TIME_TABLE.pop(0)
-# 			log.info("time table index 0 - after pop : %d " , Query._REQUSET_TIME_TABLE[0])
-			if limitSpendTime < 60*10:
-				log.info("===== 10MIN, 200 REQUSET (MAX) LIMIT SLEEP...%f =====" % (max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1])))
-				time.sleep(max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1]))
+
+			log.info("===== 10MIN, 200 REQUSET (MAX) LIMIT SLEEP...%f =====" % (max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1])))
+			time.sleep(max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1]))
 		else:
 			if lastSpendTime < 1:
 				log.info("===== SLEEP...%f =====" % (1-lastSpendTime))
 				time.sleep(1-lastSpendTime + 0.1)
 
-		Query._REQUSET_TIME_TABLE.append(curTime)
+		Query._REQUSET_TIME_TABLE.append(time.time())
 
 #		log.info("length ----->>>> " + len(Query._REQUSET_TIME_TABLE) + "," + Query._REQUSET_TIME_TABLE[len(Query._REQUSET_TIME_TABLE)-1])
 
