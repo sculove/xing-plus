@@ -41,7 +41,7 @@ class Query:
 			query = Query("t8407")
 			query = Query("t1101", False)
 	"""
-	_MAX_REQUEST = 0 
+	_MAX_REQUEST = 5
 	_REQUSET_TIME_TABLE = []
 	_REQUEST_TIME_10MIN_LIMIT = 0
 	_MAX_REQUEST_10MIN_LIMIT = 200
@@ -54,13 +54,15 @@ class Query:
 
 		연속조회 가능한 수보다 초과할 경우, 요청이 가능할때까지 sleep
 		"""
-		
 
 		if Query._REQUEST_COUNT < Query._MAX_REQUEST:
 			Query._REQUEST_COUNT += 1
 		else:
 			Query._REQUEST_COUNT = 1
-			Query.sleep()
+			lastSpendTime = time.time() - Query._LAST_REQUEST_TIME
+			log.info("===== SLEEP...%f =====" % (1-lastSpendTime))
+			time.sleep(1-lastSpendTime + 0.1)
+
 		Query._LAST_REQUEST_TIME = time.time()
 
 	@staticmethod
@@ -129,7 +131,7 @@ class Query:
 		# print("** %s **\ninput : %s\noutput : %s" % (self.type, self.input, self.output))
 
 	# TR을 전송한다.
-	def request(self, input, output, isNext=False):
+	def request(self, input, output, isNext=False, stopCondition):
 		"""TR을 요청한다.
 
 		:param input: TR의 input block 정보
