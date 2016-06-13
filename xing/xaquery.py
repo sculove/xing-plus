@@ -131,7 +131,7 @@ class Query:
 		# print("** %s **\ninput : %s\noutput : %s" % (self.type, self.input, self.output))
 
 	# TR을 전송한다.
-	def request(self, input, output, isNext=False, stopCondition):
+	def request(self, input, output, isNext=False, stopCond=""):
 		"""TR을 요청한다.
 
 		:param input: TR의 input block 정보
@@ -206,7 +206,7 @@ class Query:
 					"OutBlock1" : DataFrame
 				}
 		"""
-
+				
 		if not input:
 			input = {"InBlock": {}}
 		if not isNext:
@@ -218,6 +218,10 @@ class Query:
 		#input setting
 		for k,v in self.input.items():
 			self.query.SetFieldData(self.type + self.inputName, k, 0, v)
+
+		# stop condition setting 
+		if stopCond and eval(stopCond):
+			return self.output
 
 		#call request
 		Query._sleepTime()
@@ -255,7 +259,7 @@ class Query:
 		self.query.status = 0
 		if self.query.IsNext:
 			if self.callNext:
-				return self.request(input, output, True)
+				return self.request(input, output, True, stopCond)
 			else:
 # 				log.debug("<<<<< [%s-Query] 결과(callNext=False):%s" % (self.type,self.output))
 				return self.output
