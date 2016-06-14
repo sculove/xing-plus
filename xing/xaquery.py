@@ -5,6 +5,7 @@ import win32com.client
 from pandas import DataFrame
 from xing import xacom
 from xing.logger import Logger
+from datetime import datetime
 
 log = Logger(__name__)
 class _XAQueryEvents:
@@ -55,18 +56,20 @@ class Query:
 		연속조회 가능한 수보다 초과할 경우, 요청이 가능할때까지 sleep
 		"""
 
+
 		if Query._REQUEST_COUNT < Query._MAX_REQUEST:
 			Query._REQUEST_COUNT += 1
 		else:
 			Query._REQUEST_COUNT = 1
 			lastSpendTime = time.time() - Query._LAST_REQUEST_TIME
-			log.info("===== SLEEP...%f =====" % (1-lastSpendTime))
-			time.sleep(1-lastSpendTime + 0.1)
+			if lastSpendTime < 1:
+				log.info("===== SLEEP...%f =====" % (1-lastSpendTime))
+				time.sleep(1-lastSpendTime + 0.1)
 
 		Query._LAST_REQUEST_TIME = time.time()
 
 	@staticmethod
-	def sleep():
+	def sleep(isNext):
 		"""최소 TR 요청 시간까지 sleep
 
 		직전 TR 호출 경과시간이 1초 미만일 경우, 1초가 경과할때까지 sleep
@@ -79,23 +82,36 @@ class Query:
 
 			Query.sleep()
 		"""
-		log.info("length ----->>>> %d " , len(Query._REQUSET_TIME_TABLE))
+		log.info("REQUEST TIME TABLE LENGTH :: %d " , len(Query._REQUSET_TIME_TABLE))
 		
 		curTime = time.time()
-		lastSpendTime = curTime - Query._LAST_REQUEST_TIME
-		
+		if len(Query._REQUSET_TIME_TABLE) < 1:
+			lastSpendTime = curTime
+		else:
+			lastSpendTime = curTime - Query._REQUSET_TIME_TABLE[len(Query._REQUSET_TIME_TABLE)-1]
+
 		if len(Query._REQUSET_TIME_TABLE) >= Query._MAX_REQUEST_10MIN_LIMIT: 
 			limitSpendTime = curTime - Query._REQUSET_TIME_TABLE[0]
 			log.info("limitSpendTime , lastSpendTime %f, %f", limitSpendTime, lastSpendTime)
 			Query._REQUSET_TIME_TABLE.pop(0)
-
-			log.info("===== 10MIN, 200 REQUSET (MAX) LIMIT SLEEP...%f =====" % (max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1])))
-			time.sleep(max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1]))
+			
+			maxSpendTime = max([60*10 - limitSpendTime + 0.1, 1-lastSpendTime+0.1])
+			if maxSpendTime > 0:
+				log.info("===== 10MIN, 200 REQUSET (MAX) LIMIT SLEEP...%f =====" % maxSpendTime)
+				time.sleep(maxSpendTime)
 		else:
+			if isNext:
+				if Query._REQUEST_COUNT < Query._MAX_REQUEST:
+					Query._REQUEST_COUNT += 1
+					Query._REQUSET_TIME_TABLE.append(time.time())
+					return
+				else:
+					Query._REQUEST_COUNT = 1
+			
 			if lastSpendTime < 1:
 				log.info("===== SLEEP...%f =====" % (1-lastSpendTime))
 				time.sleep(1-lastSpendTime + 0.1)
-
+				
 		Query._REQUSET_TIME_TABLE.append(time.time())
 
 #		log.info("length ----->>>> " + len(Query._REQUSET_TIME_TABLE) + "," + Query._REQUSET_TIME_TABLE[len(Query._REQUSET_TIME_TABLE)-1])
@@ -131,7 +147,7 @@ class Query:
 		# print("** %s **\ninput : %s\noutput : %s" % (self.type, self.input, self.output))
 
 	# TR을 전송한다.
-	def request(self, input, output, isNext=False, stopCond=""):
+	def request(self, input, output, isNext=False, stopCond=[]):
 		"""TR을 요청한다.
 
 		:param input: TR의 input block 정보
@@ -213,18 +229,26 @@ class Query:
 			self.query.reset()
 			self._parseInput(input)
 			self._parseOutput(output)
-			Query.sleep()
+# 			Query.sleep()
 
 		#input setting
 		for k,v in self.input.items():
 			self.query.SetFieldData(self.type + self.inputName, k, 0, v)
 
 		# stop condition setting 
-		if stopCond and eval(stopCond):
-			return self.output
+		if stopCond:
+			for subStopCondStr in stopCond:
+				subStopCond = subStopCondStr.split()
+				if "date" in subStopCond[0]:
+					compareDate = eval(subStopCond[0])
+					expr = "datetime.strptime(compareDate, '%Y%m%d')" + subStopCond[1] + "datetime.strptime(subStopCond[2], '%Y%m%d')"
+					if eval(subStopCond[0]) and eval(expr):
+						log.info("end with stopCondition : %s", subStopCondStr )
+						return self.output
 
 		#call request
-		Query._sleepTime()
+# 		Query._sleepTime()
+		Query.sleep(isNext)
 		if hasattr(self, "service"):
 			log.info(" - Call requestService")
 			requestCode = self.query.RequestService(self.type, self.service)
