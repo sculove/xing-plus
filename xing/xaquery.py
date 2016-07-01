@@ -155,13 +155,14 @@ class Query:
 		:param output: TR의 output block 정보. output block을 여러개가 존재할 수 있으며, DataFrame타입일 경우, occur 데이터를 반환한다.
 		:type output: object { "OutBlock" : DataFrame or tuple, "OutBlock1" : DataFrame or tuple} }
 		:param isNext: 연속 조회를 사용하기 위한 내부 파라미터로서 직접 사용하지 않는다.
+		:param stopCond: stop condition. 연속 조회시 언제 stop할지 조건을 넣는다.
 		:return: output으로 지정한 형태로 값이 채워져서 반환된다.
 		:rtype: object
 
 		.. note::
 
 			input 키값이 "Service"인 경우, RequestService 로 요청할 수 있다. 예) 종목검색(씽API용), ChartIndex(차트지표데이터 조회) TR
-
+			
 		.. warning:: 절대 개발자가 isNext값을 지정하지 않는다.
 
 
@@ -240,11 +241,16 @@ class Query:
 			for subStopCondStr in stopCond:
 				subStopCond = subStopCondStr.split()
 				if "date" in subStopCond[0]:
-					compareDate = eval(subStopCond[0])
-					expr = "datetime.strptime(compareDate, '%Y%m%d')" + subStopCond[1] + "datetime.strptime(subStopCond[2], '%Y%m%d')"
-					if eval(subStopCond[0]) and eval(expr):
-						log.info("end with stopCondition : %s", subStopCondStr )
+					try:
+						left_side = eval(subStopCond[0])
+						datetime.strptime(subStopCond[2], '%Y%m%d') # check YYYYMMDD format
+						expr = "datetime.strptime(left_side, '%Y%m%d') " + subStopCond[1] + " datetime.strptime(subStopCond[2], '%Y%m%d')"
+						if eval(expr):
+							log.info("end with stopCondition : %s", subStopCondStr )
 						return self.output
+					except (ValueError, SyntaxError):
+# 						print ("stop condition error : " + expr)
+						pass
 
 		#call request
 # 		Query._sleepTime()
