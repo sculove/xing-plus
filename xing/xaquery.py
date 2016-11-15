@@ -6,6 +6,7 @@ from pandas import DataFrame
 from xing import xacom
 from xing.logger import Logger
 from datetime import datetime
+import sys, traceback
 
 log = Logger(__name__)
 class _XAQueryEvents:
@@ -147,7 +148,7 @@ class Query:
 		# print("** %s **\ninput : %s\noutput : %s" % (self.type, self.input, self.output))
 
 	# TR을 전송한다.
-	def request(self, input, output, isNext=False, stopCond=[]):
+	def request(self, input, output, stopCond=[], isNext=False):
 		"""TR을 요청한다.
 
 		:param input: TR의 input block 정보
@@ -223,76 +224,78 @@ class Query:
 					"OutBlock1" : DataFrame
 				}
 		"""
-				
-		if not input:
-			input = {"InBlock": {}}
-		if not isNext:
-			self.query.reset()
-			self._parseInput(input)
-			self._parseOutput(output)
-# 			Query.sleep()
-
-		#input setting
-		for k,v in self.input.items():
-			self.query.SetFieldData(self.type + self.inputName, k, 0, v)
-
-		# stop condition setting 
-		if stopCond:
-			for subStopCondStr in stopCond:
-				subStopCond = subStopCondStr.split()
-				if "date" in subStopCond[0]:
-					try:
-						left_side = eval(subStopCond[0])
-						datetime.strptime(subStopCond[2], '%Y%m%d') # check YYYYMMDD format
-						expr = "datetime.strptime(left_side, '%Y%m%d') " + subStopCond[1] + " datetime.strptime(subStopCond[2], '%Y%m%d')"
-						if eval(expr):
-							log.info("end with stopCondition : %s", subStopCondStr )
-						return self.output
-					except (ValueError, SyntaxError):
-# 						print ("stop condition error : " + expr)
-						pass
-
-		#call request
-# 		Query._sleepTime()
-		Query.sleep(isNext)
-		if hasattr(self, "service"):
-			log.info(" - Call requestService")
-			requestCode = self.query.RequestService(self.type, self.service)
-		else:
-			log.info(" - Call request (isNext:%s)" % isNext)
-			requestCode = self.query.Request(isNext)
-		if requestCode < 0:
-			log.critical(xacom.parseErrorCode(requestCode))
-			return
-
-		while self.query.status == 0:
-			pythoncom.PumpWaitingMessages()
-			time.sleep(0.1)
-
-		#output setting
-		for k,v in self.output.items():
-			if isinstance(v, DataFrame):
-				#occur
-				df =v
-				if self.compress:
-					self.query.Decompress(self.type + k)
-				startIndex = len(df)
-				for p in range(0,self.query.GetBlockCount(self.type + k)):
-					for col in list(df.columns.values):
-						df.set_value(p + startIndex, col, self.query.GetFieldData(self.type + k, col, p))
+		try :		
+			if not input:
+				input = {"InBlock": {}}
+			if not isNext:
+				self.query.reset()
+				self._parseInput(input)
+				self._parseOutput(output)
+	# 			Query.sleep()
+	
+			#input setting
+			for k,v in self.input.items():
+				self.query.SetFieldData(self.type + self.inputName, k, 0, v)
+	
+			# stop condition setting 
+			if stopCond:
+				for subStopCondStr in stopCond:
+					subStopCond = subStopCondStr.split()
+					if "date" in subStopCond[0]:
+						try:
+							left_side = eval(subStopCond[0])
+							datetime.strptime(subStopCond[2], '%Y%m%d') # check YYYYMMDD format
+							expr = "datetime.strptime(left_side, '%Y%m%d') " + subStopCond[1] + " datetime.strptime(subStopCond[2], '%Y%m%d')"
+							if eval(expr):
+								log.info("end with stopCondition : %s", subStopCondStr )
+							return self.output
+						except (ValueError, SyntaxError):
+	# 						print ("stop condition error : " + expr)
+							pass
+	
+			#call request
+	# 		Query._sleepTime()
+			Query.sleep(isNext)
+			if hasattr(self, "service"):
+				log.info(" - Call requestService")
+				requestCode = self.query.RequestService(self.type, self.service)
 			else:
-				for col in v.keys():
-					v[col] = self.query.GetFieldData(self.type + k, col, 0)
-					if self.query.IsNext:
-						self.input[col] = v[col]
-
-		self.query.status = 0
-		if self.query.IsNext:
-			if self.callNext:
-				return self.request(input, output, True, stopCond)
+				log.info(" - Call request (isNext:%s)" % isNext)
+				requestCode = self.query.Request(isNext)
+			if requestCode < 0:
+				log.critical(xacom.parseErrorCode(requestCode))
+				return
+	
+			while self.query.status == 0:
+				pythoncom.PumpWaitingMessages()
+				time.sleep(0.1)
+	
+			#output setting
+			for k,v in self.output.items():
+				if isinstance(v, DataFrame):
+					#occur
+					df =v
+					if self.compress:
+						self.query.Decompress(self.type + k)
+					startIndex = len(df)
+					for p in range(0,self.query.GetBlockCount(self.type + k)):
+						for col in list(df.columns.values):
+							df.set_value(p + startIndex, col, self.query.GetFieldData(self.type + k, col, p))
+				else:
+					for col in v.keys():
+						v[col] = self.query.GetFieldData(self.type + k, col, 0)
+						if self.query.IsNext:
+							self.input[col] = v[col]
+	
+			self.query.status = 0
+			if self.query.IsNext:
+				if self.callNext:
+					return self.request(input, output, stopCond, True)
+				else:
+	# 				log.debug("<<<<< [%s-Query] 결과(callNext=False):%s" % (self.type,self.output))
+					return self.output
 			else:
-# 				log.debug("<<<<< [%s-Query] 결과(callNext=False):%s" % (self.type,self.output))
+	# 			log.debug("<<<<< [%s-Query] 결과(callNext=True):%s" % (self.type,self.output))
 				return self.output
-		else:
-# 			log.debug("<<<<< [%s-Query] 결과(callNext=True):%s" % (self.type,self.output))
-			return self.output
+		except Exception:
+			traceback.print_exc(file=sys.stdout)
