@@ -4,6 +4,7 @@ import time
 import pythoncom
 import os
 import configparser
+from getpass import getpass
 from xing import xacom
 from xing.xaquery import Query
 from xing.logger import Logger
@@ -186,11 +187,11 @@ class Session:
         id = config.get("USER", "id") if config.has_option("USER", "id") else ""
         id = id if id else input("[?] 계정(id)을 입력해주세요 > ")
         passwd = config.get("USER", "passwd") if config.has_option("USER", "passwd") else ""
-        passwd = passwd if passwd else input("[?] 계정 암호(passwd)를 입력해주세요 > ")
+        passwd = passwd if passwd else getpass("[?] 계정 암호(passwd)를 입력해주세요 > ")
         certificate_passwd = config.get("USER", "certificate_passwd") if config.has_option("USER", "certificate_passwd") else ""
-        certificate_passwd = certificate_passwd if certificate_passwd else input("[?] 인증서 암호(account_passwd)를 입력해주세요 > ")
+        certificate_passwd = certificate_passwd if certificate_passwd else getpass("[?] 인증서 암호(account_passwd)를 입력해주세요 > ")
         account_passwd = config.get("USER", "account_passwd") if config.has_option("USER", "account_passwd") else ""
-        account_passwd = account_passwd if account_passwd else input("[?] 계좌 암호(account_passwd)를 입력해주세요 > ")
+        account_passwd = account_passwd if account_passwd else getpass("[?] 계좌 암호(account_passwd)를 입력해주세요 > ")
 
         config["SERVER"]["address"] = address
         config["SERVER"]["port"] = port
